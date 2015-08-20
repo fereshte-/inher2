@@ -24,18 +24,25 @@ import java.util.*;
 
 public class Const extends Exp{
 
+	public boolean isNumber(String s) {  
+		if(s==null) return false;
+	    return s.matches("[-+]?\\d*\\.?\\d+");  
+	}  
+	
 	public Const(String n){
 		int colon = n.indexOf(':');
 		if (colon==-1){
 			//System.err.println("WARNING: null type const "+n); 
-			if(Lang.hasPred(name)){
-				List<Pred> l = Lang.predsWithName(name);
-				if(l.size() == 1)
-					t = l.get(0).type();
-				else
+			if(Lang.hasPred(n)){
+//				List<Pred> l = Lang.predsWithName(n);
+//				if(l.size() == 1)
+//					t = l.get(0).type();
+//				else
 					t=new PType("e");
+			}else if(isNumber(n)){
+				t= new PType("num");
 			}else
-				t = new PType("e");//null;
+				t=new PType("e");
 			name = n;
 		} else {
 			name = n.substring(0,colon);

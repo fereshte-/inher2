@@ -3,9 +3,15 @@ obj
 (da i)
 (ti i)
 (ho i)
+(num i)
 
 (me obj)  //meeting
 (pe obj) //person
 (lo obj) //location
-ty //type
+ty
+(tylo ty) //type
+(type ty)
+(tyme ty)
+(tyho ty)
+
 )

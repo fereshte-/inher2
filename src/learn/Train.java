@@ -52,7 +52,7 @@ public class Train {
 			ParseResult p = parses.get(0);
 			Exp e = p.getExp();
 			e = e.copy();
-			e.simplify();
+			e = e.simplify(new LinkedList<Var>());
 			List l = p.getLexEntries();
 			parsed++;
 			if (e.equals(sem)){

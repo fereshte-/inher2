@@ -57,10 +57,10 @@
 
 
 ((is_important me me)) 
-((type lo lo))
-((type me me))
-((type pe pe))
-((type ho ho))
+((type tylo lo))
+((type type pe))
+((type tyme me))
+((type tyho ho))
 
 ((start_time me ti))
 ((start_time_2 ti me))

@@ -56,10 +56,10 @@ public class PercyToTom {
 			formula = formula.replace("en.person.alice", "alice:pe");
 			formula = formula.replace("en.person.bob", "bob:pe");
 
-			formula = formula.replace("en.hour", "hour:ho");
-			formula = formula.replace("en.person", "person:pe");
-			formula = formula.replace("en.meeting", "meeting:me");
-			formula = formula.replace("en.location", "location:lo");
+			formula = formula.replace("en.hour", "hour:tyho");
+			formula = formula.replace("en.person", "person:type");
+			formula = formula.replace("en.meeting", "meeting:tyme");
+			formula = formula.replace("en.location", "location:tylo");
 			
 		//	formula = formula.replace("concat", "or");
 
@@ -75,10 +75,10 @@ public class PercyToTom {
 	
 	public static void main(String[] args) throws IOException {
 		PercyToTom percyToTom = new PercyToTom();
-		percyToTom.percy_toGeo("/Users/fereshte/Desktop/course/research/ubl/ubl_percy/data/real_data_train.txt",
-				"/Users/fereshte/Desktop/course/research/ubl/ubl_percy/data/train.txt");
-		percyToTom.percy_toGeo("/Users/fereshte/Desktop/course/research/ubl/ubl_percy/data/real_data_test.txt",
-				"/Users/fereshte/Desktop/course/research/ubl/ubl_percy/data/test.txt");
+		percyToTom.percy_toGeo("./data/real_data_train.txt",
+				"./data/train.txt");
+		percyToTom.percy_toGeo("./data/real_data_test.txt",
+				"./data/test.txt");
 
 	}
 }

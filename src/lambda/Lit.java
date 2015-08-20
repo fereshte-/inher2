@@ -450,7 +450,34 @@ public class Lit extends Exp {
 	}
 
 	public boolean wellTyped(){
-		return type()!=null;
+		if(type()==null)
+			return false;
+		if(getHeadString().equals("=") ||
+				getHeadString().equals("!=") ||
+				getHeadString().equals("<") ||
+				getHeadString().equals(">") ||
+				getHeadString().equals("<=") ||
+				getHeadString().equals(">=")){
+			System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+			System.out.println(this);
+			System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+
+			for(Exp e: args)
+				if(!e.wellTyped())
+					return false;
+			if(args.length !=2 ) return false;
+			Exp left = args[0], right = args[1];
+			if (left instanceof Var && !((Var)left).updateTempType(right.type())){
+				return false;
+			}
+			if (right instanceof Var && !((Var)right).updateTempType(left.type())){
+					return false;
+			}
+			if (!left.type().matches(right.type())){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public void freeVars(List bound, List free){
