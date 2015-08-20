@@ -1,0 +1,334 @@
+ >  start_time  type meeting:me    end_time weekly_standup:me  
+ date weekly_standup:me 
+ start_time weekly_standup:me 
+ and  type meeting:me   location_2 greenberg_cafe:lo   attendee_2 alice:pe  
+ max  type meeting:me  start_time:e 
+ !=  end_time  type meeting:me    time 10:e 0:e  
+ >=  ccount  attendee  type meeting:me     number 2:e  
+ and  type meeting:me   length_2  number 3:e hour:ho   
+ <  start_time  type meeting:me    concat  time 10:e 0:e   time 15:e 0:e   
+ !=  start_time  type meeting:me    time 10:e 0:e  
+ <  end_time  type meeting:me    start_time weekly_standup:me  
+ >  date  type meeting:me    concat  date 2015:e 1:e 2:e   date 2015:e 1:e 3:e   
+ min  type meeting:me  start_time:e 
+ and  type meeting:me   length_2  number 3:e hour:ho    location_2 greenberg_cafe:lo  
+ <=  end_time  type meeting:me    time 10:e 0:e  
+ and  is_important  type meeting:me    date_2  date 2015:e 1:e 2:e   
+ <=  start_time  type meeting:me    start_time weekly_standup:me  
+ length weekly_standup:me 
+ and  type meeting:me   end_time_2  time 10:e 0:e    length_2  number 3:e hour:ho   
+ !=  start_time  type meeting:me    time 10:e 0:e  
+ and  type meeting:me   end_time_2  start_time weekly_standup:me   
+ >=  ccount  location_2  type location:lo     number 2:e  
+ and  type meeting:me   length_2  number 3:e hour:ho   
+ min  type meeting:me   ccount attendee:e  
+ end_time weekly_standup:me 
+ and  type meeting:me   attendee_2 alice:pe   end_time_2  time 10:e 0:e   
+ avg  length  type meeting:me   
+ and  type person:pe   attendee  and  type meeting:me   date_2  date 2015:e 1:e 2:e     
+ and  type meeting:me   attendee_2  concat alice:pe bob:pe   
+ =  ccount  attendee  type meeting:me     number 2:e  
+ <=  end_time  type meeting:me    start_time weekly_standup:me  
+ =  ccount  attendee  type meeting:me     number 2:e  
+ and  type person:pe   attendee  and  type meeting:me   date_2  date 2015:e 1:e 2:e     
+ and  type meeting:me   start_time_2  time 10:e 0:e   
+ and  is_important  type meeting:me    location_2 greenberg_cafe:lo  
+ and  type meeting:me   length_2  number 3:e hour:ho    date_2  date 2015:e 1:e 2:e   
+ concat  date 2015:e 1:e 2:e   date 2015:e 1:e 3:e  
+ min  type meeting:me  start_time:e 
+ >  end_time  type meeting:me    concat  time 10:e 0:e   time 15:e 0:e   
+ <=  end_time  type meeting:me    time 10:e 0:e  
+ max  type location:lo   ccount location_2:e  
+ and  type meeting:me   start_time_2  concat  time 10:e 0:e   time 15:e 0:e    
+ and  type meeting:me   attendee_2 alice:pe   location_2 greenberg_cafe:lo  
+ date weekly_standup:me 
+ <=  end_time  type meeting:me    start_time weekly_standup:me  
+ and  type meeting:me   end_time_2  end_time weekly_standup:me   
+ and  type meeting:me   attendee_2 alice:pe   start_time_2  time 10:e 0:e   
+ <  length  type meeting:me    concat  number 3:e hour:ho   number 1:e hour:ho   
+ min  type meeting:me  date:e 
+ >  date  type meeting:me    date 2015:e 1:e 2:e  
+ and  type meeting:me   length_2  number 3:e hour:ho    attendee_2 alice:pe  
+ and  type person:pe   attendee weekly_standup:me  
+ <  start_time  type meeting:me    concat  time 10:e 0:e   time 15:e 0:e   
+ <=  date  type meeting:me    date weekly_standup:me  
+ >  length  type meeting:me    length weekly_standup:me  
+ >  date  type meeting:me    concat  date 2015:e 1:e 2:e   date 2015:e 1:e 3:e   
+ >=  start_time  type meeting:me    end_time weekly_standup:me  
+ start_time weekly_standup:me 
+ sum  length  type meeting:me   
+ >  end_time  type meeting:me    start_time weekly_standup:me  
+ and  type meeting:me   length_2  number 3:e hour:ho    attendee_2 alice:pe  
+ and  type person:pe   attendee  concat weekly_standup:me annual_review:me   
+ and  type meeting:me   end_time_2  time 10:e 0:e   
+ and  type meeting:me   end_time_2  time 10:e 0:e    start_time_2  time 10:e 0:e   
+ and  type meeting:me   date_2  concat  date 2015:e 1:e 2:e   date 2015:e 1:e 3:e    
+ min  type person:pe   ccount attendee_2:e  
+ and  is_important  type meeting:me    start_time_2  time 10:e 0:e   
+ min  type meeting:me  start_time:e 
+ !=  location_2  type location:lo   weekly_standup:me 
+ and  is_important  type meeting:me    start_time_2  time 10:e 0:e   
+ length weekly_standup:me 
+ <=  date  type meeting:me    concat  date 2015:e 1:e 2:e   date 2015:e 1:e 3:e   
+ and  type location:lo   location weekly_standup:me  
+ and  type meeting:me   length_2  number 3:e hour:ho    start_time_2  time 10:e 0:e   
+ and  type meeting:me   end_time_2  time 10:e 0:e   
+ date weekly_standup:me 
+ >=  end_time  type meeting:me    end_time weekly_standup:me  
+ !=  location  type meeting:me   greenberg_cafe:lo 
+ >  end_time  type meeting:me    end_time weekly_standup:me  
+ and  type meeting:me   start_time_2  time 10:e 0:e   
+ <  end_time  type meeting:me    start_time weekly_standup:me  
+ and  type meeting:me   end_time_2  end_time weekly_standup:me   
+ is_important  and  type meeting:me   start_time_2  time 10:e 0:e    
+ >  end_time  type meeting:me    end_time weekly_standup:me  
+ <  end_time  type meeting:me    end_time weekly_standup:me  
+ <  date  type meeting:me    concat  date 2015:e 1:e 2:e   date 2015:e 1:e 3:e   
+ concat  time 10:e 0:e   time 15:e 0:e  
+ >=  ccount  attendee  type meeting:me     number 2:e  
+ and  type location:lo   location  and  type meeting:me   start_time_2  time 10:e 0:e     
+ and  type person:pe   attendee weekly_standup:me  
+ >  length  type meeting:me    concat  number 3:e hour:ho   number 1:e hour:ho   
+ <  ccount  location  type meeting:me     number 2:e  
+ is_important  is_important  type meeting:me   
+ <  start_time  type meeting:me    concat  time 10:e 0:e   time 15:e 0:e   
+ and  type meeting:me   start_time_2  end_time weekly_standup:me   
+ and  type meeting:me   location_2  and  type location:lo   location weekly_standup:me    
+ and  type meeting:me   start_time_2  start_time weekly_standup:me   
+ <=  date  type meeting:me    concat  date 2015:e 1:e 2:e   date 2015:e 1:e 3:e   
+ and  type person:pe   attendee  and  type meeting:me   start_time_2  time 10:e 0:e     
+ and  type meeting:me   date_2  date 2015:e 1:e 2:e    end_time_2  time 10:e 0:e   
+ <=  start_time  type meeting:me    end_time weekly_standup:me  
+ and  type meeting:me   start_time_2  time 10:e 0:e   
+ >=  start_time  type meeting:me    time 10:e 0:e  
+ length weekly_standup:me 
+ <=  end_time  type meeting:me    start_time weekly_standup:me  
+ >  ccount  location_2  type location:lo     number 2:e  
+ and  type location:lo   location  and  type meeting:me   date_2  date 2015:e 1:e 2:e     
+ and  type person:pe   attendee  and  type meeting:me   length_2  number 3:e hour:ho     
+ !=  end_time  type meeting:me    time 10:e 0:e  
+ and  type meeting:me   attendee_2  attendee weekly_standup:me   
+ and  type meeting:me   location_2 greenberg_cafe:lo   date_2  date 2015:e 1:e 2:e   
+ and  type meeting:me   length_2  length weekly_standup:me   
+ !=  attendee_2  type person:pe   weekly_standup:me 
+ and  type meeting:me   location_2 greenberg_cafe:lo   start_time_2  time 10:e 0:e   
+ >=  date  type meeting:me    date weekly_standup:me  
+ <=  date  type meeting:me    date weekly_standup:me  
+ and  type meeting:me   attendee_2  concat alice:pe bob:pe   
+ >=  start_time  type meeting:me    concat  time 10:e 0:e   time 15:e 0:e   
+ <  length  type meeting:me    number 3:e hour:ho  
+ max  type location:lo   ccount location_2:e  
+ attendee weekly_standup:me 
+ and  type meeting:me   start_time_2  time 10:e 0:e   
+ >=  end_time  type meeting:me    start_time weekly_standup:me  
+ and  type meeting:me   attendee_2  and  type person:pe   attendee weekly_standup:me    
+ and  type meeting:me   start_time_2  time 10:e 0:e    attendee_2 alice:pe  
+ !=  end_time  type meeting:me    time 10:e 0:e  
+ and  type meeting:me   end_time_2  time 10:e 0:e    date_2  date 2015:e 1:e 2:e   
+ !=  attendee_2  type person:pe   weekly_standup:me 
+ >=  length  type meeting:me    concat  number 3:e hour:ho   number 1:e hour:ho   
+ and  type meeting:me   start_time_2  time 10:e 0:e    date_2  date 2015:e 1:e 2:e   
+ <  date  type meeting:me    concat  date 2015:e 1:e 2:e   date 2015:e 1:e 3:e   
+ min  type meeting:me   ccount location:e  
+ and  type location:lo   location  is_important  type meeting:me    
+ and  type meeting:me   attendee_2  attendee weekly_standup:me   
+ and  type person:pe   attendee  and  type meeting:me   end_time_2  time 10:e 0:e     
+ and  type person:pe   attendee  and  type meeting:me   length_2  number 3:e hour:ho     
+ min  type meeting:me   ccount attendee:e  
+ is_important  is_important  type meeting:me   
+ <=  ccount  attendee  type meeting:me     number 2:e  
+ and  type meeting:me   attendee_2  attendee weekly_standup:me   
+ !=  attendee_2  type person:pe   weekly_standup:me 
+ and  type meeting:me   start_time_2  time 10:e 0:e    end_time_2  time 10:e 0:e   
+ and  is_important  type meeting:me    attendee_2 alice:pe  
+ <  start_time  type meeting:me    start_time weekly_standup:me  
+ and  type meeting:me   location_2 greenberg_cafe:lo  
+ and  type meeting:me   attendee_2 alice:pe   length_2  number 3:e hour:ho   
+ max  type meeting:me  length:e 
+ !=  location_2  type location:lo   weekly_standup:me 
+ is_important  is_important  type meeting:me   
+ and  type meeting:me   end_time_2  time 10:e 0:e    start_time_2  time 10:e 0:e   
+ concat  number 3:e hour:ho   number 1:e hour:ho  
+ and  type meeting:me   length_2  number 3:e hour:ho    location_2 greenberg_cafe:lo  
+ and  type person:pe   attendee  and  type meeting:me   attendee_2 alice:pe    
+ and  type person:pe   attendee  and  type meeting:me   date_2  date 2015:e 1:e 2:e     
+ and  type person:pe   attendee  and  type meeting:me   attendee_2 alice:pe    
+ and  type person:pe   attendee weekly_standup:me  
+ >  length  type meeting:me    length weekly_standup:me  
+ >  ccount  attendee_2  type person:pe     number 2:e  
+ <  date  type meeting:me    date 2015:e 1:e 2:e  
+ and  type meeting:me   date_2  date 2015:e 1:e 2:e    attendee_2 alice:pe  
+ <  end_time  type meeting:me    start_time weekly_standup:me  
+ <  end_time  type meeting:me    start_time weekly_standup:me  
+ and  type meeting:me   end_time_2  time 10:e 0:e    date_2  date 2015:e 1:e 2:e   
+ is_important  and  type meeting:me   attendee_2 alice:pe   
+ and  type meeting:me   length_2  length weekly_standup:me   
+ >  end_time  type meeting:me    time 10:e 0:e  
+ >  start_time  type meeting:me    start_time weekly_standup:me  
+ min  type meeting:me  end_time:e 
+ >  end_time  type meeting:me    start_time weekly_standup:me  
+ <=  ccount  location  type meeting:me     number 2:e  
+ is_important  and  type meeting:me   start_time_2  time 10:e 0:e    
+ and  type meeting:me   date_2  date 2015:e 1:e 2:e   
+ >=  end_time  type meeting:me    time 10:e 0:e  
+ <  length  type meeting:me    concat  number 3:e hour:ho   number 1:e hour:ho   
+ is_important  and  type meeting:me   location_2 greenberg_cafe:lo   
+ <  end_time  type meeting:me    end_time weekly_standup:me  
+ >  ccount  attendee_2  type person:pe     number 2:e  
+ <=  date  type meeting:me    date 2015:e 1:e 2:e  
+ >  ccount  location_2  type location:lo     number 2:e  
+ max  type meeting:me   ccount location:e  
+ and  type meeting:me   end_time_2  time 10:e 0:e    location_2 greenberg_cafe:lo  
+ and  type meeting:me   attendee_2 alice:pe   length_2  number 3:e hour:ho   
+ <=  start_time  type meeting:me    start_time weekly_standup:me  
+ >=  start_time  type meeting:me    start_time weekly_standup:me  
+ and  type meeting:me   length_2  number 3:e hour:ho    attendee_2 alice:pe  
+ and  type meeting:me   end_time_2  start_time weekly_standup:me   
+ and  type meeting:me   start_time_2  end_time weekly_standup:me   
+ and  type location:lo   location  is_important  type meeting:me    
+ >=  start_time  type meeting:me    concat  time 10:e 0:e   time 15:e 0:e   
+ <  start_time  type meeting:me    end_time weekly_standup:me  
+ and  type meeting:me   length_2  number 3:e hour:ho   
+ >=  ccount  location_2  type location:lo     number 2:e  
+ !=  date  type meeting:me    date 2015:e 1:e 2:e  
+ >  end_time  type meeting:me    end_time weekly_standup:me  
+ and  type location:lo   location  and  type meeting:me   attendee_2 alice:pe    
+ and  type meeting:me   end_time_2  time 10:e 0:e    date_2  date 2015:e 1:e 2:e   
+ and  type meeting:me   end_time_2  time 10:e 0:e    location_2 greenberg_cafe:lo  
+ is_important  and  type meeting:me   length_2  number 3:e hour:ho    
+ and  type meeting:me   attendee_2 alice:pe   start_time_2  time 10:e 0:e   
+ and  is_important  type meeting:me    start_time_2  time 10:e 0:e   
+ ccount  type meeting:me  
+ end_time weekly_standup:me 
+ and  type location:lo   location  and  type meeting:me   attendee_2 alice:pe    
+ !=  attendee  type meeting:me   alice:pe 
+ avg  length  type meeting:me   
+ and  type meeting:me   date_2  date 2015:e 1:e 2:e   
+ and  type person:pe   attendee  concat weekly_standup:me annual_review:me   
+ >=  length  type meeting:me    number 3:e hour:ho  
+ is_important  and  type meeting:me   end_time_2  time 10:e 0:e    
+ and  type meeting:me   date_2  date 2015:e 1:e 2:e    end_time_2  time 10:e 0:e   
+ <  length  type meeting:me    concat  number 3:e hour:ho   number 1:e hour:ho   
+ and  type meeting:me   end_time_2  concat  time 10:e 0:e   time 15:e 0:e    
+ !=  start_time  type meeting:me    time 10:e 0:e  
+ <  start_time  type meeting:me    time 10:e 0:e  
+ >=  length  type meeting:me    number 3:e hour:ho  
+ >  date  type meeting:me    date 2015:e 1:e 2:e  
+ min  type meeting:me  length:e 
+ and  type meeting:me   attendee_2 alice:pe   end_time_2  time 10:e 0:e   
+ and  is_important  type meeting:me    location_2 greenberg_cafe:lo  
+ and  type meeting:me   end_time_2  time 10:e 0:e    location_2 greenberg_cafe:lo  
+ <  length  type meeting:me    number 3:e hour:ho  
+ is_important  type meeting:me  
+ and  type meeting:me   date_2  date 2015:e 1:e 2:e    start_time_2  time 10:e 0:e   
+ <=  ccount  attendee  type meeting:me     number 2:e  
+ and  type person:pe   attendee  is_important  type meeting:me    
+ <=  end_time  type meeting:me    end_time weekly_standup:me  
+ and  type person:pe   attendee  is_important  type meeting:me    
+ <=  length  type meeting:me    length weekly_standup:me  
+ and  type meeting:me   start_time_2  end_time weekly_standup:me   
+ concat  time 10:e 0:e   time 15:e 0:e  
+ and  type meeting:me   end_time_2  time 10:e 0:e    attendee_2 alice:pe  
+ <=  start_time  type meeting:me    concat  time 10:e 0:e   time 15:e 0:e   
+ min  type meeting:me  end_time:e 
+ and  is_important  type meeting:me    start_time_2  time 10:e 0:e   
+ >=  end_time  type meeting:me    time 10:e 0:e  
+ max  type location:lo   ccount location_2:e  
+ <=  start_time  type meeting:me    end_time weekly_standup:me  
+ >=  date  type meeting:me    date weekly_standup:me  
+ >  start_time  type meeting:me    time 10:e 0:e  
+ and  type meeting:me   date_2  date 2015:e 1:e 2:e    start_time_2  time 10:e 0:e   
+ concat  number 3:e hour:ho   number 1:e hour:ho  
+ and  type meeting:me   start_time_2  time 10:e 0:e    attendee_2 alice:pe  
+ <  date  type meeting:me    date weekly_standup:me  
+ and  type meeting:me   length_2  number 3:e hour:ho    end_time_2  time 10:e 0:e   
+ >  date  type meeting:me    date weekly_standup:me  
+ <=  end_time  type meeting:me    start_time weekly_standup:me  
+ and  type meeting:me   location_2  concat greenberg_cafe:lo central_office:lo   
+ >=  length  type meeting:me    concat  number 3:e hour:ho   number 1:e hour:ho   
+ and  type meeting:me   end_time_2  time 10:e 0:e    length_2  number 3:e hour:ho   
+ <=  length  type meeting:me    length weekly_standup:me  
+ !=  length  type meeting:me    number 3:e hour:ho  
+ <=  end_time  type meeting:me    end_time weekly_standup:me  
+ start_time weekly_standup:me 
+ <  date  type meeting:me    date 2015:e 1:e 2:e  
+ <  start_time  type meeting:me    start_time weekly_standup:me  
+ !=  attendee  type meeting:me   alice:pe 
+ and  type person:pe   attendee  and  type meeting:me   end_time_2  time 10:e 0:e     
+ =  ccount  attendee  type meeting:me     number 2:e  
+ >=  ccount  attendee_2  type person:pe     number 2:e  
+ and  type location:lo   location  and  type meeting:me   attendee_2 alice:pe    
+ and  type meeting:me   location_2  concat greenberg_cafe:lo central_office:lo   
+ >  start_time  type meeting:me    end_time weekly_standup:me  
+ and  type meeting:me   start_time_2  time 10:e 0:e    location_2 greenberg_cafe:lo  
+ max  type meeting:me  start_time:e 
+ and  type meeting:me   attendee_2 alice:pe   location_2 greenberg_cafe:lo  
+ min  type meeting:me  length:e 
+ and  type meeting:me   end_time_2  time 10:e 0:e   
+ <=  length  type meeting:me    length weekly_standup:me  
+ and  type meeting:me   location_2  location weekly_standup:me   
+ is_important  and  type meeting:me   length_2  number 3:e hour:ho    
+ max  type location:lo   ccount location_2:e  
+ <=  ccount  location  type meeting:me     number 2:e  
+ <=  start_time  type meeting:me    concat  time 10:e 0:e   time 15:e 0:e   
+ >  end_time  type meeting:me    time 10:e 0:e  
+ min  type person:pe   ccount attendee_2:e  
+ and  type meeting:me   attendee_2  and  type person:pe   attendee weekly_standup:me    
+ and  type person:pe   attendee  and  type meeting:me   location_2 greenberg_cafe:lo    
+ <  date  type meeting:me    concat  date 2015:e 1:e 2:e   date 2015:e 1:e 3:e   
+ =  ccount  attendee  type meeting:me     number 2:e  
+ concat weekly_standup:me annual_review:me 
+ min  type location:lo   ccount location_2:e  
+ >  date  type meeting:me    date weekly_standup:me  
+ <  start_time  type meeting:me    time 10:e 0:e  
+ is_important  and  type meeting:me   length_2  number 3:e hour:ho    
+ and  type location:lo   location  and  type meeting:me   end_time_2  time 10:e 0:e     
+ and  type meeting:me   location_2  concat greenberg_cafe:lo central_office:lo   
+ and  type meeting:me   date_2  date weekly_standup:me   
+ is_important  and  type meeting:me   date_2  date 2015:e 1:e 2:e    
+ and  type location:lo   location  is_important  type meeting:me    
+ <=  start_time  type meeting:me    start_time weekly_standup:me  
+ concat  number 3:e hour:ho   number 1:e hour:ho  
+ >  date  type meeting:me    date weekly_standup:me  
+ length weekly_standup:me 
+ <=  length  type meeting:me    concat  number 3:e hour:ho   number 1:e hour:ho   
+ >=  date  type meeting:me    date 2015:e 1:e 2:e  
+ >=  ccount  location_2  type location:lo     number 2:e  
+ and  type meeting:me   start_time_2  time 10:e 0:e    attendee_2 alice:pe  
+ and  type person:pe   attendee  and  type meeting:me   location_2 greenberg_cafe:lo    
+ and  type meeting:me   start_time_2  start_time weekly_standup:me   
+ max  type meeting:me   ccount attendee:e  
+ <  end_time  type meeting:me    time 10:e 0:e  
+ <=  start_time  type meeting:me    start_time weekly_standup:me  
+ max  type meeting:me  date:e 
+ <=  date  type meeting:me    date weekly_standup:me  
+ <=  date  type meeting:me    date weekly_standup:me  
+ max  type meeting:me  end_time:e 
+ <=  end_time  type meeting:me    end_time weekly_standup:me  
+ and  type meeting:me   end_time_2  time 10:e 0:e    attendee_2 alice:pe  
+ ccount  type meeting:me  
+ >  length  type meeting:me    concat  number 3:e hour:ho   number 1:e hour:ho   
+ >  end_time  type meeting:me    start_time weekly_standup:me  
+ and  type meeting:me   end_time_2  time 10:e 0:e    attendee_2 alice:pe  
+ <=  start_time  type meeting:me    time 10:e 0:e  
+ is_important  and  type meeting:me   length_2  number 3:e hour:ho    
+ <  start_time  type meeting:me    time 10:e 0:e  
+ <  date  type meeting:me    concat  date 2015:e 1:e 2:e   date 2015:e 1:e 3:e   
+ >=  date  type meeting:me    date weekly_standup:me  
+ >  end_time  type meeting:me    start_time weekly_standup:me  
+ ccount  type meeting:me  
+ max  type meeting:me  end_time:e 
+ and  type location:lo   location  and  type meeting:me   attendee_2 alice:pe    
+ and  type meeting:me   location_2 greenberg_cafe:lo   length_2  number 3:e hour:ho   
+ and  is_important  type meeting:me    attendee_2 alice:pe  
+ min  type meeting:me  end_time:e 
+ and  type meeting:me   attendee_2 alice:pe   date_2  date 2015:e 1:e 2:e   
+ min  type person:pe   ccount attendee_2:e  
+ concat  date 2015:e 1:e 2:e   date 2015:e 1:e 3:e  
+ length weekly_standup:me 
+ <=  date  type meeting:me    date 2015:e 1:e 2:e  
+ and  is_important  type meeting:me    location_2 greenberg_cafe:lo  
+ and  type meeting:me   location_2 greenberg_cafe:lo   start_time_2  time 10:e 0:e   
+ >=  start_time  type meeting:me    time 10:e 0:e  
+ and  type meeting:me   length_2  concat  number 3:e hour:ho   number 1:e hour:ho    
+ >  ccount  location_2  type location:lo     number 2:e  
