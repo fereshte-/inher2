@@ -52,8 +52,8 @@ public abstract class Exp {
 			String p = lr.next();
 			if (Lang.hasPred(p))
 				return new Lit(input,vars);
-//			if (vars.get(p)!=null || p.startsWith("!"))
-//				return new Appl(input,vars);
+			if (vars.get(p)!=null || p.startsWith("!"))
+				return new Appl(input,vars);
 		}
 
 		if (input.startsWith("(lambda "))
