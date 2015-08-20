@@ -115,8 +115,8 @@ public abstract class Exp {
 //			return new Ana(input);
 //		}
 //
-//		Var v = (Var)vars.get(input);
-//		if (v!=null) return v;
+		Var v = (Var)vars.get(input);
+		if (v!=null) return v;
 
 		return new Const(input);
 
