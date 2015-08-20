@@ -21,6 +21,7 @@ package parser;
 
 import java.util.*;
 import java.io.*;
+
 import learn.*;
 import lambda.*;
 
@@ -118,6 +119,13 @@ public class Parser {
 				}
 			}
 		}
+		
+		
+//		System.out.println("fffffffffffffffff");
+//		for(ParseResult pr : chart.getParseResults()){
+//			System.out.println(pr + "#" + pr.getScore());
+//		}
+//		System.out.println("fffffffffffffffff");
 
 		chart.pruneParseResults(pruneN);
 		// store the parse results
@@ -125,10 +133,28 @@ public class Parser {
 
 		allParses = removeRepeats(allParses);
 
-
+	
+		
 		// find best parses for test and for generating
 		// new lexical items.
+		
+
 		bestParses = findBestParses(allParses);
+		
+		
+		
+//		System.out.println("&&&&&&&&&&&&&&&&&&&&&");
+//		System.out.println(input + " " + pruningSem);
+//		for (int len = size-1; len>=0; len--){
+//			for (int begin = 0; begin<size-len; begin++){
+//				Iterator i = chart.getCellsIterator(begin,begin+len);		
+//				while (i.hasNext()){
+//					Cell c = (Cell)i.next();
+//					System.out.println("len = " + len + " begin = " + begin + "\n" + c.lex);
+//				}
+//			}
+//		}
+//		System.out.println("&&&&&&&&&&&&&&&&&&&&&");
 
 		return chart;
 	}
@@ -273,6 +299,8 @@ public class Parser {
 	 */
 	public void updateParams(HashVector p){
 		p.addTimesInto(1,theta);
+		double lambda = 0.01;
+		theta.addTimesInto(-1*lambda, theta);		
 	}
 
 	public HashVector getParams(){

@@ -36,6 +36,18 @@ public class Lang {
 		}
 		return false;
 	}
+	
+	public static List predsWithName(String name){
+		List ret = new LinkedList();
+		Iterator i = preds.iterator();
+		while (i.hasNext()){
+			Pred p = (Pred)i.next();
+			if (p.name.equals(name)){
+				ret.add(p);
+			}
+		}
+		return ret;
+	}
 
 	//< functions for getting predicates defined in this language
 	// NOTE:  This might return the wrong Pred if two exist that vary
@@ -78,19 +90,6 @@ public class Lang {
 		}
 		return ret;
 	}
-	
-	public static List predsWithName(String name){
-		List ret = new LinkedList();
-		Iterator i = preds.iterator();
-		while (i.hasNext()){
-			Pred p = (Pred)i.next();
-			if (p.name.equals(name)){
-				ret.add(p);
-			}
-		}
-		return ret;
-	}
-	
 	public static List allPreds(){
 		return preds;
 	}

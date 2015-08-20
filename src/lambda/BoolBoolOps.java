@@ -804,35 +804,8 @@ public class BoolBoolOps extends Exp {
 		}
 		return result;
 	}
-	
-	
-	public List<String> getHeadPairsParents(){
-		List<String> result = new LinkedList<String>();
-		for (int i=0; i<exps.size(); i++){
-			Exp e = exps.get(i);
-			if(e instanceof Lit){
-				Lit l = (Lit) e;
-				String one = l.getPred().getParent();
-				for (int j=i+1; j<exps.size(); j++){
-					Exp e2 = exps.get(j);
-					if(e2 instanceof Lit){
-						Lit l2 = (Lit) e2;
-						String two = l2.getPred().getParent();
-						if(one!=null || two!=null){
-							if(one == null) one = e.getHeadString();
-							if(two == null) two = e2.getHeadString();
-							if (one.compareTo(two)<0)
-								result.add(one+":"+two);
-							else
-								result.add(two+":"+one);
-						}
-					}
-				}
-			}
-		}
-		return result;
-	}
 
+	
 	public double avgDepth(int d){
 		double total = 0.0;
 		for (Exp e : exps)
@@ -847,6 +820,11 @@ public class BoolBoolOps extends Exp {
 	public static int CONJ = 0;
 	public static int DISJ = 1;
 	public static int IMPL = 2;
+
+	@Override
+	public List<Exp> getExp() {
+		return exps;
+	}
 
 
 }

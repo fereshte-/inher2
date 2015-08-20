@@ -1,19 +1,19 @@
 /***************************  LICENSE  *******************************
-* This file is part of UBL.
-* 
-* UBL is free software: you can redistribute it and/or modify
-* it under the terms of the GNU Lesser General Public License as 
-* published by the Free Software Foundation, either version 3 of the 
-* License, or (at your option) any later version.
-* 
-* UBL is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU Lesser General Public License for more details.
-*
-* You should have received a copy of the GNU Lesser General Public 
-* License along with UBL.  If not, see <http://www.gnu.org/licenses/>.
-***********************************************************************/
+ * This file is part of UBL.
+ * 
+ * UBL is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as 
+ * published by the Free Software Foundation, either version 3 of the 
+ * License, or (at your option) any later version.
+ * 
+ * UBL is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public 
+ * License along with UBL.  If not, see <http://www.gnu.org/licenses/>.
+ ***********************************************************************/
 
 
 
@@ -25,6 +25,11 @@ import java.util.*;
 import utils.*;
 
 import java.io.*;
+
+import parser.LexEntry;
+
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ListMultimap;
 
 /*
  * Pretty much everything is an expression...
@@ -38,28 +43,24 @@ public abstract class Exp {
 
 	static public Exp makeExp(String input, Map vars){
 
+
 		input = input.trim();
 
 		if (input.startsWith("(")){
 			// detemine if it is a function application or a literal
 			LispReader lr = new LispReader(new StringReader(input));
-			if(input.startsWith("((")){
-				input = lr.next();
-				lr = new LispReader(new StringReader(input));
-			}
 			String p = lr.next();
-			
 			if (Lang.hasPred(p))
 				return new Lit(input,vars);
-			if (vars.get(p)!=null || p.startsWith("!"))
-				return new Appl(input,vars);
+//			if (vars.get(p)!=null || p.startsWith("!"))
+//				return new Appl(input,vars);
 		}
 
 		if (input.startsWith("(lambda "))
 			return new Funct(input,vars);
 //
 //		if (input.startsWith("(< ")||
-//				input.startsWith("(> ") )
+//				input.startsWith("(> "))
 //			return new IntBoolOps(input,vars);
 //
 //		if (input.startsWith("(= ")){
@@ -78,15 +79,15 @@ public abstract class Exp {
 //
 //		if (input.startsWith("(intset ")) 
 //			return new IntSet(input,vars);
-
+//
 //		if (input.startsWith("(forall ") ||
 //				input.startsWith("(exists "))
 //			return new Quant(input,vars);
-
+//
 //		if (input.startsWith("(min ") ||
 //				input.startsWith("(max "))
 //			return new MinMax(input,vars);
-
+//
 //		if (input.startsWith("(argmax ") ||
 //				input.startsWith("(argmin "))
 //			return new ArgM(input,vars);
@@ -120,7 +121,7 @@ public abstract class Exp {
 		return new Const(input);
 
 	}
-	
+
 
 	/*
 	 * Overridden by expressions that can have 
@@ -148,6 +149,67 @@ public abstract class Exp {
 	 */
 	abstract public Exp copy();
 
+	public void addToNameMap(List<Exp> children){
+		nameMap = ArrayListMultimap.create();
+		boolean isSet = true;
+		int ted = 0;
+		for(Exp child : children){
+			if( child instanceof Const) continue;
+			String name = getHeadString();
+			if(this instanceof BoolBoolOps){
+				name = name + "_" + Integer.toString(ted);
+				ted++;
+				for(Exp child2: children){
+					nameMap.put(child.getHeadString()+"_", child2.getHeadString()+"_");
+					if(child instanceof Lit){
+						Lit l = (Lit) child;
+						String parentName = l.getPred().getParent();
+						if(parentName !=null)
+							nameMap.put(parentName+"_", child2.getHeadString()+"_");
+					}
+					if(child2 instanceof Lit){
+						Lit l2 = (Lit) child2;
+						String parentName2 = l2.getPred().getParent();
+						if(parentName2 !=null)
+							nameMap.put(child.getHeadString()+"_", parentName2+"_");
+					}
+				}
+			}
+			if(this instanceof ArgM || this instanceof Sum){
+				if(this instanceof ArgM){
+					name = "ArgM";
+				}
+				if(isSet){
+					name = name + "_set";
+					isSet = false;
+				}else{
+					name = name + "_body";
+				}
+			}
+			nameMap.put(name, child.getHeadString());
+			nameMap.putAll(child.getNameMap());
+
+			if(this instanceof Lit){
+				Lit l = (Lit) this;
+				if(l.getPred().getParent() != null){
+					nameMap.put(l.getPred().getParent(), child.getHeadString());
+					if(child instanceof Lit){
+						Lit l2 = (Lit) child;
+						if(l2.getPred().getParent()!= null)
+							nameMap.put(l.getPred().getParent(), l2.getPred().getParent());
+					}
+				}
+			}
+
+			if(child instanceof Lit){
+				Lit l = (Lit) child;
+				if(l.getPred().getParent()!= null)
+					nameMap.put(name, l.getPred().getParent());
+			}
+
+		}
+	}
+
 	boolean copyAna=false;
 	public Exp copyAna(){
 		copyAna=true;
@@ -167,6 +229,15 @@ public abstract class Exp {
 	 */
 	public abstract Type type();
 
+		
+	public String change(String what, String to){
+		Exp.changeVersion = true;
+		Exp.what = what;
+		Exp.to = to;
+		String changed = this.toString();
+		Exp.changeVersion = false;
+		return changed;
+	}
 
 	// does inference to determine the type variables can take, based on the
 	// places they are used in the expression.   returns null if there is no
@@ -190,9 +261,6 @@ public abstract class Exp {
 	}
 
 	abstract public void freeVars(List bound, List free);
-	
-	public String change(List varNames){ return toString(); }
-
 
 	public String toString(){
 		temp.clear();
@@ -212,6 +280,7 @@ public abstract class Exp {
 	abstract public double varPenalty(List varNames);
 
 	abstract public String toString(List varNames);
+	public String change(List varNames){ return toString(); }
 
 	abstract public void extractFuncts(List functor, List functee, Exp orig);
 
@@ -335,6 +404,12 @@ public abstract class Exp {
 	abstract public int repeatExpCount(int type, Exp e);
 
 	abstract public Exp deleteExp(Exp e);
+	abstract public List<Exp> getExp();
+	public String getParent(){ return null;}
+	public static boolean parentVersion = false;
+	public static boolean changeVersion = false;
+	public static String to;
+	public static String what;
 
 	abstract public int expCount(int expType);
 	static public int THE=0;
@@ -369,9 +444,20 @@ public abstract class Exp {
 	public static int maxNumVars = 2;
 
 	public double score;
+	ListMultimap<String, String> nameMap = ArrayListMultimap.create();
+
+	public ListMultimap<String, String> getNameMap() {
+		return nameMap;
+	}
+
+	public void setNameMap(ListMultimap<String, String> nameMap) {
+		this.nameMap = nameMap;
+	}
 
 	public double avgDepth(){ return avgDepth(0); }
 	public abstract double avgDepth(int d);
+	
+	
 
 	public static void main(String[] args){
 		PType.addTypesFromFile("../experiments/atis/atis.types");

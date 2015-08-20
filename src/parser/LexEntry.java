@@ -21,6 +21,7 @@ package parser;
 
 import java.util.*;
 import java.io.*;
+
 import lambda.*;
 import learn.*;
 
@@ -65,6 +66,33 @@ public class LexEntry {
 	}
 	//>
 
+	public LexEntry getParent(){
+		Exp sem = getCat().getSem();
+		if(sem == null) return null;
+
+		List<Lit> result = new ArrayList<Lit>();
+		sem.allLits(-1, result);
+
+
+		if(result.size() == 1 ){
+			Lit what = result.get(0);
+			String to = what.getHeadString();
+			if(what!=null){
+				if(myTokens.size() ==1 && !Lang.hasPred((String)myTokens.get(0)))
+					to= what.getHeadString();
+				else
+					to = what.getParent();
+				if(to!=null){
+					Cat c = this.getCat().copy();
+					String parentversion = sem.change(what.getHeadString(), to);
+					c.setSem(Exp.makeExp(parentversion));
+					parent = new LexEntry(Arrays.asList(to),c);
+					return parent;
+				}
+			}
+		}
+		return null;	
+	}
 
 	//< Cell = makeCellFor(List input, int index) - new Cell or null
 	/**
@@ -197,6 +225,7 @@ public class LexEntry {
 
 	Cat myCat;
 	List myTokens;
+	LexEntry parent;
 
 	static public List<LexEntry> splitCats(List<Cat> oneSplit, List<Cat> twoSplit,
 			List<String> oneTokens, List<String> twoTokens){
@@ -343,7 +372,7 @@ public class LexEntry {
 	public List<List<LexEntry>> allSplits(){
 		List<List<LexEntry>> splits = new LinkedList<List<LexEntry>>();
 		for (List<Cat> catsplit : myCat.allSplits()){
-			System.out.println("split is "+catsplit);
+			//	System.out.println("split is "+catsplit);
 			Cat left = catsplit.get(0);
 			Cat right = catsplit.get(1);
 

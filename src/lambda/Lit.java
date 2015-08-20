@@ -26,6 +26,8 @@ import utils.*;
 
 import java.io.*;
 
+import com.google.common.collect.ArrayListMultimap;
+
 /*
  * A lambda calc literal has a name, an arity, 
  * and a list of arguments that are Exps.  
@@ -43,15 +45,128 @@ public class Lit extends Exp {
 		while (lr.hasNext()){
 			argsList.add(Exp.makeExp(lr.next(),vars));
 		}
+
 		args = new Exp[argsList.size()];
 		for (int i=0; i<args.length; i++){
 			args[i]=(Exp)argsList.get(i);
+
 		}
 		pred = Lang.getPred(predName,args.length);
 		if (pred==null){
 			System.out.println("Lit: couldn't parse: "+input);
 			System.exit(-1);
 		}
+
+		addToNameMap(Arrays.asList(args));
+//		System.err.println(this + "\n\n\n" + pred + " "+ pred.type() + " " + type());
+	}
+	
+	private String reverse(String s){
+		if(s.contains("_2"))
+			return s.replace("_2", "");
+		else
+			return s+"_2";
+	}
+
+	@Override
+	public String change(List varNames){
+		StringBuffer result = new StringBuffer();
+		String name = pred.getName();
+		if(name.equals("singleton") || name.equals("listValue") || name.equals("string") ||
+				name.equals("ensureNumericEntity") || name.equals("ensureNumericProperty")){
+			for (int i=0; i<args.length; i++){
+				if (args[i]!=null)
+					result.append(" ").append(args[i].change(varNames));
+				else 
+					result.append(" ").append("null");
+			}
+		}else if(name.equals("getProperty")){
+			result.append("(").append(args[1].change(varNames));
+			result.append(" ").append(args[0].change(varNames));
+			result.append(")");
+		}else if(name.equals("superlative")){
+			result.append("(").append(args[1].change(varNames).trim());
+			
+			result.append(" ").append(args[0].change(varNames));
+			result.append(" ").append(args[2].change(varNames));
+			result.append(")");
+		}else if(name.equals("reverse")){
+			result.append(args[0].change(varNames)+"_2");
+		}else if(name.equals("filter")){
+			if (args.length == 4){
+				if(args[2].change(varNames).trim().equals("=")){
+					result.append("(and ");
+					result.append(args[0].change(varNames));
+					result.append(" (").append(reverse(args[1].change(varNames)));
+					result.append(" ").append(args[3].change(varNames));
+					result.append(")");
+					
+					result.append(")");
+				}else{
+					result.append("(").append(args[2].change(varNames));
+					result.append(" (").append(args[1].change(varNames));
+					result.append(" ").append(args[0].change(varNames));
+					result.append(")");
+
+					result.append(" ").append(args[3].change(varNames));
+
+					result.append(")");
+				}
+			}else if(args.length == 2){
+				result.append(" (").append(args[1].change(varNames));
+				result.append(" ").append(args[0].change(varNames));
+				result.append(")");
+			}else{
+				System.err.println("that is weird!");
+			}
+
+		}else if(name.equals("aggregate")){
+			result.append("(").append(args[0].change(varNames));
+			result.append(" ").append(args[1].change(varNames));
+			result.append(")");
+		}else if(name.equals("countComparative")){
+			result.append(" (").append(args[2].change(varNames));
+			result.append(" (ccount");
+			result.append(" (").append(args[1].change(varNames));
+			result.append(" ").append(args[0].change(varNames));
+			result.append(")");
+			result.append(")");
+			result.append(" ").append(args[3].change(varNames));
+			result.append(")");
+
+		}else if(name.equals("countSuperlative")){
+			result.append("(").append(args[1].change(varNames).trim());
+
+			result.append(" ").append(args[0].change(varNames));
+			result.append(" (ccount");
+			result.append(" ").append(args[2].change(varNames));
+			result.append(")");
+			result.append(")");
+		}else{
+			result.append("(").append(pred.getName());
+			for (int i=0; i<args.length; i++){
+				if (args[i]!=null)
+					result.append(" ").append(args[i].change(varNames));
+				else 
+					result.append(" ").append("null");
+			}
+			result.append(")");
+		}
+		return result.toString();
+
+
+
+	}
+	
+	public List<Exp> getExp(){
+		return Arrays.asList(args);
+	}
+	
+	
+
+	@Override
+	public String getParent() {
+		return getPred().getParent();
 	}
 
 	public Lit(Pred p, Exp e){
@@ -212,8 +327,17 @@ public class Lit extends Exp {
 	}
 
 	public String toString(List varNames){
+	//	System.out.println("we are in tostring " + what + " " + to + " " + pred.getName() + " " + Exp.changeVersion);
+
 		StringBuffer result = new StringBuffer();
-		result.append("(").append(pred.getName());
+		if(Exp.parentVersion && pred.getParent()!=null){
+			result.append("(").append(pred.getParent());
+		}else if(Exp.changeVersion && pred.getName().equals(what)){
+		//	System.out.println("we are in change " + what + " " + to);
+			result.append("(").append(to);
+		}else{
+			result.append("(").append(pred.getName());
+		}
 		for (int i=0; i<args.length; i++){
 			if (args[i]!=null)
 				result.append(" ").append(args[i].toString(varNames));
@@ -598,103 +722,5 @@ public class Lit extends Exp {
 
 	// cache the return type
 	Type retType = null;  
-
-	private String reverse(String s){
-		if(s.contains("_2"))
-			return s.replace("_2", "");
-		else
-			return s+"_2";
-	}
-
-	@Override
-	public String change(List varNames){
-		StringBuffer result = new StringBuffer();
-		String name = pred.getName();
-		if(name.equals("singleton") || name.equals("listValue") || name.equals("string") ||
-				name.equals("ensureNumericEntity") || name.equals("ensureNumericProperty")){
-			for (int i=0; i<args.length; i++){
-				if (args[i]!=null)
-					result.append(" ").append(args[i].change(varNames));
-				else 
-					result.append(" ").append("null");
-			}
-		}else if(name.equals("getProperty")){
-			result.append("(").append(args[1].change(varNames));
-			result.append(" ").append(args[0].change(varNames));
-			result.append(")");
-		}else if(name.equals("superlative")){
-			result.append("(").append(args[1].change(varNames).trim());
-
-			result.append(" ").append(args[0].change(varNames));
-			result.append(" ").append(args[2].change(varNames));
-			result.append(")");
-		}else if(name.equals("reverse")){
-			result.append(args[0].change(varNames)+"_2");
-		}else if(name.equals("filter")){
-			if (args.length == 4){
-				if(args[2].change(varNames).trim().equals("=")){
-					result.append("(and ");
-					result.append(args[0].change(varNames));
-					result.append(" (").append(reverse(args[1].change(varNames)));
-					result.append(" ").append(args[3].change(varNames));
-					result.append(")");
-
-					result.append(")");
-				}else{
-					result.append("(").append(args[2].change(varNames));
-					result.append(" (").append(args[1].change(varNames));
-					result.append(" ").append(args[0].change(varNames));
-					result.append(")");
-
-					result.append(" ").append(args[3].change(varNames));
-
-					result.append(")");
-				}
-			}else if(args.length == 2){
-				result.append(" (").append(args[1].change(varNames));
-				result.append(" ").append(args[0].change(varNames));
-				result.append(")");
-			}else{
-				System.err.println("that is weird!");
-			}
-
-		}else if(name.equals("aggregate")){
-			result.append("(").append(args[0].change(varNames));
-			result.append(" ").append(args[1].change(varNames));
-			result.append(")");
-		}else if(name.equals("countComparative")){
-			result.append(" (").append(args[2].change(varNames));
-			result.append(" (ccount");
-			result.append(" (").append(args[1].change(varNames));
-			result.append(" ").append(args[0].change(varNames));
-			result.append(")");
-			result.append(")");
-			result.append(" ").append(args[3].change(varNames));
-			result.append(")");
-
-		}else if(name.equals("countSuperlative")){
-			result.append("(").append(args[1].change(varNames).trim());
-
-			result.append(" ").append(args[0].change(varNames));
-			result.append(" (ccount");
-			result.append(" ").append(args[2].change(varNames));
-			result.append(")");
-			result.append(")");
-		}else{
-			result.append("(").append(pred.getName());
-			for (int i=0; i<args.length; i++){
-				if (args[i]!=null)
-					result.append(" ").append(args[i].change(varNames));
-				else 
-					result.append(" ").append("null");
-			}
-			result.append(")");
-		}
-		return result.toString();
-
-
-
-	}
-
 
 }
