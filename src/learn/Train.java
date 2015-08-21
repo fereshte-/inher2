@@ -429,12 +429,12 @@ public class Train {
 					// on the sentence alone.
 					double norm = firstChart.computeNorm();
 					HashVector update = new HashVector();
-					double lambda = 0.01 * norm;
+			//		double lambda = 0.01 * norm;
 
 					HashVector firstfeats=null, secondfeats=null;
 					if (norm!=0.0){
 						firstfeats = firstChart.computeExpFeatVals();
-						firstfeats.divideBy(norm + lambda);
+						firstfeats.divideBy(norm);// + lambda);
 						firstfeats.dropSmallEntries();
 						firstfeats.addTimesInto(-1.0,update);
 					} else continue;
@@ -472,8 +472,8 @@ public class Train {
 						}
 					} else continue;
 					
-					double gamma = 0.001;
-					Globals.theta.addTimesInto(-gamma, update);
+//					double gamma = 0.001;
+//					Globals.theta.addTimesInto(-gamma, update);
 					
 //					System.out.println("^^^^^    second feats    ^^^^^^");
 //					secondfeats.printValues(firstfeats);

@@ -58,9 +58,9 @@ public class Lit extends Exp {
 		}
 
 		addToNameMap(Arrays.asList(args));
-//		System.err.println(this + "\n\n\n" + pred + " "+ pred.type() + " " + type());
+		//		System.err.println(this + "\n\n\n" + pred + " "+ pred.type() + " " + type());
 	}
-	
+
 	private String reverse(String s){
 		if(s.contains("_2"))
 			return s.replace("_2", "");
@@ -86,7 +86,7 @@ public class Lit extends Exp {
 			result.append(")");
 		}else if(name.equals("superlative")){
 			result.append("(").append(args[1].change(varNames).trim());
-			
+
 			result.append(" ").append(args[0].change(varNames));
 			result.append(" ").append(args[2].change(varNames));
 			result.append(")");
@@ -100,7 +100,7 @@ public class Lit extends Exp {
 					result.append(" (").append(reverse(args[1].change(varNames)));
 					result.append(" ").append(args[3].change(varNames));
 					result.append(")");
-					
+
 					result.append(")");
 				}else{
 					result.append("(").append(args[2].change(varNames));
@@ -157,12 +157,12 @@ public class Lit extends Exp {
 
 
 	}
-	
+
 	public List<Exp> getExp(){
 		return Arrays.asList(args);
 	}
-	
-	
+
+
 
 	@Override
 	public String getParent() {
@@ -270,15 +270,22 @@ public class Lit extends Exp {
 			Lit l = (Lit) o;
 			if (!pred.equals(l.pred)) return false;
 			if (args.length!=l.args.length) return false;
-			for (int i=0; i<args.length; i++){
-				if (args[i]==null) {
-					return l.args[i]==null;
+			if(getHeadString().equals("=") || getHeadString().equals("!=")){
+				if(args.length!=2)	return false;
+				return (args[0].equals(l.args[0]) && args[1].equals(l.args[1])) ||
+						(args[0].equals(l.args[1]) && args[1].equals(l.args[0]));
+			}else{
+				for (int i=0; i<args.length; i++){
+					if (args[i]==null) {
+						return l.args[i]==null;
+					}
+					if (!args[i].equals(l.args[i]))
+						return false;
 				}
-				if (!args[i].equals(l.args[i]))
-					return false;
+				return true;
 			}
-			return true;
-		} else return false;
+		} else 
+			return false;
 	}
 
 	public boolean equals(int type, Exp o){
@@ -327,13 +334,13 @@ public class Lit extends Exp {
 	}
 
 	public String toString(List varNames){
-	//	System.out.println("we are in tostring " + what + " " + to + " " + pred.getName() + " " + Exp.changeVersion);
+		//	System.out.println("we are in tostring " + what + " " + to + " " + pred.getName() + " " + Exp.changeVersion);
 
 		StringBuffer result = new StringBuffer();
 		if(Exp.parentVersion && pred.getParent()!=null){
 			result.append("(").append(pred.getParent());
 		}else if(Exp.changeVersion && pred.getName().equals(what)){
-		//	System.out.println("we are in change " + what + " " + to);
+			//	System.out.println("we are in change " + what + " " + to);
 			result.append("(").append(to);
 		}else{
 			result.append("(").append(pred.getName());
@@ -436,7 +443,7 @@ public class Lit extends Exp {
 
 		//System.out.print("<");
 		//System.out.println("LIT: "+this+" --- type="+rType);
-		
+
 		boolean match = true;
 		if(getHeadString().equals("=") ||
 				getHeadString().equals("!=") ||
@@ -444,7 +451,7 @@ public class Lit extends Exp {
 				getHeadString().equals(">") ||
 				getHeadString().equals("<=") ||
 				getHeadString().equals(">=")){
-			
+
 			for(Exp e: args)
 				if(!e.wellTyped())
 					match= false;
@@ -487,7 +494,7 @@ public class Lit extends Exp {
 				getHeadString().equals(">") ||
 				getHeadString().equals("<=") ||
 				getHeadString().equals(">=")){
-			
+
 			for(Exp e: args)
 				if(!e.wellTyped())
 					return false;
@@ -497,7 +504,7 @@ public class Lit extends Exp {
 				return false;
 			}
 			if (right instanceof Var && !((Var)right).updateTempType(left.type())){
-					return false;
+				return false;
 			}
 			if (!left.type().matches(right.type())){
 				return false;
