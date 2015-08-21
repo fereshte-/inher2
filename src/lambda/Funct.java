@@ -84,7 +84,7 @@ public class Funct extends Exp {
 		//arg.setTempType(arg.type());
 		//System.out.println("Funct apply: "+this+" to "+input+" of type "+input.type());
 		// check type
-		if (input==null || !arg.type().matches(input.type())){
+		if (input==null || !input.type().subType(arg.type())){//!arg.type().matches(input.type())){
 	//		System.out.println("TYPE MISMATCH!!");
 			return null;
 		}

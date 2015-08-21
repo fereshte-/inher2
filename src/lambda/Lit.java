@@ -436,6 +436,35 @@ public class Lit extends Exp {
 
 		//System.out.print("<");
 		//System.out.println("LIT: "+this+" --- type="+rType);
+		
+		boolean match = true;
+		if(getHeadString().equals("=") ||
+				getHeadString().equals("!=") ||
+				getHeadString().equals("<") ||
+				getHeadString().equals(">") ||
+				getHeadString().equals("<=") ||
+				getHeadString().equals(">=")){
+			
+			for(Exp e: args)
+				if(!e.wellTyped())
+					match= false;
+			if(args.length !=2 ) 
+				match= false;
+			Exp left = args[0], right = args[1];
+			if (left instanceof Var && !((Var)left).updateTempType(right.type())){
+				match= false;
+			}
+			if (right instanceof Var && !((Var)right).updateTempType(left.type())){
+				match= false;
+			}
+			if (!left.type().matches(right.type())){
+				match= false;
+			}
+		}
+		if(!match){
+			inferedType = null;
+			return inferedType;
+		}
 		inferedType=rType; // update cache
 		return rType;
 	}
@@ -458,10 +487,7 @@ public class Lit extends Exp {
 				getHeadString().equals(">") ||
 				getHeadString().equals("<=") ||
 				getHeadString().equals(">=")){
-			System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-			System.out.println(this);
-			System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-
+			
 			for(Exp e: args)
 				if(!e.wellTyped())
 					return false;
