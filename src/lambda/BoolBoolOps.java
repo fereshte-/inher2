@@ -116,13 +116,14 @@ public class BoolBoolOps extends Exp {
 		for (int i=0; i<exps.size(); i++){
 			exps.set(i,((Exp)exps.get(i)).simplify(vars));
 			if(exps.get(i) instanceof BoolBoolOps){
-				BoolBoolOps e= (BoolBoolOps) exps.get(i);
+				BoolBoolOps e= (BoolBoolOps) exps.get(i).simplify(vars);
 				exps2.addAll(e.exps);
 			}else
 				exps2.add(exps.get(i));
 			
 		}
 		exps = exps2;
+		System.out.println("in booboolaps " + this + "\n" + exps.size() + "\n----\n");
 		removeDuplicates();
 		if (exps.size()==1) return exps.get(0);
 		return this;
@@ -241,13 +242,13 @@ public class BoolBoolOps extends Exp {
 	public void removeDuplicates(){
 		for (int i=0; i<exps.size(); i++){
 			for (int j=0; j<exps.size(); j++){
-				if (i!=j){
-					if (exps.get(i).equals(exps.get(j))){
+				if ((i!=j && exps.get(i).equals(exps.get(j)) || 
+						exps.get(i).getHeadString().trim().equals("type"))){
 						exps.remove(i);
 						i--;
 						j = exps.size();
-					}
 				}
+				
 			}
 		}
 	}

@@ -51,8 +51,7 @@ public class Train {
 		if (parses.size()==1){
 			ParseResult p = parses.get(0);
 			Exp e = p.getExp();
-			e = e.copy();
-			e = e.simplify(new LinkedList<Var>());
+			if(e!=null) e = e.simplify(new LinkedList<Var>());
 			List l = p.getLexEntries();
 			parsed++;
 			if (e.equals(sem)){
@@ -121,7 +120,7 @@ public class Train {
 						List l = p.getLexEntries();
 						Exp e = p.getExp();
 						e = e.copy();
-						e.simplify();
+						if(e!=null) e=e.simplify(new LinkedList<Var>());
 						int noEmpty = p.noEmpty();
 						if (e.equals(sem)){
 							if (verbose){
@@ -394,7 +393,7 @@ public class Train {
 
 					Chart firstChart = parser.getChart();
 					Exp best = parser.bestSem();
-					
+					if(best!=null) best = best.simplify(new LinkedList<Var>());
 					// this just collates and outputs the training 
 					// accuracy.
 					if (sem.equals(best)){ 

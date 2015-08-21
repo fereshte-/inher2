@@ -142,6 +142,16 @@ public class Lit extends Exp {
 			result.append(" ").append(args[2].change(varNames));
 			result.append(")");
 			result.append(")");
+		}else if(name.equals("time")){
+			result.append(((Const)args[0]).name+":ti");
+		}else if(name.equals("date")){
+			result.append("(jan ");
+			result.append(args[2]);
+			result.append(")");
+		}else if(name.equals("number") && args.length == 2){
+				result.append("(hour ");
+				result.append(args[0]);
+				result.append(")");
 		}else{
 			result.append("(").append(pred.getName());
 			for (int i=0; i<args.length; i++){

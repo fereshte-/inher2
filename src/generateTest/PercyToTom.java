@@ -48,6 +48,13 @@ public class PercyToTom {
 			utterence = utterence.replace("?", " ");
 			utterence = utterence.replace("-", " ");
 			utterence = utterence.replace("'s", " 's");
+			utterence = utterence.replace("weekly standup", "weekly_standup");
+			utterence = utterence.replace("annual review", "annual_review");
+			utterence = utterence.replace("greenberg cafe", "greenberg_cafe");
+			utterence = utterence.replace("central office", "central_office");
+
+			
+
 			
 			formula = formula.replace("en.meeting.weekly_standup", "weekly_standup:me");
 			formula = formula.replace("en.meeting.annual_review", "annual_review:me");
@@ -55,6 +62,8 @@ public class PercyToTom {
 			formula = formula.replace("en.location.central_office", "central_office:lo");
 			formula = formula.replace("en.person.alice", "alice:pe");
 			formula = formula.replace("en.person.bob", "bob:pe");
+			formula = formula.replace("concat", "or");
+
 
 			formula = formula.replace("en.hour", "hour:tyho");
 			formula = formula.replace("en.person", "person:type");
@@ -63,9 +72,14 @@ public class PercyToTom {
 			
 		//	formula = formula.replace("concat", "or");
 
+			if(formula.contains("<=") || formula.contains(">=")) continue;
 			
-			
-			out.println(utterence + "\n" + formula + "\n");
+			if(outName.contains("test")){
+				out.println(utterence + "\n" + formula + "\n");
+			}else{
+				out.println(utterence + "\n" + formula + "\n");
+				out.println(original + "\n" + formula + "\n");
+			}
 		//	out.println(original + "\n" + formula + "\n");
 
 		}

@@ -19,6 +19,10 @@
 ((var e e))
 
 
+((time num num ti))
+((date num num num da))
+
+
 
 ((concat me me me))
 ((concat pe pe pe))
@@ -30,10 +34,10 @@
 ((ccount e i))
 ((avg i i))
 ((number num num))
-((number num e num))
-((date num num num da))
-((time num num ti))
+((number num tyho num))
 ((sum i i))
+((jan num da))
+((hour num ho))
 
 
 ((max obj i obj))
@@ -73,8 +77,8 @@
 
 ((location me lo))
 ((location_2 lo me))
-((length me i))
-((length_2 i me))
+((length me ho))
+((length_2 ho me))
 ((date me da))
 ((date_2 da me))
 )
