@@ -3,8 +3,8 @@
 
 echo `rm run.test`;
 
-set p = 5;
-while ($p <= 5)
+set p = 10;
+while ($p <= 10)
 echo "portion is $p";
 
 set classpath="../../src:.";
