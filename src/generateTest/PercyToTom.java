@@ -62,7 +62,6 @@ public class PercyToTom {
 			formula = formula.replace("en.location.central_office", "central_office:lo");
 			formula = formula.replace("en.person.alice", "alice:pe");
 			formula = formula.replace("en.person.bob", "bob:pe");
-			formula = formula.replace("concat", "or");
 
 
 			formula = formula.replace("en.hour", "hour:tyho");
@@ -72,13 +71,15 @@ public class PercyToTom {
 			
 		//	formula = formula.replace("concat", "or");
 
-			if(formula.contains("<=") || formula.contains(">=")) continue;
+			if(formula.contains("<=") || formula.contains(">=") ||
+					formula.contains("count") || formula.contains("max") ||
+					formula.contains("min")) continue;
 			
 			if(outName.contains("test")){
 				out.println(utterence + "\n" + formula + "\n");
 			}else{
 				out.println(utterence + "\n" + formula + "\n");
-				out.println(original + "\n" + formula + "\n");
+		//		out.println(original + "\n" + formula + "\n");
 			}
 		//	out.println(original + "\n" + formula + "\n");
 

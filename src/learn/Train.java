@@ -455,7 +455,7 @@ public class Train {
 					if (!hasCorrect) continue;
 					Chart secondChart = parser.getChart();
 					double secnorm = secondChart.computeNorm(sem);
-					if (norm!=0.0){
+					if (secnorm!=0.0){
 						secondfeats = secondChart.computeExpFeatVals(sem);
 						secondfeats.divideBy(secnorm);
 						secondfeats.dropSmallEntries();

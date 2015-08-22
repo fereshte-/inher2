@@ -71,7 +71,7 @@ public class Lit extends Exp {
 	@Override
 	public String change(List varNames){
 		StringBuffer result = new StringBuffer();
-		String name = pred.getName();
+		String name = pred.getName().trim();
 		if(name.equals("singleton") || name.equals("listValue") || name.equals("string") ||
 				name.equals("ensureNumericEntity") || name.equals("ensureNumericProperty")){
 			for (int i=0; i<args.length; i++){
@@ -144,7 +144,7 @@ public class Lit extends Exp {
 			result.append(")");
 		}else if(name.equals("time")){
 			result.append(((Const)args[0]).name+":ti");
-		}else if(name.equals("date")){
+		}else if(name.equals("date") && args.length == 3){
 			result.append("(jan ");
 			result.append(args[2]);
 			result.append(")");
@@ -152,6 +152,15 @@ public class Lit extends Exp {
 				result.append("(hour ");
 				result.append(args[0]);
 				result.append(")");
+		}else if(name.equals("concat")){
+			result.append("(").append("or");
+			for (int i=0; i<args.length; i++){
+				if (args[i]!=null)
+					result.append(" ").append(args[i].change(varNames));
+				else 
+					result.append(" ").append("null");
+			}
+			result.append(")");
 		}else{
 			result.append("(").append(pred.getName());
 			for (int i=0; i<args.length; i++){
@@ -163,9 +172,6 @@ public class Lit extends Exp {
 			result.append(")");
 		}
 		return result.toString();
-
-
-
 	}
 
 	public List<Exp> getExp(){

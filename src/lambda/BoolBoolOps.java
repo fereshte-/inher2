@@ -123,7 +123,6 @@ public class BoolBoolOps extends Exp {
 			
 		}
 		exps = exps2;
-		System.out.println("in booboolaps " + this + "\n" + exps.size() + "\n----\n");
 		removeDuplicates();
 		if (exps.size()==1) return exps.get(0);
 		return this;
