@@ -783,7 +783,7 @@ public class Lit extends Exp {
 	}
 
 	public String getHeadString(){
-		return pred.getName();
+		return pred.getName().trim();
 	}
 
 	public double avgDepth(int d){

@@ -26,6 +26,7 @@ import lambda.*;
 import parser.*;
 
 public class Train { 
+	double eps = 1e-50;
 	public Train(){
 	}
 
@@ -427,11 +428,12 @@ public class Train {
 					// under the distribution that is conditioned 
 					// on the sentence alone.
 					double norm = firstChart.computeNorm();
+					System.out.println("first norm is " + norm);
 					HashVector update = new HashVector();
 			//		double lambda = 0.01 * norm;
 
 					HashVector firstfeats=null, secondfeats=null;
-					if (norm!=0.0){
+					if (norm > eps){
 						firstfeats = firstChart.computeExpFeatVals();
 						firstfeats.divideBy(norm);// + lambda);
 						firstfeats.dropSmallEntries();
@@ -455,7 +457,8 @@ public class Train {
 					if (!hasCorrect) continue;
 					Chart secondChart = parser.getChart();
 					double secnorm = secondChart.computeNorm(sem);
-					if (secnorm!=0.0){
+					System.out.println("sec norm is " + secnorm);
+					if (secnorm > eps){
 						secondfeats = secondChart.computeExpFeatVals(sem);
 						secondfeats.divideBy(secnorm);
 						secondfeats.dropSmallEntries();
