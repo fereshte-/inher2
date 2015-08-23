@@ -299,8 +299,6 @@ public class Parser {
 	 */
 	public void updateParams(HashVector p){
 		p.addTimesInto(1,theta);
-		double lambda = 0.01;
-		theta.addTimesInto(-1*lambda, theta);		
 	}
 
 	public HashVector getParams(){
