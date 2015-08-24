@@ -113,7 +113,7 @@ public class Lit extends Exp {
 					result.append(")");
 				}
 			}else if(args.length == 2){
-				result.append(" (").append(args[1].change(varNames));
+				result.append("(and ").append(args[1].change(varNames)+":me");
 				result.append(" ").append(args[0].change(varNames));
 				result.append(")");
 			}else{
@@ -474,19 +474,14 @@ public class Lit extends Exp {
 			if(args.length !=2 ) 
 				match= false;
 			Exp left = args[0], right = args[1];
-			if (left instanceof Var && !((Var)left).updateTempType(right.type())){
-				match= false;
+			
+			Type t1=left.inferType(vars,varTypes);
+			Type t2=right.inferType(vars,varTypes);
+			if (t1==null || t2==null || !t1.matches(t2)){
+				inferedType=null; // update cache
+				return null;
 			}
-			if (right instanceof Var && !((Var)right).updateTempType(left.type())){
-				match= false;
-			}
-			if (!left.type().matches(right.type())){
-				match= false;
-			}
-		}
-		if(!match){
-			inferedType = null;
-			return inferedType;
+		//	rType = left.inferedType.commonSubType(right.inferedType);
 		}
 		inferedType=rType; // update cache
 		return rType;

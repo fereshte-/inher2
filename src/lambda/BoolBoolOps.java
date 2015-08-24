@@ -115,7 +115,7 @@ public class BoolBoolOps extends Exp {
 		List exps2 = new LinkedList();
 		for (int i=0; i<exps.size(); i++){
 			exps.set(i,((Exp)exps.get(i)).simplify(vars));
-			if(exps.get(i) instanceof BoolBoolOps){
+			if(exps.get(i) instanceof BoolBoolOps && exps.get(i).getHeadString().equals(this.getHeadPairs())){
 				BoolBoolOps e= (BoolBoolOps) exps.get(i).simplify(vars);
 				exps2.addAll(e.exps);
 			}else
@@ -442,7 +442,10 @@ public class BoolBoolOps extends Exp {
 					return null;
 				}
 			}
-			inferedType = e.inferedType;
+			if(inferedType == null)
+				inferedType = e.inferedType;
+			else
+				inferedType = inferedType.commonSubType(e.inferedType);
 			prev = e;
 		}
 		return inferedType;
