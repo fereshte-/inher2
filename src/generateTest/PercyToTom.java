@@ -52,9 +52,16 @@ public class PercyToTom {
 			utterence = utterence.replace("annual review", "annual_review");
 			utterence = utterence.replace("greenberg cafe", "greenberg_cafe");
 			utterence = utterence.replace("central office", "central_office");
+			
+			utterence = utterence.replace("multivariate data analysis",
+					"multivariate_data_analysis");
+			utterence = utterence.replace("annals of statistics", "annals_of_statistics");
+			utterence = utterence.replace("computational linguistics", "computational_linguistics");
+
 
 			
-
+			
+// calandar
 			
 			formula = formula.replace("en.meeting.weekly_standup", "weekly_standup:me");
 			formula = formula.replace("en.meeting.annual_review", "annual_review:me");
@@ -64,14 +71,30 @@ public class PercyToTom {
 			formula = formula.replace("en.person.bob", "bob:pe");
 
 
-			formula = formula.replace("en.hour", "hour:tyho");
+			formula = formula.replace("en.hour ", "hour:tyho ");
+			formula = formula.replace("en.person ", "person:type ");
+			formula = formula.replace("en.meeting ", "meeting:tyme ");
+			formula = formula.replace("en.location ", "location:tylo ");
+
+//publication
+			
+			formula = formula.replace("en.article.multivariate_data_analysis",
+					"multivariate_data_analysis:ar");
+			formula = formula.replace("en.venue.annals_of_statistics",
+					"annals_of_statistics:ve");
+			formula = formula.replace("en.venue.computational_linguistics",
+					"computational_linguistics:ve");
+			formula = formula.replace("en.person.efron", "efron:pe");
+			formula = formula.replace("en.person.lakoff", "lakoff:pe");
+
+
+			formula = formula.replace("en.article", "article:tyar");
 			formula = formula.replace("en.person", "person:type");
-			formula = formula.replace("en.meeting", "meeting:tyme");
-			formula = formula.replace("en.location", "location:tylo");
+			formula = formula.replace("en.venue", "venue:tyve");
 			
 		//	formula = formula.replace("concat", "or");
 
-			if(formula.contains("<=") || formula.contains(">=") ||
+			if(//formula.contains("<=") || formula.contains(">=") ||
 					formula.contains("count") || formula.contains("max") ||
 					formula.contains("min")) continue;
 			
@@ -90,9 +113,9 @@ public class PercyToTom {
 	
 	public static void main(String[] args) throws IOException {
 		PercyToTom percyToTom = new PercyToTom();
-		percyToTom.percy_toGeo("./data/real_data_train.txt",
+		percyToTom.percy_toGeo("./data/real_train_publication.txt",
 				"./data/train.txt");
-		percyToTom.percy_toGeo("./data/real_data_test.txt",
+		percyToTom.percy_toGeo("./data/real_train_publication.txt",
 				"./data/test.txt");
 
 	}

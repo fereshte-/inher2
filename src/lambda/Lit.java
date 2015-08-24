@@ -113,7 +113,7 @@ public class Lit extends Exp {
 					result.append(")");
 				}
 			}else if(args.length == 2){
-				result.append("(and ").append(args[1].change(varNames)+":me");
+				result.append("(and ").append(args[1].change(varNames)+":ar");
 				result.append(" ").append(args[0].change(varNames));
 				result.append(")");
 			}else{
@@ -145,9 +145,12 @@ public class Lit extends Exp {
 		}else if(name.equals("time")){
 			result.append(((Const)args[0]).name+":ti");
 		}else if(name.equals("date") && args.length == 3){
-			result.append("(jan ");
-			result.append(args[2]);
-			result.append(")");
+//			result.append("(jan ");
+//			result.append(args[2]);
+//			result.append(")");
+			
+			result.append(((Const)args[0]).name+":da");
+
 		}else if(name.equals("number") && args.length == 2){
 				result.append("(hour ");
 				result.append(args[0]);

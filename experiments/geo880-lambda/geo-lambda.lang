@@ -81,4 +81,34 @@
 ((length_2 ho me))
 ((date me da))
 ((date_2 da me))
+
+
+//publication
+
+((author ar pe))
+((author_2 pe ar))
+((venue ar ve))
+((venue_2 ve ar))
+((publication_date ar da))
+((publication_date_2 da ar))
+((cites ar ar))
+((cites_2 ar ar)) //chert!!!
+((won_award ar ar))
+
+((type tyar ar))
+((type type pe))
+((type tyve ve))
+
+((!= ve ve obj))
+((!= ar ar obj))
+((!= pe pe obj))
+((!= i i obj))
+
+
+((= ve ve obj))
+((= ar ar obj))
+((= pe pe obj))
+((= i i obj))
+
+
 )

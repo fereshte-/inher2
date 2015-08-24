@@ -35,26 +35,30 @@ import learn.*;
 public class LexiconFeatSet implements LexicalFeatureSet {
 
 	public static boolean share = false;
+	
 	public void setFeats(LexEntry l, HashVector feats){
 		int i = indexOf(l);
+		double sc = 0.5;
 		if (i!=-1){
 			if (feats.get("LEX:"+i)>200) 
 				System.out.println("LARGE LEX feats: "+l);
-			feats.set("LEX:"+i,feats.get("LEX:"+i)+1.0);
+			feats.set("LEX:"+i,feats.get("LEX:"+i)+sc);
 		}
-
+		sc*=0.5;
 		if(
 				share && 
 				l!=null){
 			LexEntry lp = l.getParent();
+			
 			while(lp!=null){
 				i = indexOf(lp);
 				if(i!=-1){
 					if (feats.get("LEXP:"+i)>200) 
 						System.out.println("LARGE LEX feats: "+l);
-					feats.set("LEXP:"+i,feats.get("LEXP:"+i)+1.0);
+					feats.set("LEXP:"+i,feats.get("LEXP:"+i)+ sc);
 				}
 				lp = lp.getParent();
+				sc = sc * 0.5;
 			}
 
 		}
@@ -64,24 +68,27 @@ public class LexiconFeatSet implements LexicalFeatureSet {
 	public double score(LexEntry l, HashVector theta){
 
 		if (l==null) return 0.0;
-
+		
 		double score = 0;
+		double sc = 0.25;
 		if(share && l.getCat().getSem() != null){
 			LexEntry lp = l.getParent();
 			while(lp!=null){
 				int i= indexOf(lp);
 				if (i!=-1) 
-					score = theta.get("LEXP:"+i);
+					score = sc * theta.get("LEXP:"+i);
 				lp=lp.getParent();
+				sc = sc * 0.5;
 			}
 		}
+		sc = 0.5;
 		int i= indexOf(l);
 		if (i!=-1) 
-			return score + theta.get("LEX:"+i);
+			return score + sc * theta.get("LEX:"+i);
 		if (l.getCat().equalsNoSem(Cat.EMP))
 			return score + -1.0;
 		if (Train.CoocInit)
-			return score + initialWeight(l);
+			return score + sc * initialWeight(l);
 		return score + -0.5;  // unknown. 
 	}
 
@@ -96,11 +103,12 @@ public class LexiconFeatSet implements LexicalFeatureSet {
 
 
 	public void addLexEntry(LexEntry l, HashVector theta){
+		double sc = 0.5;
 		if (!lexItems.containsKey(l)){
 			int i = lexItems.size();
 			lexItems.put(l.copy(),i);
 			if (Train.CoocInit){
-				theta.set("LEX:"+i,initialWeight(l));
+				theta.set("LEX:"+i,sc * initialWeight(l));
 
 			} else {
 				theta.set("LEX:"+i,-0.1);
@@ -108,14 +116,14 @@ public class LexiconFeatSet implements LexicalFeatureSet {
 
 
 			LexEntry lp = l.getParent();
-
+			sc *= 0.5;
 			while (share && lp!=null){
 				if(!lexItems.containsKey(lp)){
 
 					i = lexItems.size(); 
 					lexItems.put(lp.copy(),i);	
 					if (Train.CoocInit){
-						theta.set("LEXP:"+i,initialWeight(l));
+						theta.set("LEXP:"+i,sc * initialWeight(l));
 
 					} else {
 						theta.set("LEXP:"+i,-0.1);
@@ -123,13 +131,14 @@ public class LexiconFeatSet implements LexicalFeatureSet {
 				}else{
 					i=indexOf(lp);
 					if (Train.CoocInit){
-						theta.set("LEXP:"+i,Math.max(theta.get("LEXP:"+i), initialWeight(l)));
+						theta.set("LEXP:"+i, theta.get("LEXP:"+i) + sc * initialWeight(l));
 
 					} else {
 						theta.set("LEXP:"+i,Math.max(theta.get("LEXP:"+i), -0.1));
 					}
 				}
 				lp = lp.getParent();
+				sc = sc * 0.5;
 			}
 		}
 	}

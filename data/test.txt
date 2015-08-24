@@ -1,348 +1,1218 @@
-which meetings end later than 10 in the morning or 3 in the afternoon
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string >) (ensureNumericEntity (concat (time 10 0) (time 15 0)))))
+article citing article published in annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-important meeting with three hour duration
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string length) (string =) (number 3 hour:tyho)))
+what article from 2004 cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string cites) (string =) multivariate_data_analysis:ar))
 
-meeting that has duration of lesser than three hour
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string length)) (string <) (ensureNumericEntity (number 3 hour:tyho))))
+find an article published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)))
 
-what meeting is alice not attending
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string !=) alice:pe))
+articles that have a publication date close to the date of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-which january 2nd meeting is three hours long
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string length) (string =) (number 3 hour:tyho)))
+which article is authored by efron and has the annals_of_statistics as its venue
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string author) (string =) efron:pe))
 
-show me all three hour meetings that begin at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string start_time) (string =) (time 10 0)))
+article whose author is efron or lakoff
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (concat efron:pe lakoff:pe)))
 
-meetings in greenberg_cafe that start at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string location) (string =) greenberg_cafe:lo))
+an article that won award cites another article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-show me meetings on jan 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string date) (string =) (date 2015 1 2)))
+author of multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
 
-show me all meetings scheduled to be longer than the weekly_standup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string length)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string length)))))
+articles published in 2004 that cite multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
 
-meetings after january 2 or after january 3
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string >) (ensureNumericEntity (concat (date 2015 1 2) (date 2015 1 3)))))
+article whose publication date is smaller than publication date of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-show me all meetings marked important beginning at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string start_time) (string =) (time 10 0)))
+articles published in annals_of_statistics cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-what is the location of the weekly_standup
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) weekly_standup:me))
+what article is about multivariate_data_analysis
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
 
-people that attend the weekly_standup meeting or the annual_review meeting
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (concat weekly_standup:me annual_review:me)))
+name an article about multivariate_data_analysis by the author efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-what meetings are located at greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string location) (string =) greenberg_cafe:lo))
+articles not published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string !=) (date 2004 -1 -1)))
 
-meeting that starts when the weekly_standup meeting ends
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (getProperty weekly_standup:me (string end_time))))
+articles cited in annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-meetings in greenberg_cafe that end at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string end_time) (string =) (time 10 0)))
+an article that cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-show me all meetings happening on january 2nd
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string date) (string =) (date 2015 1 2)))
+what article cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
 
-what meeting doesnt end at 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string !=) (time 10 0)))
+who wrote multivariate_data_analysis more than once
+(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
 
-meetings that start before 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string <) (ensureNumericEntity (time 10 0))))
+articles published contemporaneous to or after the multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-meeting starts before end time of weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string end_time)))))
+article published in 2004 or 2010
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (concat (date 2004 -1 -1) (date 2010 -1 -1))))
 
-three hour meeting on january 2nd
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string date) (string =) (date 2015 1 2)))
+what article cites multivariate_data_analysis and is also its venue
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string cites) (string =) multivariate_data_analysis:ar))
 
-which people are attending meetings on january 2
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2))))
+who is the author of a multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
 
-show me all meetings in greenberg_cafe on jan 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string location) (string =) greenberg_cafe:lo))
+articles published before the date of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-show me any meetings labeled as important which are also three hours long
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string length) (string =) (number 3 hour:tyho)))
+award winning article published by annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string won_award)))
 
-show me all locations which have meetings ending at 10 am
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0))))
+what article was written before the publication date of articles about multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-who is attending the 10sm meeting
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0))))
+who is the author of the article that cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
 
-show me meetings ending after 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string >) (ensureNumericEntity (time 10 0))))
+when was multivariate_data_analysis published
+(listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
 
-show me all meetings attended by alice beginning at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string start_time) (string =) (time 10 0)))
+articles published before 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (date 2004 -1 -1))))
 
-what meeting has and end time the same as weekly startup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (getProperty weekly_standup:me (string end_time))))
+author of article that cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-show me meetings that take three hours in greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string location) (string =) greenberg_cafe:lo))
+what article cites other articles about annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-meeting ends before 10am or 3pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string <) (ensureNumericEntity (concat (time 10 0) (time 15 0)))))
+articles published after multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-meeting which starts at 1000 am or 300 pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (concat (time 10 0) (time 15 0))))
+articles in annals_of_statistics cited in multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-meetings attended by alice in greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string attendee) (string =) alice:pe))
+articles citing articles cited by multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-what location is the three hour meeting
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho))))
+what article wasnt published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string !=) (date 2004 -1 -1)))
 
-which january 2nd meetings is alice attenting
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string attendee) (string =) alice:pe))
+venue of article that multivariate_data_analysis cites
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-show me all meetings that begin at 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)))
+writers who didnt write multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string !=) multivariate_data_analysis:ar))
 
-find the meeting with alice at greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string location) (string =) greenberg_cafe:lo))
+what article discusses another article that won an award
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-meeting ends at 10 am or 3 pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (concat (time 10 0) (time 15 0))))
+articles written by efron and cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-show me all meetings marked important which are also attended by alice
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string attendee) (string =) alice:pe))
+what article was published in 2004 or later
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (date 2004 -1 -1))))
 
-show me important meetings at greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string is_important)))
+articles that have won an award
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string won_award)))
 
-what is the end time of weekly_standup
-(listValue (getProperty weekly_standup:me (string end_time)))
+articles that cite articles published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-show me all meetings at greenberg_cafe ending at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string end_time) (string =) (time 10 0)))
+name a person who is the author of an article about multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
 
-what meeting is at greenberg_cafe
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo)))
+award winning article publication venue
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-location is same as the location of meeting on jan 2
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2))))
+article whose publication date is 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-what meetings are scheduled to run for three hours on jan 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string length) (string =) (number 3 hour:tyho)))
+name an article that won an award
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-show me all important meetings on jan 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string is_important)))
+in what publication was multivariate_data_analysis published
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar))
 
-show me all meetings alice has attended at the greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string location) (string =) greenberg_cafe:lo))
+article whose publication date is at most publication date of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-show me all meetings after january 2nd
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string >) (ensureNumericEntity (date 2015 1 2))))
+name someone who has written an article about multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
 
-what meeting ends no earlier than 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string <) (ensureNumericEntity (time 10 0))))
+articles published on the same date as multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (getProperty multivariate_data_analysis:ar (string publication_date))))
 
-what meetings occur on the same day as weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (getProperty weekly_standup:me (string date))))
+find a venue of an award winning article
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-what meetings take place in greenbug cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string location) (string =) greenberg_cafe:lo))
+any article that cites another article published in annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-what meeting has a length smaller than three hours
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string length)) (string <) (ensureNumericEntity (number 3 hour:tyho))))
+articles cited by award winning articles
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-what meeting is starting the same time as weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (getProperty weekly_standup:me (string start_time))))
+what article in annals_of_statistics cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-show me meetings starting at 10am that take 3 horus
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string length) (string =) (number 3 hour:tyho)))
+article that multivariate_data_analysis cites
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-location same as weekly meeting or annual_review
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (concat weekly_standup:me annual_review:me)))
+what award winning article was cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string won_award)))
 
-meeting in which alice is attending and ends at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string attendee) (string =) alice:pe))
+an article whose also authored multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (getProperty multivariate_data_analysis:ar (string author))))
 
-what meeting start time is later than 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string >) (ensureNumericEntity (time 10 0))))
+name an article citing multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-meetings that are not attended by alice
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string !=) alice:pe))
+articles published in 2004 that won awards
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string won_award)))
 
-show me all meetings ending after the weekly_standup ends
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string end_time)))))
+name an article from the annals_of_statistics about multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-what meeting is at greenberg_cafe and ends at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string end_time) (string =) (time 10 0)))
+award winning articles cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-meeting is not at greenberg_cafe
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string !=) greenberg_cafe:lo))
+publications where articles by efron can be found
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-what meetings have a length of three hours and alice is attending
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string attendee) (string =) alice:pe))
+articles citing articles cited by multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-locations of meetings that end at 10am
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0))))
+name an article from the annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-what meeting is in either greenberg cage or central_office
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) (concat greenberg_cafe:lo central_office:lo)))
+article whose publication date is 2004 and cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-show me all meetings happening at greenberg_cafe or central_office
-(listValue (concat greenberg_cafe:lo central_office:lo))
+what article has a publication date greater than that of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-what is the average length of all meetings
-(listValue (aggregate (string avg) (getProperty (getProperty (singleton meeting:tyme) (string type)) (string length))))
+what article cites an award winning article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-who is attending the three hour meeting
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho))))
+what article discusses annals_of_statistics and whose publication date was 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string publication_date) (string =) (date 2004 -1 -1)))
 
-what are some important meetings
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)))
+articles citing articles cited in multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-meeting on jan 2 which ends at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string end_time) (string =) (time 10 0)))
+which annals_of_statistics article cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-what meeting starts earlier than 10am or 3pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string <) (ensureNumericEntity (concat (time 10 0) (time 15 0)))))
+what article about annals and statistics has a publication ate of 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string venue) (string =) annals_of_statistics:ve))
 
-show me all meetings that end at 10am in greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string end_time) (string =) (time 10 0)))
+articles published in 2004 cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-people that attend important meetings
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important))))
+articles published in 2004 that have won an award
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string publication_date) (string =) (date 2004 -1 -1)))
 
-show me all meetings happening before january 2nd
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string <) (ensureNumericEntity (date 2015 1 2))))
+what article is not cited in multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
 
-what is the date of weekly_standup
-(listValue (getProperty weekly_standup:me (string date)))
+articles published in 2004 citations
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-create a meeting for jan 2nd until 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string end_time) (string =) (time 10 0)))
+what article published in 2004 was cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
 
-what meeting is on jan 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string date) (string =) (date 2015 1 2)))
+name an article published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-show me important meetings at greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string location) (string =) greenberg_cafe:lo))
+name an article that won an award
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-meeting starting at time of weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (getProperty weekly_standup:me (string start_time))))
+name an article that is not about multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
 
-meetings held in the same location as the weekly_standup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) (getProperty weekly_standup:me (string location))))
+articles that does not cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
 
-show me all meetings which are either shorter or longer than three hours
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string !=) (number 3 hour:tyho)))
+article with author of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (getProperty multivariate_data_analysis:ar (string author))))
 
-what meeting lasts from one to three hours
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (concat (number 3 hour:tyho) (number 1 hour:tyho))))
+which article cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
 
-what meeting has alice attending on jan 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string date) (string =) (date 2015 1 2)))
+who is someone who has authored articles about multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
 
-show me all meetings alice has attended marked as important
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string is_important)))
+find the author of an award winning article
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-meetings that are longer than the weekly startup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string length)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string length)))))
+venue of the efron article
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-show me the important meetings that last three hours
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string length) (string =) (number 3 hour:tyho)))
+articles written by efron that have won an award
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string author) (string =) efron:pe))
 
-show me all meetings marked important ending at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string end_time) (string =) (time 10 0)))
+article published in 2004 and that cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string cites) (string =) multivariate_data_analysis:ar))
 
-show me all meetings that alice is attending on jan 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string date) (string =) (date 2015 1 2)))
+which article was published after 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (date 2004 -1 -1))))
 
-what meeting ends at the start time of weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (getProperty weekly_standup:me (string start_time))))
+article published before multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-what important meeting has an end time of 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string is_important)))
+find any article that efron didnt write
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string !=) efron:pe))
 
-show me meetings before 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string <) (ensureNumericEntity (time 10 0))))
+what article doesnt cite multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string !=) multivariate_data_analysis:ar))
 
-show me all meetings that run either three hours or one hour
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (concat (number 3 hour:tyho) (number 1 hour:tyho))))
+articles published in or after 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (date 2004 -1 -1))))
 
-show me the meeting that starts and ends at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string end_time) (string =) (time 10 0)))
+what article did efron write whose venue is annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string author) (string =) efron:pe))
 
-show me all meetings that end earlier than the week standup meeting ends
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string end_time)))))
+what articles are written by authors of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar)))
 
-what person is attending a meeting that ends at 10am
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0))))
+all articles by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe))
 
-meetings on january 2 or january 3
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (concat (date 2015 1 2) (date 2015 1 3))))
+articles published from 2004 to 2010
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
 
-show me meetings that take 3 hours and start at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string start_time) (string =) (time 10 0)))
+find an author of an article in annals_of_statistics
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-alice or bob is an attendee at the meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) (concat alice:pe bob:pe)))
+when was multivariate_data_analysis published
+(listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
 
-who attends the weekly_standup meeting
-(listValue (getProperty weekly_standup:me (string attendee)))
+articles not authored by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string !=) efron:pe))
 
-meetings that end later than 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string >) (ensureNumericEntity (time 10 0))))
+what article is written by efron and won an award
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string won_award)))
 
-who has attended the weekly_standup meeting
-(listValue (getProperty weekly_standup:me (string attendee)))
+name an article about multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-what meeting ends before 3pm or 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string <) (ensureNumericEntity (concat (time 10 0) (time 15 0)))))
+writer of multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
 
-meetings that are longer than three hours or longer than an hour
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string length)) (string >) (ensureNumericEntity (concat (number 3 hour:tyho) (number 1 hour:tyho)))))
+articles published before 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (date 2004 -1 -1))))
 
-show me all meetings beginning at 10 am which are three hours long
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string length) (string =) (number 3 hour:tyho)))
+find an efron article that cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string cites) (string =) multivariate_data_analysis:ar))
 
-what three hour meeting is at greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string length) (string =) (number 3 hour:tyho)))
+what annals_of_statistics article was cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-show me all attendees of the weekly_standup meeting
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) weekly_standup:me))
+who wrote multivariate_data_analysis
+(listValue (getProperty multivariate_data_analysis:ar (string author)))
 
-show me all meetings on january 2nd which are three hours long
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string length) (string =) (number 3 hour:tyho)))
+what annals_of_statistics article cited multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string cites) (string =) multivariate_data_analysis:ar))
 
-which important meeting starts at 10 in the morning
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string is_important)))
+articles cited by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-show me meeting happening after the day of weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string date)))))
+articles citing multivariate_data_analysis written by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
 
-what meeting starts at 10am and ends at 10am q
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string end_time) (string =) (time 10 0)))
+what articles were written by efron
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-meeting at greenberg_cafe ends at 1000 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string end_time) (string =) (time 10 0)))
+article that cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string cites) (string =) multivariate_data_analysis:ar))
 
-what important meeting has a start time at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string is_important)))
+what article cites an article cited by multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-show me all meetings with alice
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe))
+article whose venue is annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-location of meetings that start at 10am
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0))))
+what efron article has won an award
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string won_award)))
 
-what meeting has length shorter than one to three hours
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string length)) (string <) (ensureNumericEntity (concat (number 3 hour:tyho) (number 1 hour:tyho)))))
+what article cites an annals_of_statistics article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-what meeting has a date earlier than weekly startup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string date)))))
+articles citing multivariate_data_analysis published in annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-show me all three hour meetings that alice is attending
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string length) (string =) (number 3 hour:tyho)))
+articles cited by articles published in annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
+
+article written by efron that cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string cites) (string =) multivariate_data_analysis:ar))
+
+articles not published in the annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string !=) annals_of_statistics:ve))
+
+articles not cited by multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
+
+what are some articles unrelated to annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string !=) annals_of_statistics:ve))
+
+an article by efron that cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+find an article with the same venue as multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (getProperty multivariate_data_analysis:ar (string venue))))
+
+what are the articles that multivariate_data_analysis cites
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string cites) (string =) multivariate_data_analysis:ar))
+
+article published after 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
+
+venue that is venue of article whose author is efron
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
+
+which articles author is efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe))
+
+author of article cited by multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
+
+what article has a publication date greater than 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (date 2004 -1 -1))))
+
+what is an article in annals_of_statistics about multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
+
+multivariate_data_analysis venue
+(listValue (getProperty multivariate_data_analysis:ar (string venue)))
+
+what person wrote articles than won an award
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
+
+articles cited by multivariate_data_analysis and written by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
+
+publications of multivariate_data_analysis
+(listValue (getProperty multivariate_data_analysis:ar (string venue)))
+
+articles with their publication dates between 2004 and 2010
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (concat (date 2004 -1 -1) (date 2010 -1 -1))))
+
+article cited bymultivariate_data_analysis whose venue is annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
+
+articles not published in annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string !=) annals_of_statistics:ve))
+
+what award winning article is cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+what article has a publication date of at least 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (date 2004 -1 -1))))
+
+article not citing multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
+
+articles published in or before 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (date 2004 -1 -1))))
+
+name an article from the annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
+
+name an article about multivariate_data_analysis from the annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
+
+which article does not cite multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
+
+which article cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
+
+what article has a venue of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (getProperty multivariate_data_analysis:ar (string venue))))
+
+what articles are published in multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+articles written by efron and published in the annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string venue) (string =) annals_of_statistics:ve))
+
+find an article published before 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (date 2004 -1 -1))))
+
+articles cited in articles by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
+
+what article was published on the same date as multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (getProperty multivariate_data_analysis:ar (string publication_date))))
+
+article not in annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string !=) annals_of_statistics:ve))
+
+what efron article cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+find an article published in either 2004 or 2010
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (concat (date 2004 -1 -1) (date 2010 -1 -1))))
+
+where can you see multivariate_data_analysis
+(listValue (getProperty multivariate_data_analysis:ar (string venue)))
+
+article citing multivariate_data_analysis by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
+
+which author did not write multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string !=) multivariate_data_analysis:ar))
+
+articles written by the multivariate_data_analysis writer
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (getProperty multivariate_data_analysis:ar (string author))))
+
+which article was published in 2004 at annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string venue) (string =) annals_of_statistics:ve))
+
+articles published in annals_of_statistics that cite multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
+
+what article did the article that cited multivariate_data_analysis cite
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
+
+articles cited by studies using multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+name the author of an article about multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
+
+publication date of multivariate_data_analysis
+(listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
+
+articles cited by articles in annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
+
+articles cited by multivariate_data_analysis that won awards
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string won_award)))
+
+article that cited multivariate_data_analysis in annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string cites) (string =) multivariate_data_analysis:ar))
+
+articles published in annals_of_statistics and cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+what articles are published in annals_of_statistics and in the year 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string publication_date) (string =) (date 2004 -1 -1)))
+
+article published in 2004 and that cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string cites) (string =) multivariate_data_analysis:ar))
+
+what article was cited by the award winning article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
+
+award winning article published by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string won_award)))
+
+name an article about multivariate_data_analysis published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
+
+articles written by efron or lakoff
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (concat efron:pe lakoff:pe)))
+
+what article has a publication date of 2004
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+name an article from 2004 about multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
+
+what are some articles written by efron or lakoff
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (concat efron:pe lakoff:pe)))
+
+articles that won awards cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+article that cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
+
+article whose author is efron and whose publication date is 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string publication_date) (string =) (date 2004 -1 -1)))
+
+article that cites multivariate_data_analysis that is published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
+
+article that mentions award winning multivariate_data_analysis article
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string won_award)))
+
+venues that published in 2004
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+article that cites multivariate_data_analysis in the annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
+
+what is an article written by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string author) (string =) efron:pe))
+
+find an article in annals_of_statistics that was published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string publication_date) (string =) (date 2004 -1 -1)))
+
+article that won an award and cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string won_award)))
+
+venue that is venue of article that cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
+
+which efron article cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
+
+people who did not author multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string !=) multivariate_data_analysis:ar))
+
+what article was written by efron and has a publication date of 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string publication_date) (string =) (date 2004 -1 -1)))
+
+articles not written by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string !=) efron:pe))
+
+articles published in the same venue as multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar)))
+
+article that cite articles published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+find an article in the annals_of_statistics venue
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve))
+
+what article was published in 2010 or earlier
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
+
+articles authored by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string author) (string =) efron:pe))
+
+what article cites articles written by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
+
+article on annals_of_statistics by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string author) (string =) efron:pe))
+
+find a venue that does not have multivariate_data_analysis
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string !=) multivariate_data_analysis:ar))
+
+articles that were not published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string !=) (date 2004 -1 -1)))
+
+article written by efron that references multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
+
+what article won an award and is about annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string venue) (string =) annals_of_statistics:ve))
+
+find an article published after multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
+
+articles published after multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
+
+award winning article cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+article cited by article which is published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+articles citing multivariate_data_analysis published in annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
+
+name the author whose article has its venue as annals_of_statistics
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
+
+name an article by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
+
+article by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string author) (string =) efron:pe))
+
+what is the venue of an article cited by multivariate_data_analysis
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
+
+what venue is multivariate_data_analysis in
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar))
+
+what article about multivariate_data_analysis was published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
+
+articles published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string publication_date) (string =) (date 2004 -1 -1)))
+
+article that has the same publication date as the multivariate_data_analysis article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
+
+articles that do not cite multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string !=) multivariate_data_analysis:ar))
+
+what is the date of publication for multivariate_data_analysis
+(listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
+
+what article is written by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe))
+
+what is the venue of the article published in 2004
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+writers who cited multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
+
+articles published before multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
+
+who is the other author for the article written by efron
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
+
+what author published an article in 2004
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+what award winning article was written by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string author) (string =) efron:pe))
+
+article whose author is efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
+
+what is the publication date of a multivariate_data_analysis article
+(listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
+
+award winning article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string won_award)))
+
+articles by efron published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string publication_date) (string =) (date 2004 -1 -1)))
+
+an article that cites multivariate_data_analysis published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
+
+article by the same author of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar)))
+
+article that citesmultivariate_data_analysis by author efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
+
+what author wrote an article that cities multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
+
+article published in annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string venue) (string =) annals_of_statistics:ve))
+
+find a venue of an article in annals_of_statistics
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
+
+venues that have efrons article
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
+
+what article was cited by a 2004 article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+article written by efron and published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string author) (string =) efron:pe))
+
+name an article not published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+articles that cite articles written by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
+
+articles published in or before 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (date 2004 -1 -1))))
+
+article authored by efron and has the annals_of_statistics as its venue
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string venue) (string =) annals_of_statistics:ve))
+
+which article has a publication date the same as multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (getProperty multivariate_data_analysis:ar (string publication_date))))
+
+what journal is multivariate_data_analysis published in
+(listValue (getProperty multivariate_data_analysis:ar (string venue)))
+
+article that cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (getProperty multivariate_data_analysis:ar (string venue))))
+
+article written by efron which multivariate_data_analysis cites
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+venues other than the multivariate_data_analysis venue
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string !=) multivariate_data_analysis:ar))
+
+article whose publication date is at least 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (date 2004 -1 -1))))
+
+what is an article cited in a publication about multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
+
+what venue has articles published in 2004
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+find an efron article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe))
+
+who is the author of whose venue is annals_of_statistics
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
+
+what article was written by efron and discusses annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string venue) (string =) annals_of_statistics:ve))
+
+article by efron citing multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+articles published in 2004 citing multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string cites) (string =) multivariate_data_analysis:ar))
+
+article that does not cite multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
+
+articles published before 2004 or before 2010
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
+
+what is the venue of multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar) (reverse (string venue)) (string =) multivariate_data_analysis:ar))
+
+article with the venue as annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
+
+publications that do not publish multivariate_data_analysis
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string !=) multivariate_data_analysis:ar))
+
+award winning articles published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string won_award)))
+
+articles written by the writer of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar)))
+
+name an article about multivariate_data_analysis that has won an award
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string won_award)))
+
+award winning article cited bymultivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string won_award)))
+
+what venue can you find multivariate_data_analysis in
+(listValue (filter (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar) (reverse (string venue)) (string =) multivariate_data_analysis:ar))
+
+what author wrote about annals_of_statistics
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
+
+article whose venue is venue that is venue of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar)))
+
+what venue consists of multivariate_data_analysis
+(listValue (getProperty multivariate_data_analysis:ar (string venue)))
+
+who has coauthored articles with efron
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
+
+awardwinning articles cited in articles using multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+articles cited by award winning articles
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
+
+which article cites an awardwinning article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
+
+name an article published in 2004 about multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string cites) (string =) multivariate_data_analysis:ar))
+
+article written by efron that is cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
+
+articles published contemporaneous to or before the multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
+
+article with publication date as 2004 and has the venue as annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string venue) (string =) annals_of_statistics:ve))
+
+find an article by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string author) (string =) efron:pe))
+
+article with publication date as 2004 or 2010
+(listValue (concat (date 2004 -1 -1) (date 2010 -1 -1)))
+
+what is the venue of an article that cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
+
+articles published in 2004 and cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+what article has a publication date of 2003 and won an award
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string won_award)))
+
+writer of articles cited by multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
+
+article cited by as well as cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+articles written by efron citing multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
+
+name articles in annals_of_statistics
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
+
+articles published except in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string !=) (date 2004 -1 -1)))
+
+article cited by award winning article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
+
+article published on date of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (getProperty multivariate_data_analysis:ar (string publication_date))))
+
+what article cites an article from annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
+
+what article was published after 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (date 2004 -1 -1))))
+
+articles citing articles published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+what article won an award
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string won_award)))
+
+awardwinning articles cited in multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string won_award)))
+
+what article was published on or before 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (date 2004 -1 -1))))
+
+what multivariate_data_analysis city articles were published after 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
+
+article that cites article that multivariate_data_analysis cites
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
+
+which article that cites multivariate_data_analysis won an award
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string cites) (string =) multivariate_data_analysis:ar))
+
+author of article citing multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
+
+who wrote an article citing multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
+
+articles published in multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (getProperty multivariate_data_analysis:ar (string venue))))
+
+authors of awardwinning articles
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
+
+publications with articles authored by efron
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
+
+articles published before 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (date 2004 -1 -1))))
+
+what article won an award and has a publication date of 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string publication_date) (string =) (date 2004 -1 -1)))
+
+what article is about multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar)))
+
+article citing multivariate_data_analysis published in annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+what article was written by efron and cities multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
+
+an article citing multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+article that was awarded
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string won_award)))
+
+what article cites a 2004 article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+article whose publication date is 2004 and whose author is efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string author) (string =) efron:pe))
+
+articles cited by multivariate_data_analysis and published in annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
+
+either annals_of_statistics or computational_linguistics
+(listValue (concat annals_of_statistics:ve computational_linguistics:ve))
+
+articles that were written before 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (date 2004 -1 -1))))
+
+what article written by efron cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string cites) (string =) multivariate_data_analysis:ar))
+
+awardwinning article by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string author) (string =) efron:pe))
+
+what article was published before multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
+
+name some articles that are not written by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string !=) efron:pe))
+
+what article cites an article cited in multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
+
+writers who published in 2004
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+articles written by efron cites
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
+
+articles cited by awardwinning articles
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
+
+journal that did not publish multivariate_data_analysis
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string !=) multivariate_data_analysis:ar))
+
+articles published before 2010
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
+
+name someone who is not the author of an article about multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string !=) multivariate_data_analysis:ar))
+
+what award winning article has annals_of_statistics as a venue
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string venue) (string =) annals_of_statistics:ve))
+
+articles cited by multivariate_data_analysis and published in annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
+
+articles written by the author of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar)))
+
+articles published between 2004 and 2010
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
+
+who is the author of multivariate date analysis articles
+(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
+
+articles written by efron or lakoff
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (concat efron:pe lakoff:pe)))
+
+who wrote an article about city multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
+
+article that does not cite multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
+
+articles that won an award published in annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string venue) (string =) annals_of_statistics:ve))
+
+an article on statistics that cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
+
+articles not written by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string !=) efron:pe))
+
+publications that contains articles that are also published in annals_of_statistics
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
+
+what article exchanged citations with multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string cites) (string =) multivariate_data_analysis:ar))
+
+articles written by efron published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string author) (string =) efron:pe))
+
+articles that cite multivariate_data_analysis and are cited in multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string cites) (string =) multivariate_data_analysis:ar))
+
+articles cited by articles published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+authors of articles published in 2004
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+venues of articles cited by multivariate_data_analysis
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
+
+what article is about annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string venue) (string =) annals_of_statistics:ve))
+
+articles that won an award written by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string won_award)))
+
+what article has a publication date the same as the date of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
+
+publications that include articles published in 2004
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+what articles are written between 2004 and 2010
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
+
+article citing multivariate_data_analysis published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
+
+who is someone that has not authored an article about multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string !=) multivariate_data_analysis:ar))
+
+articles citing efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
+
+articles published in 2004 and citing multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string cites) (string =) multivariate_data_analysis:ar))
+
+any article that mentions award winning article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
+
+who is the author of the article who won an award
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
+
+name a person who is the author of an article about multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
+
+what articles are published in annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
+
+articles on multivariate_data_analysis
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar))
+
+articles that cite multivariate_data_analysis published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
+
+who authored multivariate_data_analysis
+(listValue (getProperty multivariate_data_analysis:ar (string author)))
+
+article with venue anals of statistics that multivariate_data_analysis cites
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+find an additional author to an efron article
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
+
+find an article making a citation of a 2004 published article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+articles that cite multivariate_data_analysis in annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
+
+which article that cites multivariate_data_analysis was published on 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string cites) (string =) multivariate_data_analysis:ar))
+
+what 2004 article cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string cites) (string =) multivariate_data_analysis:ar))
+
+articles published after 2010
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
+
+what article was published on or after multivariate_data_analysis was
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
+
+article that does not reference multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string !=) multivariate_data_analysis:ar))
+
+article publication of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar)))
+
+what article is cited by an article in annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
+
+what article cites an efron article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
+
+articles published in annals_of_statistics in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string publication_date) (string =) (date 2004 -1 -1)))
+
+article whose author is author of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (getProperty multivariate_data_analysis:ar (string author))))
+
+article that is published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string publication_date) (string =) (date 2004 -1 -1)))
+
+authors who published their works in 2004
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+what award winning article was in annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string won_award)))
+
+what article has a publication date earlier than 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (date 2004 -1 -1))))
+
+articles cited by multivariate_data_analysis published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
+
+articles published in the same publication as multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (getProperty multivariate_data_analysis:ar (string venue))))
+
+award winning article whose venue is annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string won_award)))
+
+what venues cite multivariate_data_analysis
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
+
+article that cites multivariate_data_analysis whose venue is annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
+
+what article does not cite multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string !=) multivariate_data_analysis:ar))
+
+article published in 2004 that cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
+
+person that is author of article that cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
+
+article citing awardwinning article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
+
+what article was published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string publication_date) (string =) (date 2004 -1 -1)))
+
+find an article published on or before multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
+
+what article has annals_of_statistics as a venue
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string venue) (string =) annals_of_statistics:ve))
+
+articles cited by multivariate_data_analysis and that won awards
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string won_award)))
+
+find an article published after 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
+
+when was multivariate_data_analysis published
+(listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
+
+writers of articles citing multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
+
+what article has the same venue as multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar)))
+
+which article was published in 2004 authored by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string publication_date) (string =) (date 2004 -1 -1)))
+
+articles published in 2004 or before
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (date 2004 -1 -1))))
+
+multivariate_data_analysis cited articles
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar))
+
+article whose venue is annals_of_statistics and that won an award
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string won_award)))
+
+an article that multivariate_data_analysis cites
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+who is the author of multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar))
+
+articles written by efron cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+articles cited by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
+
+articles publised in 2004 that won an award
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string publication_date) (string =) (date 2004 -1 -1)))
+
+who is and author of multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
+
+articles that cite multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string cites) (string =) multivariate_data_analysis:ar))
+
+what is an article that does not cite multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
+
+what 2004 article was cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 

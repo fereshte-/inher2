@@ -1,1401 +1,1218 @@
-meetings that start later than the weekly_standup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string end_time)))))
+article citing article published in annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-what date is the weekly_standup meeting
-(listValue (getProperty weekly_standup:me (string date)))
+what article from 2004 cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string cites) (string =) multivariate_data_analysis:ar))
 
-when is the weekly_standup
-(listValue (getProperty weekly_standup:me (string start_time)))
+find an article published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)))
 
-show me all meetings in greenberg_cafe that alice is attending
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string attendee) (string =) alice:pe))
+articles that have a publication date close to the date of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-show me all meetings not ending at 10 am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string !=) (time 10 0)))
+which article is authored by efron and has the annals_of_statistics as its venue
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string author) (string =) efron:pe))
 
-show me all meetings lasting for three hours
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string length) (string =) (number 3 hour:tyho)))
+article whose author is efron or lakoff
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (concat efron:pe lakoff:pe)))
 
-meetings that start before 10am or before 3pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string <) (ensureNumericEntity (concat (time 10 0) (time 15 0)))))
+an article that won award cites another article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-which meetings dont start at 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string !=) (time 10 0)))
+author of multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
 
-what meeting ends before the start of weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string start_time)))))
+articles published in 2004 that cite multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
 
-show me meetings after jan 2
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string >) (ensureNumericEntity (concat (date 2015 1 2) (date 2015 1 3)))))
+article whose publication date is smaller than publication date of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-show me all meetings three hours long at the greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string location) (string =) greenberg_cafe:lo))
+articles published in annals_of_statistics cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-important meeting on january 2nd
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string date) (string =) (date 2015 1 2)))
+what article is about multivariate_data_analysis
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
 
-how long is the weekly_standup meeting
-(listValue (getProperty weekly_standup:me (string length)))
+name an article about multivariate_data_analysis by the author efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-show me all 3 hour long meetings that end at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string length) (string =) (number 3 hour:tyho)))
+articles not published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string !=) (date 2004 -1 -1)))
 
-show me all meetings not beginning at 10 am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string !=) (time 10 0)))
+articles cited in annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-which meetings end when weekly_standup is scheduled to start
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (getProperty weekly_standup:me (string start_time))))
+an article that cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-show me meetings that take 3 hours
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string length) (string =) (number 3 hour:tyho)))
+what article cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
 
-what time does the weekly stand up end
-(listValue (getProperty weekly_standup:me (string end_time)))
+who wrote multivariate_data_analysis more than once
+(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
 
-what meeting ends at 10am and alice is attending
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string end_time) (string =) (time 10 0)))
+articles published contemporaneous to or after the multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-show me average meeting length
-(listValue (aggregate (string avg) (getProperty (getProperty (singleton meeting:tyme) (string type)) (string length))))
+article published in 2004 or 2010
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (concat (date 2004 -1 -1) (date 2010 -1 -1))))
 
-person attending jan 2nd meeting
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2))))
+what article cites multivariate_data_analysis and is also its venue
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string cites) (string =) multivariate_data_analysis:ar))
 
-show me all meetings with either bob or alice attending
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) (concat alice:pe bob:pe)))
+who is the author of a multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
 
-show me all attendees of meetings on january 2nd
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2))))
+articles published before the date of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-meeting which starts at 10 am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)))
+award winning article published by annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string won_award)))
 
-what important meeting has a location at greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string location) (string =) greenberg_cafe:lo))
+what article was written before the publication date of articles about multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-show me all three hour meetings on jan 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string date) (string =) (date 2015 1 2)))
+who is the author of the article that cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
 
-find all meetings which begin on january 2nd or january 3rd
-(listValue (concat (date 2015 1 2) (date 2015 1 3)))
+when was multivariate_data_analysis published
+(listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
 
-show me all meetings ending after 10 am or 3 pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string >) (ensureNumericEntity (concat (time 10 0) (time 15 0)))))
+articles published before 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (date 2004 -1 -1))))
 
-what meetings have a start time of 10 am or 3pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (concat (time 10 0) (time 15 0))))
+author of article that cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-meetings at greenberg_cafe attended by alice
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string location) (string =) greenberg_cafe:lo))
+what article cites other articles about annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-show me the dates of all weekly_standup meetings
-(listValue (getProperty weekly_standup:me (string date)))
+articles published after multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-what meetings end at the same time as the weekly roundup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (getProperty weekly_standup:me (string end_time))))
+articles in annals_of_statistics cited in multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-meeting in which alice is attending which starts at 1000 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string start_time) (string =) (time 10 0)))
+articles citing articles cited by multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-show me all meetings scheduled to be less than three hours or less than one hour
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string length)) (string <) (ensureNumericEntity (concat (number 3 hour:tyho) (number 1 hour:tyho)))))
+what article wasnt published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string !=) (date 2004 -1 -1)))
 
-meetings held later than january 2
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string >) (ensureNumericEntity (date 2015 1 2))))
+venue of article that multivariate_data_analysis cites
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-show me meetings that take 3 hours and are with alice
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string attendee) (string =) alice:pe))
+writers who didnt write multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string !=) multivariate_data_analysis:ar))
 
-what person is attending weekly startup
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) weekly_standup:me))
+what article discusses another article that won an award
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-meeting starts before 10am or 3pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string <) (ensureNumericEntity (concat (time 10 0) (time 15 0)))))
+articles written by efron and cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-what meeting is longer than weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string length)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string length)))))
+what article was published in 2004 or later
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (date 2004 -1 -1))))
 
-what meeting has a after jan 2 or 3
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string >) (ensureNumericEntity (concat (date 2015 1 2) (date 2015 1 3)))))
+articles that have won an award
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string won_award)))
 
-what is the start time for the weekly stand up meeting
-(listValue (getProperty weekly_standup:me (string start_time)))
+articles that cite articles published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-how long is the meeting
-(listValue (aggregate (string sum) (getProperty (getProperty (singleton meeting:tyme) (string type)) (string length))))
+name a person who is the author of an article about multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
 
-meetings that end after the weekly startup meeting starts
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string start_time)))))
+award winning article publication venue
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-meetings that are attended by alice and are three hours long
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string attendee) (string =) alice:pe))
+article whose publication date is 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-who is at the weekly_standup or annual_review
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (concat weekly_standup:me annual_review:me)))
+name an article that won an award
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-which meetings end at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string end_time) (string =) (time 10 0)))
+in what publication was multivariate_data_analysis published
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar))
 
-meetings that end at 10am and start at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string start_time) (string =) (time 10 0)))
+article whose publication date is at most publication date of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-meeting which is on jan 2 or jan 3
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (concat (date 2015 1 2) (date 2015 1 3))))
+name someone who has written an article about multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
 
-important meeting at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string start_time) (string =) (time 10 0)))
+articles published on the same date as multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (getProperty multivariate_data_analysis:ar (string publication_date))))
 
-locations that do not house the weekly_standup meeting
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string !=) weekly_standup:me))
+find a venue of an award winning article
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-show me important meetings that start at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string start_time) (string =) (time 10 0)))
+any article that cites another article published in annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-what is the length of weekly startup
-(listValue (getProperty weekly_standup:me (string length)))
+articles cited by award winning articles
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-where is the weekly_standup
-(listValue (filter (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) weekly_standup:me) (reverse (string location)) (string =) weekly_standup:me))
+what article in annals_of_statistics cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-show me all meetings lasting three hours beginning at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string start_time) (string =) (time 10 0)))
+article that multivariate_data_analysis cites
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-meetings that end at 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)))
+what award winning article was cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string won_award)))
 
-show me the dates of the weekly_standup meetings
-(listValue (getProperty weekly_standup:me (string date)))
+an article whose also authored multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (getProperty multivariate_data_analysis:ar (string author))))
 
-meetings that are not held at greenberg_cafe
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string !=) greenberg_cafe:lo))
+name an article citing multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-what meeting has an end time no greater than the end of weekly startup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string end_time)))))
+articles published in 2004 that won awards
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string won_award)))
 
-meetings that start at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string start_time) (string =) (time 10 0)))
+name an article from the annals_of_statistics about multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-meetings that end before the weekly_standup meeting starts
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string start_time)))))
+award winning articles cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-meetings that end at the same as the weekly_standup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (getProperty weekly_standup:me (string end_time))))
+publications where articles by efron can be found
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-show me all meetings labeled as important that start at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string is_important)))
+articles citing articles cited by multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-show me all meetings ending later than the weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string end_time)))))
+name an article from the annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-meeting that ends sooner than weekly_standup ends
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string end_time)))))
+article whose publication date is 2004 and cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-show me all meetings happening before january 2nd or january 3rd
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string <) (ensureNumericEntity (concat (date 2015 1 2) (date 2015 1 3)))))
+what article has a publication date greater than that of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-is the meeting at 10am or 3pm
-(listValue (concat (time 10 0) (time 15 0)))
+what article cites an award winning article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-show me the locations of all meetings beginning at 10 am
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0))))
+what article discusses annals_of_statistics and whose publication date was 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string publication_date) (string =) (date 2004 -1 -1)))
 
-person who attends weekly_standup
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) weekly_standup:me))
+articles citing articles cited in multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-meeting longer than one or three hours
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string length)) (string >) (ensureNumericEntity (concat (number 3 hour:tyho) (number 1 hour:tyho)))))
+which annals_of_statistics article cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-select all important meetings
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string is_important)))
+what article about annals and statistics has a publication ate of 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string venue) (string =) annals_of_statistics:ve))
 
-what meeting starts before 10am or 3pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string <) (ensureNumericEntity (concat (time 10 0) (time 15 0)))))
+articles published in 2004 cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-show me all meetings that begin at the time the weekly_standup meeting ends
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (getProperty weekly_standup:me (string end_time))))
+articles published in 2004 that have won an award
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string publication_date) (string =) (date 2004 -1 -1)))
 
-what meeting has the same location as weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) weekly_standup:me)))
+what article is not cited in multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
 
-what meetings have the same start time as the week startup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (getProperty weekly_standup:me (string start_time))))
+articles published in 2004 citations
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-show me all attendees of meetings beginning at 10 am
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0))))
+what article published in 2004 was cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
 
-meetings on january 2 that end at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string end_time) (string =) (time 10 0)))
+name an article published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-what meeting starts at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string start_time) (string =) (time 10 0)))
+name an article that won an award
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-how long is the weekly_standup meeting
-(listValue (getProperty weekly_standup:me (string length)))
+name an article that is not about multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
 
-show me the locations of all meetings on january 2
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2))))
+articles that does not cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
 
-show me all attendees of meetings three hours long
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho))))
+article with author of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (getProperty multivariate_data_analysis:ar (string author))))
 
-show me meetings which do not conclude at 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string !=) (time 10 0)))
+which article cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
 
-meetings attended by people that attend the weekly_standup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) (getProperty weekly_standup:me (string attendee))))
+who is someone who has authored articles about multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
 
-what meetings take place on jan 2 in greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string date) (string =) (date 2015 1 2)))
+find the author of an award winning article
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-what meeting is the same length as that of weekly startup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (getProperty weekly_standup:me (string length))))
+venue of the efron article
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-what person is not attending the weekly_standup meeting
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string !=) weekly_standup:me))
+articles written by efron that have won an award
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string author) (string =) efron:pe))
 
-meetings at greenberg_cafe that start at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string start_time) (string =) (time 10 0)))
+article published in 2004 and that cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string cites) (string =) multivariate_data_analysis:ar))
 
-show me all meetings attended by either alice or bob
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) (concat alice:pe bob:pe)))
+which article was published after 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (date 2004 -1 -1))))
 
-find me a meeting shorter than three hours
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string length)) (string <) (ensureNumericEntity (number 3 hour:tyho))))
+article published before multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-weekly startup attendee
-(listValue (getProperty weekly_standup:me (string attendee)))
+find any article that efron didnt write
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string !=) efron:pe))
 
-show me all meeting that begin at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string start_time) (string =) (time 10 0)))
+what article doesnt cite multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string !=) multivariate_data_analysis:ar))
 
-meeting shares attendee with weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) weekly_standup:me)))
+articles published in or after 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (date 2004 -1 -1))))
 
-show me meetings at 10am with alice
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string attendee) (string =) alice:pe))
+what article did efron write whose venue is annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string author) (string =) efron:pe))
 
-meetings that do not end at 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string !=) (time 10 0)))
+what articles are written by authors of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar)))
 
-what meeting ends at 10am on january second
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string date) (string =) (date 2015 1 2)))
+all articles by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe))
 
-people that do not attend the weekly_standup meeting
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string !=) weekly_standup:me))
+articles published from 2004 to 2010
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
 
-meeting on january 2nd at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string date) (string =) (date 2015 1 2)))
+find an author of an article in annals_of_statistics
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-show me meetings before jan 3
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string <) (ensureNumericEntity (concat (date 2015 1 2) (date 2015 1 3)))))
+when was multivariate_data_analysis published
+(listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
 
-show me locations of all meetings which are marked as important
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important))))
+articles not authored by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string !=) efron:pe))
 
-show me all meetings attended by people who have also attended the weekly_standup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) (getProperty weekly_standup:me (string attendee))))
+what article is written by efron and won an award
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string won_award)))
 
-people attending meetings that end at 10am
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0))))
+name an article about multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-show me who is attending three hour meetings
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho))))
+writer of multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
 
-show me all meetings marked important
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string is_important)))
+articles published before 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (date 2004 -1 -1))))
 
-what meeting had someone who went to weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) (getProperty weekly_standup:me (string attendee))))
+find an efron article that cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string cites) (string =) multivariate_data_analysis:ar))
 
-show me who is not at the weekly_standup
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string !=) weekly_standup:me))
+what annals_of_statistics article was cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-show me all meetings beginning and ending at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string end_time) (string =) (time 10 0)))
+who wrote multivariate_data_analysis
+(listValue (getProperty multivariate_data_analysis:ar (string author)))
 
-important meetings attended by alice
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string attendee) (string =) alice:pe))
+what annals_of_statistics article cited multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string cites) (string =) multivariate_data_analysis:ar))
 
-meetings that start earlier than the weekly_standup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string start_time)))))
+articles cited by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-what meeting is being held at the greenberg_cafe
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo))
+articles citing multivariate_data_analysis written by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
 
-what three hour meeting has alice attending
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string length) (string =) (number 3 hour:tyho)))
+what articles were written by efron
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-show me all locations which do not host the weekly_standup
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string !=) weekly_standup:me))
+article that cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string cites) (string =) multivariate_data_analysis:ar))
 
-what is an important meeting
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string is_important)))
+what article cites an article cited by multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-show me all meetings which begin at 10 am and end at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string start_time) (string =) (time 10 0)))
+article whose venue is annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-show me all meetings scheduled to be three hours or one hour long
-(listValue (concat (number 3 hour:tyho) (number 1 hour:tyho)))
+what efron article has won an award
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string won_award)))
 
-three hour meeting at greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string location) (string =) greenberg_cafe:lo))
+what article cites an annals_of_statistics article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-people attending meetings that alice attends
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe)))
+articles citing multivariate_data_analysis published in annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-show me the attendees for all meetings on jan 2
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2))))
+articles cited by articles published in annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-show me everyone who attended meetings also attended by alice
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe)))
+article written by efron that cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string cites) (string =) multivariate_data_analysis:ar))
 
-who is the person attending the weekly stand up meeting
-(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) weekly_standup:me) (reverse (string attendee)) (string =) weekly_standup:me))
+articles not published in the annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string !=) annals_of_statistics:ve))
 
-what meeting has a length greater than weekly startup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string length)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string length)))))
+articles not cited by multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
 
-meeting before jan 2
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string <) (ensureNumericEntity (date 2015 1 2))))
+what are some articles unrelated to annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string !=) annals_of_statistics:ve))
 
-show me any meetings alice has attended on january 2nd
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string attendee) (string =) alice:pe))
+an article by efron that cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-what meeting has an end time earlier than weekly startup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string start_time)))))
+find an article with the same venue as multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (getProperty multivariate_data_analysis:ar (string venue))))
 
-show me meetings that will end before weekly_standup begins
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string start_time)))))
+what are the articles that multivariate_data_analysis cites
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string cites) (string =) multivariate_data_analysis:ar))
 
-what meetings on january 2 end at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string date) (string =) (date 2015 1 2)))
+article published after 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
 
-what important meetings are attended by alice
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string is_important)))
+venue that is venue of article whose author is efron
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-meetings that are the same length as the weekly_standup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (getProperty weekly_standup:me (string length))))
+which articles author is efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe))
 
-meeting ends after 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string >) (ensureNumericEntity (time 10 0))))
+author of article cited by multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-meetings that start after the weekly_standup meeting starts
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string start_time)))))
+what article has a publication date greater than 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (date 2004 -1 -1))))
 
-meeting that starts later than start of weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string start_time)))))
+what is an article in annals_of_statistics about multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-what important meetings start at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string is_important)))
+multivariate_data_analysis venue
+(listValue (getProperty multivariate_data_analysis:ar (string venue)))
 
-january 2nd meeting
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string date) (string =) (date 2015 1 2)))
+what person wrote articles than won an award
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-what meeting was shorter than three hours
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string length)) (string <) (ensureNumericEntity (concat (number 3 hour:tyho) (number 1 hour:tyho)))))
+articles cited by multivariate_data_analysis and written by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
 
-what important meeting is located at greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string is_important)))
+publications of multivariate_data_analysis
+(listValue (getProperty multivariate_data_analysis:ar (string venue)))
 
-what meeting has an end time smaller than weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string end_time)))))
+articles with their publication dates between 2004 and 2010
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (concat (date 2004 -1 -1) (date 2010 -1 -1))))
 
-meetings at greenberg_cafe that end a 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string location) (string =) greenberg_cafe:lo))
+article cited bymultivariate_data_analysis whose venue is annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-three hour meeting with alice as attendee
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string length) (string =) (number 3 hour:tyho)))
+articles not published in annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string !=) annals_of_statistics:ve))
 
-show me all meetings alice is attending which are three hours long
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string attendee) (string =) alice:pe))
+what award winning article is cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-show me all meetings which end at the same time the weekly_standup begins
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (getProperty weekly_standup:me (string start_time))))
+what article has a publication date of at least 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (date 2004 -1 -1))))
 
-what meeting has a start time at the end time of weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (getProperty weekly_standup:me (string end_time))))
+article not citing multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
 
-locations of important meetings
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important))))
+articles published in or before 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (date 2004 -1 -1))))
 
-what meeting starts before weekly_standup ends
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string end_time)))))
+name an article from the annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-show me all meetings three hours long
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)))
+name an article about multivariate_data_analysis from the annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-show me meetings not on jan 2
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string !=) (date 2015 1 2)))
+which article does not cite multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
 
-meeting ends after end time of weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string end_time)))))
+which article cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
 
-show me the location of all meetings attended by alice
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe)))
+what article has a venue of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (getProperty multivariate_data_analysis:ar (string venue))))
 
-show me all meetings on january 2nd which end at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string date) (string =) (date 2015 1 2)))
+what articles are published in multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-show me all meetings at the greenberg_cafe ending at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string location) (string =) greenberg_cafe:lo))
+articles written by efron and published in the annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string venue) (string =) annals_of_statistics:ve))
 
-three hours long important meeting
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string is_important)))
+find an article published before 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (date 2004 -1 -1))))
 
-what meeting has alice attending and starts at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string start_time) (string =) (time 10 0)))
+articles cited in articles by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-important meetings that start at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string start_time) (string =) (time 10 0)))
+what article was published on the same date as multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (getProperty multivariate_data_analysis:ar (string publication_date))))
 
-weekly_standup end time
-(listValue (getProperty weekly_standup:me (string end_time)))
+article not in annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string !=) annals_of_statistics:ve))
 
-what location is the meeting who has alice attending
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe)))
+what efron article cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-show me any meetings that alice has not attended
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string !=) alice:pe))
+find an article published in either 2004 or 2010
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (concat (date 2004 -1 -1) (date 2010 -1 -1))))
 
-how long does the average meeting last
-(listValue (aggregate (string avg) (getProperty (getProperty (singleton meeting:tyme) (string type)) (string length))))
+where can you see multivariate_data_analysis
+(listValue (getProperty multivariate_data_analysis:ar (string venue)))
 
-show me all meetings on jan 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string date) (string =) (date 2015 1 2)))
+article citing multivariate_data_analysis by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
 
-person is attendee of weekly_standup or annual_review
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (concat weekly_standup:me annual_review:me)))
+which author did not write multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string !=) multivariate_data_analysis:ar))
 
-important meetings that end at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string is_important)))
+articles written by the multivariate_data_analysis writer
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (getProperty multivariate_data_analysis:ar (string author))))
 
-show me all meetings on january 2nd ending at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string end_time) (string =) (time 10 0)))
+which article was published in 2004 at annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string venue) (string =) annals_of_statistics:ve))
 
-meetings that are shorter than three hours or shorter than one hour
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string length)) (string <) (ensureNumericEntity (concat (number 3 hour:tyho) (number 1 hour:tyho)))))
+articles published in annals_of_statistics that cite multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-meetings that end at 10am or 3pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (concat (time 10 0) (time 15 0))))
+what article did the article that cited multivariate_data_analysis cite
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
 
-meeting does not start at 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string !=) (time 10 0)))
+articles cited by studies using multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-meetings starting later than 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string <) (ensureNumericEntity (time 10 0))))
+name the author of an article about multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-show me meetings happening after jan 2nd
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string >) (ensureNumericEntity (date 2015 1 2))))
+publication date of multivariate_data_analysis
+(listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
 
-show me all meetings ending at 10am that alice is attending
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string end_time) (string =) (time 10 0)))
+articles cited by articles in annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-important meeting at greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string location) (string =) greenberg_cafe:lo))
+articles cited by multivariate_data_analysis that won awards
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string won_award)))
 
-show me all metings in greenberg_cafe that end at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string location) (string =) greenberg_cafe:lo))
+article that cited multivariate_data_analysis in annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string cites) (string =) multivariate_data_analysis:ar))
 
-meetings that are shorter than three hours
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string length)) (string <) (ensureNumericEntity (number 3 hour:tyho))))
+articles published in annals_of_statistics and cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-show me all meetings marked as important
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)))
+what articles are published in annals_of_statistics and in the year 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string publication_date) (string =) (date 2004 -1 -1)))
 
-show me all meetings on january 2nd beginning at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string start_time) (string =) (time 10 0)))
+article published in 2004 and that cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string cites) (string =) multivariate_data_analysis:ar))
 
-who will be attending important meetings
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important))))
+what article was cited by the award winning article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-show me all attendees of meetings marked important
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important))))
+award winning article published by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string won_award)))
 
-what meeting starts when weekly_standup ends
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (getProperty weekly_standup:me (string end_time))))
+name an article about multivariate_data_analysis published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
 
-show me all meetings between 10am and 3pm
-(listValue (concat (time 10 0) (time 15 0)))
+articles written by efron or lakoff
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (concat efron:pe lakoff:pe)))
 
-show me the meeting alice will attend which ends at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string attendee) (string =) alice:pe))
+what article has a publication date of 2004
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-what important meeting started at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string start_time) (string =) (time 10 0)))
+name an article from 2004 about multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
 
-show me all meetings that start later than 10 am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string >) (ensureNumericEntity (time 10 0))))
+what are some articles written by efron or lakoff
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (concat efron:pe lakoff:pe)))
 
-show me the meeting that starts at 10 am on january 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string start_time) (string =) (time 10 0)))
+articles that won awards cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-is this meeting three hours long or an hour long
-(listValue (concat (number 3 hour:tyho) (number 1 hour:tyho)))
+article that cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-show me all meetings alice has attended which begin at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string attendee) (string =) alice:pe))
+article whose author is efron and whose publication date is 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string publication_date) (string =) (date 2004 -1 -1)))
 
-meeting held before the weekly_standup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string date)))))
+article that cites multivariate_data_analysis that is published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
 
-meetings ending at 10 am that are three hours long
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string end_time) (string =) (time 10 0)))
+article that mentions award winning multivariate_data_analysis article
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string won_award)))
 
-show me all meetings happening after the weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string date)))))
+venues that published in 2004
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-show me any meetings located at greenberg_cafe or central_office
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) (concat greenberg_cafe:lo central_office:lo)))
+article that cites multivariate_data_analysis in the annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-three hour meeting that ends at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string length) (string =) (number 3 hour:tyho)))
+what is an article written by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string author) (string =) efron:pe))
 
-show me all meetings with lengths that either less or more than three hours
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string !=) (number 3 hour:tyho)))
+find an article in annals_of_statistics that was published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string publication_date) (string =) (date 2004 -1 -1)))
 
-when does the weekly_standup meeting begin
-(listValue (getProperty weekly_standup:me (string start_time)))
+article that won an award and cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string won_award)))
 
-what meeting has an earlier date than jan 2
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string <) (ensureNumericEntity (date 2015 1 2))))
+venue that is venue of article that cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
 
-show me all meetings beginning earlier than the weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string start_time)))))
+which efron article cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
 
-show me all meetings that alice is not attending
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string !=) alice:pe))
+people who did not author multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string !=) multivariate_data_analysis:ar))
 
-person who attends the meeting that ends at 10 am
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0))))
+what article was written by efron and has a publication date of 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string publication_date) (string =) (date 2004 -1 -1)))
 
-what is the location of the meeting that alice is attending
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe)))
+articles not written by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string !=) efron:pe))
 
-show me all meetings in greenberg_cafe or central_office
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) (concat greenberg_cafe:lo central_office:lo)))
+articles published in the same venue as multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar)))
 
-meeting whose start time is after end time of weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string end_time)))))
+article that cite articles published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-show meetings that start at 10am in greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string location) (string =) greenberg_cafe:lo))
+find an article in the annals_of_statistics venue
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve))
 
-what meeting is located at greenberg_cafe and alice will be attending
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string location) (string =) greenberg_cafe:lo))
+what article was published in 2010 or earlier
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
 
-show me any meetings which end at 10 am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)))
+articles authored by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string author) (string =) efron:pe))
 
-show me meetings that have the same location as weekly startup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) (getProperty weekly_standup:me (string location))))
+what article cites articles written by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-show me all meetings three hours long which are marked as important
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string is_important)))
+article on annals_of_statistics by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string author) (string =) efron:pe))
 
-show me all meetings which end later than 10 am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string >) (ensureNumericEntity (time 10 0))))
+find a venue that does not have multivariate_data_analysis
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string !=) multivariate_data_analysis:ar))
 
-show me all meetings attended by people who have also attended the weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) weekly_standup:me)))
+articles that were not published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string !=) (date 2004 -1 -1)))
 
-people that attend meetings at greenberg_cafe
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo)))
+article written by efron that references multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
 
-meetings held before january 2 or january 3
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string <) (ensureNumericEntity (concat (date 2015 1 2) (date 2015 1 3)))))
+what article won an award and is about annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string venue) (string =) annals_of_statistics:ve))
 
-show me any meetings that are either the weekly_standup or annual_review
-(listValue (concat weekly_standup:me annual_review:me))
+find an article published after multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-meeting occurs on later date than weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string date)))))
+articles published after multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-show all meetings that start ealier than 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string <) (ensureNumericEntity (time 10 0))))
+award winning article cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-important meetings that are three hours long
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string is_important)))
+article cited by article which is published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-what location is the meeting that ends at 10am
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0))))
+articles citing multivariate_data_analysis published in annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-meetings held at greenberg_cafe or central_office
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) (concat greenberg_cafe:lo central_office:lo)))
+name the author whose article has its venue as annals_of_statistics
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-what meetings are the same day as the weekly_standup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (getProperty weekly_standup:me (string date))))
+name an article by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-show me important meetings on jan 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string is_important)))
+article by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string author) (string =) efron:pe))
 
-what is the location of the important meeting
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important))))
+what is the venue of an article cited by multivariate_data_analysis
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-three or one hours
-(listValue (concat (number 3 hour:tyho) (number 1 hour:tyho)))
+what venue is multivariate_data_analysis in
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar))
 
-what meeting has a later date than weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string date)))))
+what article about multivariate_data_analysis was published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
 
-weekly_standup duration
-(listValue (getProperty weekly_standup:me (string length)))
+articles published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string publication_date) (string =) (date 2004 -1 -1)))
 
-show me all 10am meetings that alice is attending
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string attendee) (string =) alice:pe))
+article that has the same publication date as the multivariate_data_analysis article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-show me all attendees of meetings at the greenberg_cafe
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo)))
+articles that do not cite multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string !=) multivariate_data_analysis:ar))
 
-which meetings have the same start time as the weekly_standup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (getProperty weekly_standup:me (string start_time))))
+what is the date of publication for multivariate_data_analysis
+(listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
 
-meetings that end before 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string <) (ensureNumericEntity (time 10 0))))
+what article is written by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe))
 
-show me all meetings which alice has attended that end at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string attendee) (string =) alice:pe))
+what is the venue of the article published in 2004
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-show me all meetings that last longer than three hours
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string length)) (string >) (ensureNumericEntity (concat (number 3 hour:tyho) (number 1 hour:tyho)))))
+writers who cited multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
 
-what meeting has an end time greater than weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string start_time)))))
+articles published before multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-what meeting ends at 10am in which alice is attending
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string attendee) (string =) alice:pe))
+who is the other author for the article written by efron
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-what important meeting has a length of three hours
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string is_important)))
+what author published an article in 2004
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-what meeting starts earlier than 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string <) (ensureNumericEntity (time 10 0))))
+what award winning article was written by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string author) (string =) efron:pe))
 
-what meetings date is earlier than jan 2 or 3rd
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string <) (ensureNumericEntity (concat (date 2015 1 2) (date 2015 1 3)))))
+article whose author is efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-show me all meetings that end after the weekly stand up meeting starts
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string start_time)))))
+what is the publication date of a multivariate_data_analysis article
+(listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
 
-locations of meetings attended by alice
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe)))
+award winning article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string won_award)))
 
-three hour long meeting at greenberg
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string length) (string =) (number 3 hour:tyho)))
+articles by efron published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string publication_date) (string =) (date 2004 -1 -1)))
 
-important meeting with alice as attendee
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string attendee) (string =) alice:pe))
+an article that cites multivariate_data_analysis published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
 
-show me meetings on jan 2 with alice
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string date) (string =) (date 2015 1 2)))
+article by the same author of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar)))
 
-january 2nd or 3rd
-(listValue (concat (date 2015 1 2) (date 2015 1 3)))
+article that citesmultivariate_data_analysis by author efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
 
-show me the length of the weekly_standup
-(listValue (getProperty weekly_standup:me (string length)))
+what author wrote an article that cities multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
 
-show me all meetings marked as important happening at greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string location) (string =) greenberg_cafe:lo))
+article published in annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string venue) (string =) annals_of_statistics:ve))
 
-meeting which starts at 10 am at greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string start_time) (string =) (time 10 0)))
+find a venue of an article in annals_of_statistics
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-meetings that are three hours long or one hour long
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (concat (number 3 hour:tyho) (number 1 hour:tyho))))
+venues that have efrons article
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-where are the meetings ending at 10am going to be held
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0))))
+what article was cited by a 2004 article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-what meeting has a start time at 10am at greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string location) (string =) greenberg_cafe:lo))
+article written by efron and published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string author) (string =) efron:pe))
 
-show me meetings that share location with the weekly_standup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) weekly_standup:me)))
+name an article not published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-what is the average length of a meeting
-(listValue (aggregate (string avg) (getProperty (getProperty (singleton meeting:tyme) (string type)) (string length))))
+articles that cite articles written by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-what time does the weekly_standup meeting end
-(listValue (getProperty weekly_standup:me (string end_time)))
+articles published in or before 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (date 2004 -1 -1))))
 
-what meeting is before weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string date)))))
+article authored by efron and has the annals_of_statistics as its venue
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string venue) (string =) annals_of_statistics:ve))
 
-show me all meetings in greenber cafe that will run three hours
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string location) (string =) greenberg_cafe:lo))
+which article has a publication date the same as multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (getProperty multivariate_data_analysis:ar (string publication_date))))
 
-weekly_standup start time
-(listValue (getProperty weekly_standup:me (string start_time)))
+what journal is multivariate_data_analysis published in
+(listValue (getProperty multivariate_data_analysis:ar (string venue)))
 
-meetings that are not three hours long
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string !=) (number 3 hour:tyho)))
+article that cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (getProperty multivariate_data_analysis:ar (string venue))))
 
-where is the weekly_standup meeting located
-(listValue (getProperty weekly_standup:me (string location)))
+article written by efron which multivariate_data_analysis cites
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-schedule a meeting for 10am or 3pm
-(listValue (concat (time 10 0) (time 15 0)))
+venues other than the multivariate_data_analysis venue
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string !=) multivariate_data_analysis:ar))
 
-show me all meetings that are either weekly_standup or annual_review
-(listValue (concat weekly_standup:me annual_review:me))
+article whose publication date is at least 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (date 2004 -1 -1))))
 
-what meeting is not on jan 2
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string !=) (date 2015 1 2)))
+what is an article cited in a publication about multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-meetings that start after 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string >) (ensureNumericEntity (time 10 0))))
+what venue has articles published in 2004
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-is this meeting on january 2 or january 3
-(listValue (concat (date 2015 1 2) (date 2015 1 3)))
+find an efron article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe))
 
-meetings that start at 10am or 3pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (concat (time 10 0) (time 15 0))))
+who is the author of whose venue is annals_of_statistics
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-people that attend three hour long meetings
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho))))
+what article was written by efron and discusses annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string venue) (string =) annals_of_statistics:ve))
 
-which person is attending an important meeting
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important))))
+article by efron citing multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-find me a meeting that is three hours long
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)))
+articles published in 2004 citing multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string cites) (string =) multivariate_data_analysis:ar))
 
-what person is attending weekly_standup
-(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) weekly_standup:me) (reverse (string attendee)) (string =) weekly_standup:me))
+article that does not cite multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
 
-what is the location of weekly startup
-(listValue (filter (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) weekly_standup:me) (reverse (string location)) (string =) weekly_standup:me))
+articles published before 2004 or before 2010
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
 
-how long is this meeting
-(listValue (aggregate (string sum) (getProperty (getProperty (singleton meeting:tyme) (string type)) (string length))))
+what is the venue of multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar) (reverse (string venue)) (string =) multivariate_data_analysis:ar))
 
-what important meeting is alice attending
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string is_important)))
+article with the venue as annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-show me all meetings not happening at greenberg_cafe
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string !=) greenberg_cafe:lo))
+publications that do not publish multivariate_data_analysis
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string !=) multivariate_data_analysis:ar))
 
-what meeting was shorter or longer than three hours
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string !=) (number 3 hour:tyho)))
+award winning articles published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string won_award)))
 
-show me all three hour meetings that end at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string end_time) (string =) (time 10 0)))
+articles written by the writer of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar)))
 
-show me all meetings beginning at 10 am and all meetings ending at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string end_time) (string =) (time 10 0)))
+name an article about multivariate_data_analysis that has won an award
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string won_award)))
 
-what important meetings are scheduled for jan 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string date) (string =) (date 2015 1 2)))
+award winning article cited bymultivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string won_award)))
 
-show me meetings on jan 2 in greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string location) (string =) greenberg_cafe:lo))
+what venue can you find multivariate_data_analysis in
+(listValue (filter (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar) (reverse (string venue)) (string =) multivariate_data_analysis:ar))
 
-meetings that do not start at 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string !=) (time 10 0)))
+what author wrote about annals_of_statistics
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-who attends weekly_standup
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) weekly_standup:me))
+article whose venue is venue that is venue of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar)))
 
-duration of meeting
-(listValue (aggregate (string sum) (getProperty (getProperty (singleton meeting:tyme) (string type)) (string length))))
+what venue consists of multivariate_data_analysis
+(listValue (getProperty multivariate_data_analysis:ar (string venue)))
 
-show me all meetings beginning at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string start_time) (string =) (time 10 0)))
+who has coauthored articles with efron
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-show me important meetings with alice
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string attendee) (string =) alice:pe))
+awardwinning articles cited in articles using multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-show me the meetings that start later than the weekly_standup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string start_time)))))
+articles cited by award winning articles
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-what meetings have the same date as the weekly_standup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (getProperty weekly_standup:me (string date))))
+which article cites an awardwinning article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-what is the length of the meeting
-(listValue (aggregate (string sum) (getProperty (getProperty (singleton meeting:tyme) (string type)) (string length))))
+name an article published in 2004 about multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string cites) (string =) multivariate_data_analysis:ar))
 
-what person is attending the meeting at greenberg_cafe
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo)))
+article written by efron that is cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
 
-show me all meetings happening on days before the weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string date)))))
+articles published contemporaneous to or before the multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-who is attending weekly_standup
-(listValue (getProperty weekly_standup:me (string attendee)))
+article with publication date as 2004 and has the venue as annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string venue) (string =) annals_of_statistics:ve))
 
-show me all meetings on january 2nd which are also 3 hours long
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string date) (string =) (date 2015 1 2)))
+find an article by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string author) (string =) efron:pe))
 
-show me all meetings scheduled for three hourse
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string length) (string =) (number 3 hour:tyho)))
+article with publication date as 2004 or 2010
+(listValue (concat (date 2004 -1 -1) (date 2010 -1 -1)))
 
-what meeting has a start time earlier than the weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string start_time)))))
+what is the venue of an article that cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-what meeting ending at 10am is alice attending
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string end_time) (string =) (time 10 0)))
+articles published in 2004 and cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-start time of the meeting is after the start time of weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string start_time)))))
+what article has a publication date of 2003 and won an award
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string won_award)))
 
-meeting on jan 2nd with alice as attendee
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string date) (string =) (date 2015 1 2)))
+writer of articles cited by multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-show me all meetings marked important which end at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string is_important)))
+article cited by as well as cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-meetings on january 2 that are three hours long
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string date) (string =) (date 2015 1 2)))
+articles written by efron citing multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
 
-show me meetings not at greenberg_cafe
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string !=) greenberg_cafe:lo))
+name articles in annals_of_statistics
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-important meeting alice is attending
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string is_important)))
+articles published except in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string !=) (date 2004 -1 -1)))
 
-three hour meeting
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string length) (string =) (number 3 hour:tyho)))
+article cited by award winning article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-important meetings at greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string location) (string =) greenberg_cafe:lo))
+article published on date of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (getProperty multivariate_data_analysis:ar (string publication_date))))
 
-show me any meetings on january 2 beginning at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string date) (string =) (date 2015 1 2)))
+what article cites an article from annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-who is attending the meeting on jan 2
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2))))
+what article was published after 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (date 2004 -1 -1))))
 
-what time does the weekly_standup meeting start
-(listValue (getProperty weekly_standup:me (string start_time)))
+articles citing articles published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-show me all meetings happening at the same location as the weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) weekly_standup:me)))
+what article won an award
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string won_award)))
 
-show me all meetings which begin earlier than 10 am or 3 pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string <) (ensureNumericEntity (concat (time 10 0) (time 15 0)))))
+awardwinning articles cited in multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string won_award)))
 
-who is attending the greenberg_cafe for the meeting
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo)))
+what article was published on or before 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (date 2004 -1 -1))))
 
-meeting starts at 700 am and ends at 000 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string end_time) (string =) (time 10 0)))
+what multivariate_data_analysis city articles were published after 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
 
-who is attending the 10 am meeting
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0))))
+article that cites article that multivariate_data_analysis cites
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-show me meetings before january 2nd
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string <) (ensureNumericEntity (date 2015 1 2))))
+which article that cites multivariate_data_analysis won an award
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string cites) (string =) multivariate_data_analysis:ar))
 
-show me all metings that take place jan 2 or jan 3
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (concat (date 2015 1 2) (date 2015 1 3))))
+author of article citing multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
 
-show me all meetings that share an attendee with the weekly_standup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) weekly_standup:me)))
+who wrote an article citing multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-show me all meetings that start at 10am on jan 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string date) (string =) (date 2015 1 2)))
+articles published in multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (getProperty multivariate_data_analysis:ar (string venue))))
 
-show me all meetings which end earlier than the weekly_standup begins
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string start_time)))))
+authors of awardwinning articles
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-what meeting is alice attending at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string start_time) (string =) (time 10 0)))
+publications with articles authored by efron
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-show me any meetings which alice has attended and take place at greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string attendee) (string =) alice:pe))
+articles published before 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (date 2004 -1 -1))))
 
-show me all meetings that end at 10am and start at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string start_time) (string =) (time 10 0)))
+what article won an award and has a publication date of 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string publication_date) (string =) (date 2004 -1 -1)))
 
-what meeting has a date of jan 2 and has alice attending
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string attendee) (string =) alice:pe))
+what article is about multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar)))
 
-show me meetings at greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string location) (string =) greenberg_cafe:lo))
+article citing multivariate_data_analysis published in annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-meeting at location of weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) (getProperty weekly_standup:me (string location))))
+what article was written by efron and cities multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
 
-meeting that starts and ends at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string end_time) (string =) (time 10 0)))
+an article citing multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-what meeting ends earlier than 10am or 3pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string <) (ensureNumericEntity (concat (time 10 0) (time 15 0)))))
+article that was awarded
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string won_award)))
 
-meetings that are attended by people that also attend the weekly_standup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) weekly_standup:me)))
+what article cites a 2004 article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-what important meeting has alice attending
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string attendee) (string =) alice:pe))
+article whose publication date is 2004 and whose author is efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string author) (string =) efron:pe))
 
-which meetings are held at greenberg_cafe
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo))
+articles cited by multivariate_data_analysis and published in annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-show me all meetings on the same day as the weekly_standup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (getProperty weekly_standup:me (string date))))
+either annals_of_statistics or computational_linguistics
+(listValue (concat annals_of_statistics:ve computational_linguistics:ve))
 
-what meeting ended after 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string >) (ensureNumericEntity (time 10 0))))
+articles that were written before 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (date 2004 -1 -1))))
 
-which meetings are significant
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)))
+what article written by efron cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string cites) (string =) multivariate_data_analysis:ar))
 
-show me all meetings happening later than 10 am or 3 pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string >) (ensureNumericEntity (concat (time 10 0) (time 15 0)))))
+awardwinning article by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string author) (string =) efron:pe))
 
-show me all people attending either the weekly_standup meeting or annual_review
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (concat weekly_standup:me annual_review:me)))
+what article was published before multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-show me meetings at greenberg_cafe on jan 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string date) (string =) (date 2015 1 2)))
+name some articles that are not written by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string !=) efron:pe))
 
-meeting starts later than 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string >) (ensureNumericEntity (time 10 0))))
+what article cites an article cited in multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-meetings that are three hours long
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)))
+writers who published in 2004
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-show me all meetings three hours long happening at the greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string length) (string =) (number 3 hour:tyho)))
+articles written by efron cites
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-what location is not the same as weekly_standup
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string !=) weekly_standup:me))
+articles cited by awardwinning articles
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-meeting which starts at 10 am on jan 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string start_time) (string =) (time 10 0)))
+journal that did not publish multivariate_data_analysis
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string !=) multivariate_data_analysis:ar))
 
-meetings on january 2 that alice attends
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string attendee) (string =) alice:pe))
+articles published before 2010
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
 
-what meeting has a location at greenberg_cafe and starts at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string start_time) (string =) (time 10 0)))
+name someone who is not the author of an article about multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string !=) multivariate_data_analysis:ar))
 
-which meetings are scheduled to end at 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)))
+what award winning article has annals_of_statistics as a venue
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string venue) (string =) annals_of_statistics:ve))
 
-show me meetings that start and end at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string start_time) (string =) (time 10 0)))
+articles cited by multivariate_data_analysis and published in annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-what is the location of the jan 2 meeting
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2))))
+articles written by the author of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar)))
 
-what meeting starts at 10am on jan 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string date) (string =) (date 2015 1 2)))
+articles published between 2004 and 2010
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
 
-important meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)))
+who is the author of multivariate date analysis articles
+(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
 
-meetings that start after 10am or after 3pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string >) (ensureNumericEntity (concat (time 10 0) (time 15 0)))))
+articles written by efron or lakoff
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (concat efron:pe lakoff:pe)))
 
-meetings that end later than the weekly_standup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string end_time)))))
+who wrote an article about city multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-people attending meetings that start at 10 am
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0))))
+article that does not cite multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
 
-meeting which starts at 1000 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string start_time) (string =) (time 10 0)))
+articles that won an award published in annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string venue) (string =) annals_of_statistics:ve))
 
-what is the average length of all the meetings
-(listValue (aggregate (string avg) (getProperty (getProperty (singleton meeting:tyme) (string type)) (string length))))
+an article on statistics that cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-show me all meetings shorter than three hours
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string length)) (string <) (ensureNumericEntity (number 3 hour:tyho))))
+articles not written by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string !=) efron:pe))
 
-what person attended weekly_standup
-(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) weekly_standup:me) (reverse (string attendee)) (string =) weekly_standup:me))
+publications that contains articles that are also published in annals_of_statistics
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-what meeting has an end time of 10am on jan2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string date) (string =) (date 2015 1 2)))
+what article exchanged citations with multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string cites) (string =) multivariate_data_analysis:ar))
 
-meetings that are not on january 2
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string !=) (date 2015 1 2)))
+articles written by efron published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string author) (string =) efron:pe))
 
-meetings that are three hours long and end at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string length) (string =) (number 3 hour:tyho)))
+articles that cite multivariate_data_analysis and are cited in multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string cites) (string =) multivariate_data_analysis:ar))
 
-meetings that are three hours long that start at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string length) (string =) (number 3 hour:tyho)))
+articles cited by articles published in 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-meeting at greenberg_cafe which ends at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string location) (string =) greenberg_cafe:lo))
+authors of articles published in 2004
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-where is the important meeting being held
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important))))
+venues of articles cited by multivariate_data_analysis
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-show me all meetings that alice is attending
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string attendee) (string =) alice:pe))
+what article is about annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string venue) (string =) annals_of_statistics:ve))
 
-location is same as the location of three hours long meeting
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho))))
+articles that won an award written by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string won_award)))
 
-meetings held before january 2
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string <) (ensureNumericEntity (date 2015 1 2))))
+what article has a publication date the same as the date of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-show me all attendees of meetings ending at 10 am
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0))))
+publications that include articles published in 2004
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-what meeting is on jan 2 at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string start_time) (string =) (time 10 0)))
+what articles are written between 2004 and 2010
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
 
-person who attends important meeting
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important))))
+article citing multivariate_data_analysis published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
 
-show me all meetings which begin at the same time the weekly_standup ends
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (getProperty weekly_standup:me (string end_time))))
+who is someone that has not authored an article about multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string !=) multivariate_data_analysis:ar))
 
-what meeting is not three hours
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string !=) (number 3 hour:tyho)))
+articles citing efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-meeting that ends at end time of weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (getProperty weekly_standup:me (string end_time))))
+articles published in 2004 and citing multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string cites) (string =) multivariate_data_analysis:ar))
 
-where will weekly_standup and annual_review take place
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (concat weekly_standup:me annual_review:me)))
+any article that mentions award winning article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-show me three hour meetings on jan 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string date) (string =) (date 2015 1 2)))
+who is the author of the article who won an award
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-what meeting is at greenberg_cafe and alice is attending
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string attendee) (string =) alice:pe))
+name a person who is the author of an article about multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
 
-location different from location of weekly_standup
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string !=) weekly_standup:me))
+what articles are published in annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-show me all meetings ending before 10 am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string <) (ensureNumericEntity (time 10 0))))
+articles on multivariate_data_analysis
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar))
 
-what meetings are imporant and start at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string is_important)))
+articles that cite multivariate_data_analysis published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
 
-locations that house meetings on january 2
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2))))
+who authored multivariate_data_analysis
+(listValue (getProperty multivariate_data_analysis:ar (string author)))
 
-show me all meetings starting earlier than 10 am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string <) (ensureNumericEntity (time 10 0))))
+article with venue anals of statistics that multivariate_data_analysis cites
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-which meetings in greenberg_cafe will last three hours
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string length) (string =) (number 3 hour:tyho)))
+find an additional author to an efron article
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-location is greenberg_cafe or central_office
-(listValue (concat greenberg_cafe:lo central_office:lo))
+find an article making a citation of a 2004 published article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-meeting which starts at 1000 am at greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string location) (string =) greenberg_cafe:lo))
+articles that cite multivariate_data_analysis in annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-show me all meetings located at greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string location) (string =) greenberg_cafe:lo))
+which article that cites multivariate_data_analysis was published on 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string cites) (string =) multivariate_data_analysis:ar))
 
-meetings that end at the time when the weekly_standup meeting starts
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (getProperty weekly_standup:me (string start_time))))
+what 2004 article cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string cites) (string =) multivariate_data_analysis:ar))
 
-what meeting has fan end time after 10am or 3pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string >) (ensureNumericEntity (concat (time 10 0) (time 15 0)))))
+articles published after 2010
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
 
-show me all meetings three hours long which end at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string end_time) (string =) (time 10 0)))
+what article was published on or after multivariate_data_analysis was
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-locations of meetings that are three hours long
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho))))
+article that does not reference multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string !=) multivariate_data_analysis:ar))
 
-meetings that end before 10 am or before 3pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string <) (ensureNumericEntity (concat (time 10 0) (time 15 0)))))
+article publication of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar)))
 
-show me all important meetings that alice is attending
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string is_important)))
+what article is cited by an article in annals_of_statistics
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
-what location is weekly_standup and annual_review
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (concat weekly_standup:me annual_review:me)))
+what article cites an efron article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-person attending same meeting as alice
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe)))
+articles published in annals_of_statistics in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string publication_date) (string =) (date 2004 -1 -1)))
 
-who is attending the meeting that ends at 10am
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0))))
+article whose author is author of multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (getProperty multivariate_data_analysis:ar (string author))))
 
-show me all meetings that end at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string end_time) (string =) (time 10 0)))
+article that is published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string publication_date) (string =) (date 2004 -1 -1)))
 
-meeting that does not end at 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string !=) (time 10 0)))
+authors who published their works in 2004
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
-show me all meetings which end later than the weekly_standup begins
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string start_time)))))
+what award winning article was in annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string won_award)))
 
-what meeting has a date after jan 2
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string >) (ensureNumericEntity (date 2015 1 2))))
+what article has a publication date earlier than 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (date 2004 -1 -1))))
 
-show me where the weekly_standup and annual_review is happening
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (concat weekly_standup:me annual_review:me)))
+articles cited by multivariate_data_analysis published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
 
-person attending three hour meeting
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho))))
+articles published in the same publication as multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (getProperty multivariate_data_analysis:ar (string venue))))
 
-what meeting has a date of jan 2 at greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string location) (string =) greenberg_cafe:lo))
+award winning article whose venue is annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string won_award)))
 
-which meetings will be longer than weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string length)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string length)))))
+what venues cite multivariate_data_analysis
+(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
 
-show me all meetings on january 2nd at the greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string location) (string =) greenberg_cafe:lo))
+article that cites multivariate_data_analysis whose venue is annals_of_statistics
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
-meetings held in the same place as the weekly_standup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) weekly_standup:me)))
+what article does not cite multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string !=) multivariate_data_analysis:ar))
 
-what meeting did alice attend at the greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string attendee) (string =) alice:pe))
+article published in 2004 that cites multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
 
-what meeting has a location at greeberg cafe on jan 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string date) (string =) (date 2015 1 2)))
+person that is author of article that cites multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
 
-what meetings have the same duration as the weekly stand up meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (getProperty weekly_standup:me (string length))))
+article citing awardwinning article
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
-meeting share attendee with weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) (getProperty weekly_standup:me (string attendee))))
+what article was published in 2004
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string publication_date) (string =) (date 2004 -1 -1)))
 
-weekly_standup date
-(listValue (getProperty weekly_standup:me (string date)))
+find an article published on or before multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
-what three hour meeting is on jan 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string length) (string =) (number 3 hour:tyho)))
+what article has annals_of_statistics as a venue
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string venue) (string =) annals_of_statistics:ve))
 
-what location does not hold the weekly_standup meeting
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string !=) weekly_standup:me))
+articles cited by multivariate_data_analysis and that won awards
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string won_award)))
 
-meeting that starts at 10am and ends at 1pm
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string start_time) (string =) (time 10 0)))
+find an article published after 2004
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
 
-what is the meeting that starts at 10 am in greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string start_time) (string =) (time 10 0)))
+when was multivariate_data_analysis published
+(listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
 
-what meeting is at the same location as weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) (getProperty weekly_standup:me (string location))))
+writers of articles citing multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
-what meeting is on jan 2 or 3rd
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (concat (date 2015 1 2) (date 2015 1 3))))
+what article has the same venue as multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar)))
 
-meetings that end earlier than the weekly_standup meeting
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string end_time)))))
+which article was published in 2004 authored by efron
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string publication_date) (string =) (date 2004 -1 -1)))
 
-show me all meetings ending at 10 am or 3 pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (concat (time 10 0) (time 15 0))))
+articles published in 2004 or before
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (date 2004 -1 -1))))
 
-show me all of the people who did not attend the weekly_standup meeting
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string !=) weekly_standup:me))
+multivariate_data_analysis cited articles
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar))
 
-show me all meetings which are exactly one hour or exactly three hours long
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (concat (number 3 hour:tyho) (number 1 hour:tyho))))
+article whose venue is annals_of_statistics and that won an award
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string won_award)))
 
-what is the location of the important meeting
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important))))
+an article that multivariate_data_analysis cites
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-which meetings end later in the day than weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string end_time)))))
+who is the author of multivariate_data_analysis
+(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar))
 
-show me all meetings which end at the same time as the weekly_standup ends
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (getProperty weekly_standup:me (string end_time))))
+articles written by efron cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
-show me all meetings happening after january 2nd or january 3rd
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string >) (ensureNumericEntity (concat (date 2015 1 2) (date 2015 1 3)))))
+articles cited by efron
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
-meetings that end later than 10am or later than 3pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string end_time)) (string >) (ensureNumericEntity (concat (time 10 0) (time 15 0)))))
+articles publised in 2004 that won an award
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string publication_date) (string =) (date 2004 -1 -1)))
 
-meetings that start before the weekly_standup meeting ends
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string end_time)))))
+who is and author of multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
 
-which meetings are important
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string is_important)))
+articles that cite multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string cites) (string =) multivariate_data_analysis:ar))
 
-who is attending weekly_standup
-(listValue (getProperty weekly_standup:me (string attendee)))
+what is an article that does not cite multivariate_data_analysis
+(listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
 
-show me meetings ending at 10am in greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string location) (string =) greenberg_cafe:lo))
-
-show me all important meetings that end at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string end_time) (string =) (time 10 0)))
-
-location is same as location of meeting ends at 10 am
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0))))
-
-meetings attended by alice or bob
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) (concat alice:pe bob:pe)))
-
-show me meetings for jan 2
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)))
-
-show me meeting locations with alice
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe)))
-
-show me all three hour meetings that are important
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string is_important)))
-
-show me all meetings attended by alice which are three hours long
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string length) (string =) (number 3 hour:tyho)))
-
-what person is attending the meeting that starts at 10am
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0))))
-
-what three hour meeting starts at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string length) (string =) (number 3 hour:tyho)))
-
-when is weekly_standup or annual_review
-(listValue (concat weekly_standup:me annual_review:me))
-
-who is attending the same meeting as alice
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe)))
-
-show me important meetings
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string is_important)))
-
-what important meeting has a length of three hours
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)) (string length) (string =) (number 3 hour:tyho)))
-
-show me all meetings that start at 10am and last three hours
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string length) (string =) (number 3 hour:tyho)))
-
-where is my jan 2 meeting
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2))))
-
-what time does the weekly_standup meeting end
-(listValue (getProperty weekly_standup:me (string end_time)))
-
-jan 2nd meeting with alice as attendee
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string attendee) (string =) alice:pe))
-
-show me all meetings on january 2nd happening at the greenberg_cafe
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo) (string date) (string =) (date 2015 1 2)))
-
-meeting in greenberg_cafe or central_office
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) (concat greenberg_cafe:lo central_office:lo)))
-
-meeting featuring alice as attendee starting at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0)) (string attendee) (string =) alice:pe))
-
-show me any meetings scheduled to be longer than one hour or three hours
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string length)) (string >) (ensureNumericEntity (concat (number 3 hour:tyho) (number 1 hour:tyho)))))
-
-show me any meetings that alice or bob have attended
-(listValue (concat alice:pe bob:pe))
-
-what meeting has the same date as weekly startup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (getProperty weekly_standup:me (string date))))
-
-meeting later than january 2nd or 3rd
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string date)) (string >) (ensureNumericEntity (concat (date 2015 1 2) (date 2015 1 3)))))
-
-meeting that ends at start time of weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (getProperty weekly_standup:me (string start_time))))
-
-show me all meetings that end at 10am on jan 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string date) (string =) (date 2015 1 2)))
-
-what meeting did alice not attend
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string !=) alice:pe))
-
-what meeting is not located at greenberg_cafe
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string !=) greenberg_cafe:lo))
-
-show me all meetings beginning later than the weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string >) (ensureNumericEntity (getProperty weekly_standup:me (string start_time)))))
-
-what meeting does not start at 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string !=) (time 10 0)))
-
-important meetings
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string is_important)))
-
-show all meetings that end at 10am on jan 2
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)) (string end_time) (string =) (time 10 0)))
-
-show me all meetings ending at 10 am which are scheduled to be three hours long
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (time 10 0)) (string length) (string =) (number 3 hour:tyho)))
-
-meeting starts before weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string start_time)))))
-
-where is the threehour long meeting
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho))))
-
-show me meetings starting later than 10am
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string >) (ensureNumericEntity (concat (time 10 0) (time 15 0)))))
-
-show me all meetings the same length of the weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (getProperty weekly_standup:me (string length))))
-
-meetings attended by alice that start at 10am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string start_time) (string =) (time 10 0)))
-
-what meetings end at 10am or 3pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (concat (time 10 0) (time 15 0))))
-
-show me all meetings alice has attended which have ended at 10 am
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string end_time) (string =) (time 10 0)))
-
-show the meeting on jan 2
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)))
-
-show me all 3 hour meetings with alice
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)) (string attendee) (string =) alice:pe))
-
-show me all meetings starting at the same time as the weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (getProperty weekly_standup:me (string start_time))))
-
-show me the locations of all meetings three hours in length
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho))))
-
-who are the attendees for fo the meetings in greenberg_cafe
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) greenberg_cafe:lo)))
-
-what meeting starts earlier than the end time of weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (ensureNumericProperty (string start_time)) (string <) (ensureNumericEntity (getProperty weekly_standup:me (string end_time)))))
-
-show me all meetings alice attended on january 2nd
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string date) (string =) (date 2015 1 2)))
-
-meetings on january 2
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (date 2015 1 2)))
-
-show meetings that end at 10am or 3pm
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string end_time) (string =) (concat (time 10 0) (time 15 0))))
-
-show me all meetings happening on january 2nd or january 3rd
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string =) (concat (date 2015 1 2) (date 2015 1 3))))
-
-meeting whose location is same as the location of weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) weekly_standup:me)))
-
-who is not an attendee of weekly_standup
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string !=) weekly_standup:me))
-
-what location is the meeting that starts at 10am
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0))))
-
-locations of the weekly_standup meeting or annual_review meeting
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (concat weekly_standup:me annual_review:me)))
-
-meetings attended by alice that are three hours long
-(listValue (filter (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) alice:pe) (string length) (string =) (number 3 hour:tyho)))
-
-show me all meetings that fall before or after jan 2
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string !=) (date 2015 1 2)))
-
-show me all meetings at the same location as the weekly_standup
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string location) (string =) (getProperty weekly_standup:me (string location))))
-
-show me meetings that last three hours
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string length) (string =) (number 3 hour:tyho)))
-
-show me meeting locations that start at 10am
-(listValue (filter (getProperty (singleton location:tylo) (string type)) (reverse (string location)) (string =) (filter (getProperty (singleton meeting:tyme) (string type)) (string start_time) (string =) (time 10 0))))
-
-show me meetings with alice or bob
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string attendee) (string =) (concat alice:pe bob:pe)))
-
-show me all meetings happening on days other than january 2nd
-(listValue (filter (getProperty (singleton meeting:tyme) (string type)) (string date) (string !=) (date 2015 1 2)))
+what 2004 article was cited by multivariate_data_analysis
+(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 

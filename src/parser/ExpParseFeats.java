@@ -36,49 +36,52 @@ public class ExpParseFeats implements ParseFeatureSet {
 		String index = "RN:"+(sem.inferType()!=null);
 		feats.set(index,feats.get(index)+scale);
 		boolean first = true;
+		double sc = 0.5;
 		for (Exp e : sem.allSubExps()){
+			sc = 0.5;
 			if (e instanceof Lit){
 				Lit l = (Lit)e;
 				String head = l.getHeadString();
 				for (int i=0; i<l.arity(); i++){
 					// use cache from inferType() call above for type info
 					index = "LHT:"+i+":"+head+":"+l.getArg(i).inferedType;
-					feats.set(index,feats.get(index)+scale);
+					feats.set(index,feats.get(index)+scale * sc);
 
 					index = "LHH:"+i+":"+head+":"+l.getArg(i).getHeadString();
-					feats.set(index,feats.get(index)+scale);
+					feats.set(index,feats.get(index)+scale * sc);
 
+					sc*=0.5;
 					if(share && l.getPred().getParent() !=null){
 						String parent = l.getPred().getParent();
 						index = "LHTP1:"+i+":"+parent+":"+l.getArg(i).inferedType;
-						feats.set(index,feats.get(index)+scale);
+						feats.set(index,feats.get(index)+scale * sc);
 
 						index = "LHHP1:"+i+":"+parent+":"+l.getArg(i).getHeadString();
-						feats.set(index,feats.get(index)+scale);
+						feats.set(index,feats.get(index)+scale * sc);
 					}
 					if(share && l.getArg(i) instanceof Lit && ((Lit) l.getArg(i)).getPred().getParent()!=null){
 						String child_parent = ((Lit) l.getArg(i)).getPred().getParent();
 
 						index = "LHHP2:"+i+":"+head+":"+child_parent;
-						feats.set(index,feats.get(index)+scale);
+						feats.set(index,feats.get(index)+scale * sc);
 
 						if(l.getPred().getParent() !=null){
 							String parent = l.getPred().getParent();
 							index = "LHHP12:"+i+":"+parent+":"+child_parent;
-							feats.set(index,feats.get(index)+scale);
+							feats.set(index,feats.get(index)+scale *sc * 0.5);
 						}
 					}
 				}
 				if(share && first){
 					index = "LPT:"+":"+"first"+":"+l.inferedType;
-					feats.set(index,feats.get(index)+scale);
+					feats.set(index,feats.get(index)+scale * sc);
 
 					index = "LPH:"+":"+"first"+":"+l.getHeadString();
-					feats.set(index,feats.get(index)+scale);
+					feats.set(index,feats.get(index)+scale * sc);
 
 					if(l.getPred().getParent() != null){
 						index = "LPHP:"+":"+"first"+":"+l.getPred().getParent();
-						feats.set(index,feats.get(index)+scale);
+						feats.set(index,feats.get(index)+scale * sc);
 					}
 					first = false;
 				}
@@ -86,7 +89,7 @@ public class ExpParseFeats implements ParseFeatureSet {
 			if(e instanceof BoolBoolOps){
 				for (String id : ((BoolBoolOps)e).getHeadPairs()){
 					index = "BB:"+id;
-					feats.set(index,feats.get(index)+scale);
+					feats.set(index,feats.get(index)+scale * sc);
 				}
 			}
 		}
@@ -102,49 +105,52 @@ public class ExpParseFeats implements ParseFeatureSet {
 		score+=theta.get(index)*scale;
 
 		boolean first = true;
-		for (Exp e : sem.allSubExps()){		
+		double sc = 0.5;
+		for (Exp e : sem.allSubExps()){	
+			sc = 0.5;
 			if (e instanceof Lit){
 				Lit l = (Lit)e;
 				String head = l.getHeadString();
 				for (int i=0; i<l.arity(); i++){
 					// use cache from inferType() call above for type info
 					index = "LHT:"+i+":"+head+":"+l.getArg(i).inferedType;
-					score+=theta.get(index)*scale;
+					score+=theta.get(index)*scale * sc;
 
 					index = "LHH:"+i+":"+head+":"+l.getArg(i).getHeadString();
-					score+=theta.get(index)*scale;
+					score+=theta.get(index)*scale * sc;
 
+					sc *= 0.5;
 					if(share && l.getPred().getParent() !=null){
 						String parent = l.getPred().getParent();
 						index = "LHTP1:"+i+":"+parent+":"+l.getArg(i).inferedType;
-						score+=theta.get(index)*scale;
+						score+=theta.get(index)*scale * sc;
 
 						index = "LHHP1:"+i+":"+parent+":"+l.getArg(i).getHeadString();
-						score+=theta.get(index)*scale;
+						score+=theta.get(index)*scale * sc;
 					}
 					if(share && l.getArg(i) instanceof Lit && ((Lit) l.getArg(i)).getPred().getParent()!=null){
 						String child_parent = ((Lit) l.getArg(i)).getPred().getParent();
 
 						index = "LHHP2:"+i+":"+head+":"+child_parent;
-						score+=theta.get(index)*scale;
+						score+=theta.get(index)*scale * sc;
 
 						if(l.getPred().getParent() !=null){
 							String parent = l.getPred().getParent();
 							index = "LHHP12:"+i+":"+parent+":"+child_parent;
-							score+=theta.get(index)*scale;
+							score+=theta.get(index)*scale * sc * 0.5;
 						}
 					}
 				}
 				if(share && first){
 					index = "LPT:"+":"+"first"+":"+l.inferedType;
-					score+=theta.get(index)*scale;
+					score+=theta.get(index)*scale * sc;
 
 					index = "LPH:"+":"+"first"+":"+l.getHeadString();
-					score+=theta.get(index)*scale;
+					score+=theta.get(index)*scale * sc;
 
 					if(l.getPred().getParent() != null){
 						index = "LPHP:"+":"+"first"+":"+l.getPred().getParent();
-						score+=theta.get(index)*scale;
+						score+=theta.get(index)*scale * sc;
 					}
 					first = false;
 				}
@@ -153,7 +159,7 @@ public class ExpParseFeats implements ParseFeatureSet {
 			if(e instanceof BoolBoolOps){
 				for (String id : ((BoolBoolOps)e).getHeadPairs()){
 					index = "BB:"+id;
-					score+=theta.get(index)*scale;
+					score+=theta.get(index)*scale * sc;
 				}
 			}
 		}

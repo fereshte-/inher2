@@ -26,7 +26,6 @@ import lambda.*;
 import parser.*;
 
 public class Train { 
-	double eps = 1e-50;
 	public Train(){
 	}
 
@@ -433,7 +432,7 @@ public class Train {
 			//		double lambda = 0.01 * norm;
 
 					HashVector firstfeats=null, secondfeats=null;
-					if (norm > eps){
+					if (norm != 0){
 						firstfeats = firstChart.computeExpFeatVals();
 						firstfeats.divideBy(norm);// + lambda);
 						firstfeats.dropSmallEntries();
@@ -458,7 +457,7 @@ public class Train {
 					Chart secondChart = parser.getChart();
 					double secnorm = secondChart.computeNorm(sem);
 					System.out.println("sec norm is " + secnorm);
-					if (secnorm > eps){
+					if (secnorm != 0){
 						secondfeats = secondChart.computeExpFeatVals(sem);
 						secondfeats.divideBy(secnorm);
 						secondfeats.dropSmallEntries();
