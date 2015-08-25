@@ -34,7 +34,7 @@ import learn.*;
  **/
 public class LexiconFeatSet implements LexicalFeatureSet {
 
-	public static boolean share = true;
+	public static boolean share = false;
 	
 	public void setFeats(LexEntry l, HashVector feats){
 		int i = indexOf(l);
