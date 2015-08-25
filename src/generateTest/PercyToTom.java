@@ -93,12 +93,12 @@ public class PercyToTom {
 			formula = formula.replace("en.venue", "venue:tyve");
 			
 		//	formula = formula.replace("concat", "or");
-
-			if(
-			//formula.contains("<=") || formula.contains(">=") ||
-					formula.contains("countS") || formula.contains("countC") 
-//					formula.contains("min")
-					) continue;
+//
+//			if(
+//			//formula.contains("<=") || formula.contains(">=") ||
+//					formula.contains("countS") || formula.contains("countC") 
+////					formula.contains("min")
+//					) continue;
 			
 			if(outName.contains("test")){
 				out.println(utterence + "\n" + formula + "\n");

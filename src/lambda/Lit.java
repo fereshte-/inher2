@@ -67,6 +67,19 @@ public class Lit extends Exp {
 		else
 			return s+"_2";
 	}
+	
+	@Override
+	public String change2(List varNames, String st){
+		StringBuffer result = new StringBuffer();
+		if(getHeadString().equals("getProperty")){
+			Lit l = (Lit)args[0];
+			result.append("(").append(((Const)l.args[0]).name+":t");
+			result.append(" " + st);
+			result.append(")");
+			return result.toString();
+		}else
+			return change(varNames);
+	}
 
 	@Override
 	public String change(List varNames){
@@ -125,36 +138,38 @@ public class Lit extends Exp {
 			result.append(" ").append(args[1].change(varNames));
 			result.append(")");
 		}else if(name.equals("countComparative")){
+			result.append(" (lambda $0 e ").append(" (and "+args[0].change2(varNames, " $0"));
 			result.append(" (").append(args[2].change(varNames));
-			result.append(" (ccount");
-			result.append(" (").append(args[1].change(varNames));
-			result.append(" ").append(args[0].change(varNames));
-			result.append(")");
-			result.append(")");
+			result.append(" (ccount (").append(args[1].change(varNames) + " $0))");
 			result.append(" ").append(args[3].change(varNames));
-			result.append(")");
+			result.append("))");
 
 		}else if(name.equals("countSuperlative")){
-			result.append("(").append(args[1].change(varNames).trim());
-
-			result.append(" ").append(args[0].change(varNames));
-			result.append(" (ccount");
-			result.append(" ").append(args[2].change(varNames));
-			result.append(")");
-			result.append(")");
+		//	if(args.length == 4){
+				result.append("(").append("arg" + args[1].change(varNames).trim() + " $0");
+				result.append(" ").append(args[0].change2(varNames, "$0"));
+				result.append(" (ccount");
+				result.append(" (").append(args[2].change(varNames)).append(" $0)");
+				result.append(")");
+				result.append(")");
+//			}else{
+//
+//			}
 		}else if(name.equals("time")){
 			result.append(((Const)args[0]).name+":ti");
 		}else if(name.equals("date") && args.length == 3){
-//			result.append("(jan ");
-//			result.append(args[2]);
-//			result.append(")");
-			
+			//			result.append("(jan ");
+			//			result.append(args[2]);
+			//			result.append(")");
+
 			result.append(((Const)args[0]).name+":da");
 
 		}else if(name.equals("number") && args.length == 2){
-				result.append("(hour ");
-				result.append(args[0]);
-				result.append(")");
+			result.append("(hour ");
+			result.append(args[0]);
+			result.append(")");
+		}else if(name.equals("number")){
+			result.append(((Const)args[0]).name+":num");
 		}else if(name.equals("concat")){
 			result.append("(").append("or");
 			for (int i=0; i<args.length; i++){
@@ -477,14 +492,14 @@ public class Lit extends Exp {
 			if(args.length !=2 ) 
 				match= false;
 			Exp left = args[0], right = args[1];
-			
+
 			Type t1=left.inferType(vars,varTypes);
 			Type t2=right.inferType(vars,varTypes);
 			if (t1==null || t2==null || !t1.matches(t2)){
 				inferedType=null; // update cache
 				return null;
 			}
-		//	rType = left.inferedType.commonSubType(right.inferedType);
+			//	rType = left.inferedType.commonSubType(right.inferedType);
 		}
 		inferedType=rType; // update cache
 		return rType;

@@ -58,15 +58,15 @@ public abstract class Exp {
 
 		if (input.startsWith("(lambda "))
 			return new Funct(input,vars);
-//
-//		if (input.startsWith("(< ")||
-//				input.startsWith("(> "))
-//			return new IntBoolOps(input,vars);
-//
-//		if (input.startsWith("(= ")){
-//			return new Equals(input,vars);
-//		}
-//
+
+		if (input.startsWith("(< ")||
+				input.startsWith("(> "))
+			return new IntBoolOps(input,vars);
+
+		if (input.startsWith("(= ")){
+			return new Equals(input,vars);
+		}
+
 //		if (input.startsWith("(count ")) 
 //			return new Count(input,vars);
 //
@@ -88,9 +88,9 @@ public abstract class Exp {
 //				input.startsWith("(max "))
 //			return new MinMax(input,vars);
 //
-//		if (input.startsWith("(argmax ") ||
-//				input.startsWith("(argmin "))
-//			return new ArgM(input,vars);
+		if (input.startsWith("(argmax ") ||
+				input.startsWith("(argmin "))
+			return new ArgM(input,vars);
 
 		if (input.startsWith("(implies ")||
 				input.startsWith("(or ")||
@@ -281,6 +281,8 @@ public abstract class Exp {
 
 	abstract public String toString(List varNames);
 	public String change(List varNames){ return toString(); }
+	public String change2(List varNames, String st){ return toString(); }
+
 
 	abstract public void extractFuncts(List functor, List functee, Exp orig);
 

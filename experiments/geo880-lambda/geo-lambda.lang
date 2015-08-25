@@ -31,7 +31,7 @@
 
 
 
-((ccount e i))
+((ccount obj i))
 ((avg i i))
 ((number num num))
 ((number num tyho num))
@@ -42,21 +42,21 @@
 
 ((max obj i obj))
 ((min obj i obj))
-((< i i obj))
-((> i i obj))
-((>= i i obj))
-((<= i i obj))
+((< i i t))
+((> i i t))
+((>= i i t))
+((<= i i t))
 
-((!= me me obj))
-((!= lo lo obj))
-((!= pe pe obj))
-((!= i i obj))
+((!= me me t))
+((!= lo lo t))
+((!= pe pe t))
+((!= i i t))
 
 
-((= me me obj))
-((= lo lo obj))
-((= pe pe obj))
-((= i i obj))
+((= me me t))
+((= lo lo t))
+((= pe pe t))
+((= i i t))
 
 
 
@@ -98,17 +98,20 @@
 ((type tyar ar))
 ((type type pe))
 ((type tyve ve))
+((article:t ar t))
+((person:t pe t))
+((venue:t ve t))
 
-((!= ve ve obj))
-((!= ar ar obj))
-((!= pe pe obj))
-((!= i i obj))
+((!= ve ve t))
+((!= ar ar t))
+((!= pe pe t))
+((!= i i t))
 
 
-((= ve ve obj))
-((= ar ar obj))
-((= pe pe obj))
-((= i i obj))
+((= ve ve t))
+((= ar ar t))
+((= pe pe t))
+((= i i t))
 
 
 )

@@ -1,3 +1,6 @@
+article with the largest amount of authors
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string max) (string author)))
+
 article citing article published in annals_of_statistics
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
@@ -13,6 +16,12 @@ articles that have a publication date close to the date of multivariate_data_ana
 which article is authored by efron and has the annals_of_statistics as its venue
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string author) (string =) efron:pe))
 
+venue of only one article
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+articles with one or two authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string <=) (number 2)))
+
 article whose author is efron or lakoff
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (concat efron:pe lakoff:pe)))
 
@@ -25,6 +34,15 @@ author of multivariate_data_analysis
 articles published in 2004 that cite multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
 
+which author has written the most articles
+(listValue (countSuperlative (getProperty (singleton person:type) (string type)) (string max) (reverse (string author)) (getProperty (singleton article:tyar) (string type))))
+
+articles published in more than two venues
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string >) (number 2)))
+
+articles that mention two or more cities
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string >=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 article whose publication date is smaller than publication date of multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
@@ -33,6 +51,9 @@ articles published in annals_of_statistics cited by multivariate_data_analysis
 
 what article is about multivariate_data_analysis
 (listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
+
+articles found in less than two publications
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string <) (number 2)))
 
 name an article about multivariate_data_analysis by the author efron
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
@@ -43,26 +64,59 @@ articles not published in 2004
 articles cited in annals_of_statistics
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
+find me an article that is in two venues
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (number 2)))
+
+article that references the least number of articles
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string min) (string cites) (getProperty (singleton article:tyar) (string type))))
+
+find a venue with more than two articles in it
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string >) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 an article that cites multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
 what article cites multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
 
+what article was in less than two venues
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string <) (number 2)))
+
 who wrote multivariate_data_analysis more than once
 (listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
+
+which articles cite less than two articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 articles published contemporaneous to or after the multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
+what article cites two other articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 article published in 2004 or 2010
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (concat (date 2004 -1 -1) (date 2010 -1 -1))))
+
+articles with less than two references
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 what article cites multivariate_data_analysis and is also its venue
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string cites) (string =) multivariate_data_analysis:ar))
 
+articles with more than two authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string >) (number 2)))
+
 who is the author of a multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
+
+publication with the fewest articles
+(listValue (countSuperlative (getProperty (singleton venue:tyve) (string type)) (string min) (reverse (string venue)) (getProperty (singleton article:tyar) (string type))))
+
+venues with less than two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+article cited two or fewer times
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 articles published before the date of multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
@@ -82,11 +136,26 @@ when was multivariate_data_analysis published
 articles published before 2004
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (date 2004 -1 -1))))
 
+article cited the fewest times
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string min) (reverse (string cites)) (getProperty (singleton article:tyar) (string type))))
+
+what author wrote two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 author of article that cites multivariate_data_analysis
 (listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
+author with at most two article
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 what article cites other articles about annals_of_statistics
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
+
+what venue has two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+authors of multiple articles
+(listValue (countSuperlative (getProperty (singleton person:type) (string type)) (string min) (reverse (string author)) (getProperty (singleton article:tyar) (string type))))
 
 articles published after multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
@@ -118,11 +187,20 @@ what article was published in 2004 or later
 articles that have won an award
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string won_award)))
 
+who is the author of less than two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 articles that cite articles published in 2004
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
 name a person who is the author of an article about multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
+
+name a publication with fewer than two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+what author wrote the least number of articles
+(listValue (countSuperlative (getProperty (singleton person:type) (string type)) (string min) (reverse (string author)) (getProperty (singleton article:tyar) (string type))))
 
 award winning article publication venue
 (listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
@@ -133,17 +211,32 @@ article whose publication date is 2004
 name an article that won an award
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
+articles with more than two venues
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string >) (number 2)))
+
+who has authored the least articles
+(listValue (countSuperlative (getProperty (singleton person:type) (string type)) (string min) (reverse (string author)) (getProperty (singleton article:tyar) (string type))))
+
+what article has the most authors
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string max) (string author)))
+
 in what publication was multivariate_data_analysis published
 (listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar))
 
 article whose publication date is at most publication date of multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
+writers of two or fewer articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 name someone who has written an article about multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
 
 articles published on the same date as multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (getProperty multivariate_data_analysis:ar (string publication_date))))
+
+which authors have written two or more articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string >=) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 find a venue of an award winning article
 (listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
@@ -160,8 +253,14 @@ what article in annals_of_statistics cites multivariate_data_analysis
 article that multivariate_data_analysis cites
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
+publisher of only one article
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 what award winning article was cited by multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string won_award)))
+
+venues of two articles or fewer
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 an article whose also authored multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (getProperty multivariate_data_analysis:ar (string author))))
@@ -171,6 +270,12 @@ name an article citing multivariate_data_analysis
 
 articles published in 2004 that won awards
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string won_award)))
+
+writers of fewer than two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+name a person who has authored fewer than two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 name an article from the annals_of_statistics about multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
@@ -196,6 +301,12 @@ what article has a publication date greater than that of multivariate_data_analy
 what article cites an award winning article
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
+which publication contains two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+articles that cite two or fewer articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 what article discusses annals_of_statistics and whose publication date was 2004
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string publication_date) (string =) (date 2004 -1 -1)))
 
@@ -214,14 +325,29 @@ articles published in 2004 cited by multivariate_data_analysis
 articles published in 2004 that have won an award
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string publication_date) (string =) (date 2004 -1 -1)))
 
+name an article with fewer than two authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string <) (number 2)))
+
 what article is not cited in multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
+
+who wrote the most articles
+(listValue (countSuperlative (getProperty (singleton person:type) (string type)) (string max) (reverse (string author)) (getProperty (singleton article:tyar) (string type))))
+
+article that cites two or more articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string >=) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 articles published in 2004 citations
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
+what article cites the most number of other articles
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string max) (string cites) (getProperty (singleton article:tyar) (string type))))
+
 what article published in 2004 was cited by multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
+
+what author wrote two or more articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string >=) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 name an article published in 2004
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
@@ -229,11 +355,17 @@ name an article published in 2004
 name an article that won an award
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
+which article was published in more than two magazines
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string >) (number 2)))
+
 name an article that is not about multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
 
 articles that does not cites multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
+
+what article has been cited less than twice
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 article with author of multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (getProperty multivariate_data_analysis:ar (string author))))
@@ -253,11 +385,17 @@ venue of the efron article
 articles written by efron that have won an award
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string author) (string =) efron:pe))
 
+who is the author of the two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 article published in 2004 and that cites multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string cites) (string =) multivariate_data_analysis:ar))
 
 which article was published after 2004
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (date 2004 -1 -1))))
+
+which venue has two articles maximum
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 article published before multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
@@ -268,8 +406,17 @@ find any article that efron didnt write
 what article doesnt cite multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string !=) multivariate_data_analysis:ar))
 
+article written by one author
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string <) (number 2)))
+
+name an article found in more than two publications
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string >) (number 2)))
+
 articles published in or after 2004
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (date 2004 -1 -1))))
+
+name a publication containing no more than two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 what article did efron write whose venue is annals_of_statistics
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string author) (string =) efron:pe))
@@ -286,11 +433,29 @@ articles published from 2004 to 2010
 find an author of an article in annals_of_statistics
 (listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
+venues that have published the most articles
+(listValue (countSuperlative (getProperty (singleton venue:tyve) (string type)) (string max) (reverse (string venue)) (getProperty (singleton article:tyar) (string type))))
+
+articles published in the fewest places
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string min) (string venue)))
+
 when was multivariate_data_analysis published
 (listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
 
+author with the most number of articles
+(listValue (countSuperlative (getProperty (singleton person:type) (string type)) (string max) (reverse (string author)) (getProperty (singleton article:tyar) (string type))))
+
 articles not authored by efron
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string !=) efron:pe))
+
+venues that have published at most two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+articles with more than two authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string >) (number 2)))
+
+article with two or more publishers
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string >=) (number 2)))
 
 what article is written by efron and won an award
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string won_award)))
@@ -304,11 +469,29 @@ writer of multivariate_data_analysis
 articles published before 2004
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (date 2004 -1 -1))))
 
+articles found in at most two publications
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string <=) (number 2)))
+
+articles cited by the most articles
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string max) (reverse (string cites)) (getProperty (singleton article:tyar) (string type))))
+
 find an efron article that cites multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string cites) (string =) multivariate_data_analysis:ar))
 
 what annals_of_statistics article was cited by multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
+
+name an article produced by more than two authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string >) (number 2)))
+
+what venue has under two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+author of two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+article with the maximum number of venues
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string max) (string venue)))
 
 who wrote multivariate_data_analysis
 (listValue (getProperty multivariate_data_analysis:ar (string author)))
@@ -319,8 +502,17 @@ what annals_of_statistics article cited multivariate_data_analysis
 articles cited by efron
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
+publications with at least two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string >=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 articles citing multivariate_data_analysis written by efron
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
+
+what articles have under two authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string <) (number 2)))
+
+find an article that cites more than two articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string >) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 what articles were written by efron
 (listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
@@ -337,11 +529,23 @@ article whose venue is annals_of_statistics
 what efron article has won an award
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string won_award)))
 
+author with maximum two article
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+venue with two article published
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 what article cites an annals_of_statistics article
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
 articles citing multivariate_data_analysis published in annals_of_statistics
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
+
+which article is cited by the most number of articles
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string max) (reverse (string cites)) (getProperty (singleton article:tyar) (string type))))
+
+articles published in two venues
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (number 2)))
 
 articles cited by articles published in annals_of_statistics
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
@@ -361,6 +565,12 @@ what are some articles unrelated to annals_of_statistics
 an article by efron that cites multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
+earliest published article
+(listValue (superlative (getProperty (singleton article:tyar) (string type)) (string min) (ensureNumericProperty (string publication_date))))
+
+article citing more than two articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string >) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 find an article with the same venue as multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (getProperty multivariate_data_analysis:ar (string venue))))
 
@@ -375,6 +585,9 @@ venue that is venue of article whose author is efron
 
 which articles author is efron
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe))
+
+which author wrote two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 author of article cited by multivariate_data_analysis
 (listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
@@ -394,17 +607,35 @@ what person wrote articles than won an award
 articles cited by multivariate_data_analysis and written by efron
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
 
+what article has two citations
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 publications of multivariate_data_analysis
 (listValue (getProperty multivariate_data_analysis:ar (string venue)))
 
+what article has fewer than two venues
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string <) (number 2)))
+
+articles written by fewer than two people
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string <) (number 2)))
+
+article by more than two author
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string >) (number 2)))
+
 articles with their publication dates between 2004 and 2010
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (concat (date 2004 -1 -1) (date 2010 -1 -1))))
+
+this article cites 2 other articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 article cited bymultivariate_data_analysis whose venue is annals_of_statistics
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
 articles not published in annals_of_statistics
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string !=) annals_of_statistics:ve))
+
+articles that cite more than two article
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string >) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 what award winning article is cited by multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
@@ -417,6 +648,9 @@ article not citing multivariate_data_analysis
 
 articles published in or before 2004
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (date 2004 -1 -1))))
+
+articles with fewer than two authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string <) (number 2)))
 
 name an article from the annals_of_statistics
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
@@ -436,14 +670,26 @@ what article has a venue of multivariate_data_analysis
 what articles are published in multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
+articles published in the fewest venues
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string min) (string venue)))
+
 articles written by efron and published in the annals_of_statistics
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string venue) (string =) annals_of_statistics:ve))
 
 find an article published before 2004
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <) (ensureNumericEntity (date 2004 -1 -1))))
 
+article that has the largest publication date
+(listValue (superlative (getProperty (singleton article:tyar) (string type)) (string max) (ensureNumericProperty (string publication_date))))
+
+articles with fewest citations
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string min) (string cites) (getProperty (singleton article:tyar) (string type))))
+
 articles cited in articles by efron
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
+
+what venue has two or less articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 what article was published on the same date as multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (getProperty multivariate_data_analysis:ar (string publication_date))))
@@ -451,8 +697,17 @@ what article was published on the same date as multivariate_data_analysis
 article not in annals_of_statistics
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string !=) annals_of_statistics:ve))
 
+article in less than two publications
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string <) (number 2)))
+
+which article is mentioned in most number of articles
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string max) (reverse (string cites)) (getProperty (singleton article:tyar) (string type))))
+
 what efron article cites multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+publications that have contained more than two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string >) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 find an article published in either 2004 or 2010
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (concat (date 2004 -1 -1) (date 2010 -1 -1))))
@@ -463,11 +718,17 @@ where can you see multivariate_data_analysis
 article citing multivariate_data_analysis by efron
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
 
+most recently published article
+(listValue (superlative (getProperty (singleton article:tyar) (string type)) (string max) (ensureNumericProperty (string publication_date))))
+
 which author did not write multivariate_data_analysis
 (listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string !=) multivariate_data_analysis:ar))
 
 articles written by the multivariate_data_analysis writer
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (getProperty multivariate_data_analysis:ar (string author))))
+
+author of more than two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string >) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 which article was published in 2004 at annals_of_statistics
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string venue) (string =) annals_of_statistics:ve))
@@ -478,11 +739,29 @@ articles published in annals_of_statistics that cite multivariate_data_analysis
 what article did the article that cited multivariate_data_analysis cite
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
 
+what article has less than two authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string <) (number 2)))
+
+name a person who has written two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 articles cited by studies using multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
+article that cites three or more articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string >) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+what is the article with the oldest publication date
+(listValue (superlative (getProperty (singleton article:tyar) (string type)) (string min) (ensureNumericProperty (string publication_date))))
+
 name the author of an article about multivariate_data_analysis
 (listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
+
+which articles cite two or fewer articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+name an article with more than two authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string >) (number 2)))
 
 publication date of multivariate_data_analysis
 (listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
@@ -492,6 +771,15 @@ articles cited by articles in annals_of_statistics
 
 articles cited by multivariate_data_analysis that won awards
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string won_award)))
+
+what venue has less than two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+what article has two other articles cited within it
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+what author has written more than two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string >) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 article that cited multivariate_data_analysis in annals_of_statistics
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string cites) (string =) multivariate_data_analysis:ar))
@@ -511,11 +799,17 @@ what article was cited by the award winning article
 award winning article published by efron
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string won_award)))
 
+which articles cite at least two articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string >=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 name an article about multivariate_data_analysis published in 2004
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
 
 articles written by efron or lakoff
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (concat efron:pe lakoff:pe)))
+
+who authored two or fewer articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 what article has a publication date of 2004
 (listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
@@ -525,6 +819,12 @@ name an article from 2004 about multivariate_data_analysis
 
 what are some articles written by efron or lakoff
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (concat efron:pe lakoff:pe)))
+
+name an author of two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+articles written by at least two authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string >=) (number 2)))
 
 articles that won awards cited by multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
@@ -541,6 +841,9 @@ article that cites multivariate_data_analysis that is published in 2004
 article that mentions award winning multivariate_data_analysis article
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string won_award)))
 
+article that has less than two venue
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string <) (number 2)))
+
 venues that published in 2004
 (listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
@@ -550,11 +853,26 @@ article that cites multivariate_data_analysis in the annals_of_statistics
 what is an article written by efron
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string author) (string =) efron:pe))
 
+author of one or two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 find an article in annals_of_statistics that was published in 2004
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string publication_date) (string =) (date 2004 -1 -1)))
 
+article that at least two article cites
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string >=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 article that won an award and cites multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string won_award)))
+
+find an article that makes two or fewer citations
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+name an author of at least two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string >=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+articles with two venues
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (number 2)))
 
 venue that is venue of article that cites multivariate_data_analysis
 (listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
@@ -571,20 +889,53 @@ what article was written by efron and has a publication date of 2004
 articles not written by efron
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string !=) efron:pe))
 
+article that cites a single article
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+articles cited by two other articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+what articles cites two other articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string >=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+an article with the latest publication date
+(listValue (superlative (getProperty (singleton article:tyar) (string type)) (string max) (ensureNumericProperty (string publication_date))))
+
 articles published in the same venue as multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar)))
+
+what article has over two authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string >) (number 2)))
 
 article that cite articles published in 2004
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
+articles authored by one
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string <) (number 2)))
+
+what venue is about at least two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string >=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+how many journals are there
+(listValue (ccount (getProperty (singleton venue:tyve) (string type))))
+
 find an article in the annals_of_statistics venue
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve))
+
+what is an article that has two venues
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (number 2)))
 
 what article was published in 2010 or earlier
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
 
+author of only one article
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 articles authored by efron
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string author) (string =) efron:pe))
+
+article that has the least number of venue
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string min) (string venue)))
 
 what article cites articles written by efron
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
@@ -595,6 +946,9 @@ article on annals_of_statistics by efron
 find a venue that does not have multivariate_data_analysis
 (listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string !=) multivariate_data_analysis:ar))
 
+what is the date of the article
+(listValue (ccount (getProperty (singleton article:tyar) (string type))))
+
 articles that were not published in 2004
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string !=) (date 2004 -1 -1)))
 
@@ -604,17 +958,32 @@ article written by efron that references multivariate_data_analysis
 what article won an award and is about annals_of_statistics
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string venue) (string =) annals_of_statistics:ve))
 
+articles that cite more than two articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string >) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 find an article published after multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
+
+articles published in two or fewer venues
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string <=) (number 2)))
 
 articles published after multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
 
+what article sites only one other article
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 award winning article cited by multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
 
+what article has the most venues
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string max) (string venue)))
+
 article cited by article which is published in 2004
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+article with the fewest authors
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string min) (string author)))
 
 articles citing multivariate_data_analysis published in annals_of_statistics
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
@@ -628,6 +997,12 @@ name an article by efron
 article by efron
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string author) (string =) efron:pe))
 
+which author wrote two articles maximum
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+articles written by one or two authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string <=) (number 2)))
+
 what is the venue of an article cited by multivariate_data_analysis
 (listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
@@ -636,6 +1011,9 @@ what venue is multivariate_data_analysis in
 
 what article about multivariate_data_analysis was published in 2004
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
+
+what article was cited twice
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 articles published in 2004
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string publication_date) (string =) (date 2004 -1 -1)))
@@ -664,8 +1042,20 @@ articles published before multivariate_data_analysis
 who is the other author for the article written by efron
 (listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
+what article has the least number of authors
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string min) (string author)))
+
+what article cites at least two other articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string >=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+article that cite at least two articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string >=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 what author published an article in 2004
 (listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+articles that cities maximum two articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 what award winning article was written by efron
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string author) (string =) efron:pe))
@@ -675,6 +1065,9 @@ article whose author is efron
 
 what is the publication date of a multivariate_data_analysis article
 (listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
+
+what article has the oldest publication date
+(listValue (superlative (getProperty (singleton article:tyar) (string type)) (string min) (ensureNumericProperty (string publication_date))))
 
 award winning article
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string won_award)))
@@ -694,8 +1087,17 @@ article that citesmultivariate_data_analysis by author efron
 what author wrote an article that cities multivariate_data_analysis
 (listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
 
+what is the persons number
+(listValue (ccount (getProperty (singleton person:type) (string type))))
+
 article published in annals_of_statistics
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string venue) (string =) annals_of_statistics:ve))
+
+what is an article written by only one author
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string <) (number 2)))
+
+which article is mentioned in least number of other articles
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string min) (reverse (string cites)) (getProperty (singleton article:tyar) (string type))))
 
 find a venue of an article in annals_of_statistics
 (listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
@@ -703,8 +1105,14 @@ find a venue of an article in annals_of_statistics
 venues that have efrons article
 (listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
+what is the venues number
+(listValue (ccount (getProperty (singleton venue:tyve) (string type))))
+
 what article was cited by a 2004 article
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+venue of two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 article written by efron and published in 2004
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string author) (string =) efron:pe))
@@ -712,11 +1120,17 @@ article written by efron and published in 2004
 name an article not published in 2004
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
+which venue was venue for more than two articles publication
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string >) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 articles that cite articles written by efron
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
 articles published in or before 2004
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (date 2004 -1 -1))))
+
+name someone who has written no more than two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 article authored by efron and has the annals_of_statistics as its venue
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string venue) (string =) annals_of_statistics:ve))
@@ -724,8 +1138,17 @@ article authored by efron and has the annals_of_statistics as its venue
 which article has a publication date the same as multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (getProperty multivariate_data_analysis:ar (string publication_date))))
 
+venues of fewer than two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 what journal is multivariate_data_analysis published in
 (listValue (getProperty multivariate_data_analysis:ar (string venue)))
+
+article with two publishers
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (number 2)))
+
+what is a venue with fewer than two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 article that cites multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (getProperty multivariate_data_analysis:ar (string venue))))
@@ -736,11 +1159,23 @@ article written by efron which multivariate_data_analysis cites
 venues other than the multivariate_data_analysis venue
 (listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string !=) multivariate_data_analysis:ar))
 
+first published article
+(listValue (superlative (getProperty (singleton article:tyar) (string type)) (string min) (ensureNumericProperty (string publication_date))))
+
+article that mentions at least two other articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+name an article found in two or more venues
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string >=) (number 2)))
+
 article whose publication date is at least 2004
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (date 2004 -1 -1))))
 
 what is an article cited in a publication about multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
+
+what article makes the fewest citations
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string min) (reverse (string cites)) (getProperty (singleton article:tyar) (string type))))
 
 what venue has articles published in 2004
 (listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
@@ -748,8 +1183,17 @@ what venue has articles published in 2004
 find an efron article
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe))
 
+article with two venues
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (number 2)))
+
 who is the author of whose venue is annals_of_statistics
 (listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
+
+articles with more than two authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string >) (number 2)))
+
+what article has the least authors
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string min) (string author)))
 
 what article was written by efron and discusses annals_of_statistics
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string venue) (string =) annals_of_statistics:ve))
@@ -790,6 +1234,12 @@ award winning article cited bymultivariate_data_analysis
 what venue can you find multivariate_data_analysis in
 (listValue (filter (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar) (reverse (string venue)) (string =) multivariate_data_analysis:ar))
 
+what article cites less than two other articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+article with more than two venue
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string >) (number 2)))
+
 what author wrote about annals_of_statistics
 (listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
@@ -798,6 +1248,9 @@ article whose venue is venue that is venue of multivariate_data_analysis
 
 what venue consists of multivariate_data_analysis
 (listValue (getProperty multivariate_data_analysis:ar (string venue)))
+
+which article was written by minimum number of authors
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string min) (string author)))
 
 who has coauthored articles with efron
 (listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
@@ -811,8 +1264,17 @@ articles cited by award winning articles
 which article cites an awardwinning article
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
+venue of two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+who has written the fewest articles
+(listValue (countSuperlative (getProperty (singleton person:type) (string type)) (string min) (reverse (string author)) (getProperty (singleton article:tyar) (string type))))
+
 name an article published in 2004 about multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string cites) (string =) multivariate_data_analysis:ar))
+
+what venue is about the most number of articles
+(listValue (countSuperlative (getProperty (singleton venue:tyve) (string type)) (string max) (reverse (string venue)) (getProperty (singleton article:tyar) (string type))))
 
 article written by efron that is cited by multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
@@ -823,17 +1285,35 @@ articles published contemporaneous to or before the multivariate_data_analysis
 article with publication date as 2004 and has the venue as annals_of_statistics
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string venue) (string =) annals_of_statistics:ve))
 
+find me an article with two or more venues
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string >=) (number 2)))
+
 find an article by efron
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string author) (string =) efron:pe))
 
 article with publication date as 2004 or 2010
 (listValue (concat (date 2004 -1 -1) (date 2010 -1 -1)))
 
+what article has two authors or less
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string <=) (number 2)))
+
 what is the venue of an article that cites multivariate_data_analysis
 (listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
 articles published in 2004 and cited by multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+what article was in the most venues
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string max) (string venue)))
+
+which author wrote under two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+article found in the most publications
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string max) (string venue)))
+
+articles that mention three or more cities
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string >) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 what article has a publication date of 2003 and won an award
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string won_award)))
@@ -847,6 +1327,12 @@ article cited by as well as cites multivariate_data_analysis
 articles written by efron citing multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
 
+author of two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+who has written more than two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string >) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 name articles in annals_of_statistics
 (listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
@@ -855,6 +1341,9 @@ articles published except in 2004
 
 article cited by award winning article
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
+
+writers of two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 article published on date of multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (getProperty multivariate_data_analysis:ar (string publication_date))))
@@ -883,8 +1372,17 @@ what multivariate_data_analysis city articles were published after 2004
 article that cites article that multivariate_data_analysis cites
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
+article that cites the fewest articles
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string min) (reverse (string cites)) (getProperty (singleton article:tyar) (string type))))
+
 which article that cites multivariate_data_analysis won an award
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string cites) (string =) multivariate_data_analysis:ar))
+
+venue that is mentioned in at least two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string >=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+what article cites more than two other articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string >) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 author of article citing multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar)))
@@ -907,8 +1405,17 @@ articles published before 2004
 what article won an award and has a publication date of 2004
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string publication_date) (string =) (date 2004 -1 -1)))
 
+articles published in two or more venues
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string >=) (number 2)))
+
+article with two authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string =) (number 2)))
+
 what article is about multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar)))
+
+writers of two articles at most
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 article citing multivariate_data_analysis published in annals_of_statistics
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
@@ -916,8 +1423,14 @@ article citing multivariate_data_analysis published in annals_of_statistics
 what article was written by efron and cities multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string author) (string =) efron:pe))
 
+articles with a venue
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string <) (number 2)))
+
 an article citing multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+what venue has the most articles
+(listValue (countSuperlative (getProperty (singleton venue:tyve) (string type)) (string max) (reverse (string venue)) (getProperty (singleton article:tyar) (string type))))
 
 article that was awarded
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string won_award)))
@@ -928,11 +1441,17 @@ what article cites a 2004 article
 article whose publication date is 2004 and whose author is efron
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string author) (string =) efron:pe))
 
+what is the newest published article
+(listValue (superlative (getProperty (singleton article:tyar) (string type)) (string max) (ensureNumericProperty (string publication_date))))
+
 articles cited by multivariate_data_analysis and published in annals_of_statistics
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
 either annals_of_statistics or computational_linguistics
 (listValue (concat annals_of_statistics:ve computational_linguistics:ve))
+
+author of only one article
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 articles that were written before 2004
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (date 2004 -1 -1))))
@@ -949,17 +1468,35 @@ what article was published before multivariate_data_analysis
 name some articles that are not written by efron
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string !=) efron:pe))
 
+article that cites two or fewer articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 what article cites an article cited in multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
 writers who published in 2004
 (listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
+article that cites the least number of article
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string min) (string cites) (getProperty (singleton article:tyar) (string type))))
+
+article that has the least number of author
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string min) (string author)))
+
+articles with three or more authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string >) (number 2)))
+
 articles written by efron cites
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
+article that mentions one article
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 articles cited by awardwinning articles
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
+
+which article is written by less than two authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string <) (number 2)))
 
 journal that did not publish multivariate_data_analysis
 (listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string !=) multivariate_data_analysis:ar))
@@ -970,11 +1507,23 @@ articles published before 2010
 name someone who is not the author of an article about multivariate_data_analysis
 (listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string !=) multivariate_data_analysis:ar))
 
+there are at least two venues in the article
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string >=) (number 2)))
+
 what award winning article has annals_of_statistics as a venue
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string venue) (string =) annals_of_statistics:ve))
 
+what venue has two or more articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string >=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 articles cited by multivariate_data_analysis and published in annals_of_statistics
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
+
+articles cited by fewer than two articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string <) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+name a person who has written no more than two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 articles written by the author of multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar)))
@@ -982,14 +1531,29 @@ articles written by the author of multivariate_data_analysis
 articles published between 2004 and 2010
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
 
+article cited more than twice
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string >) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+name an article found in at least two publications
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string >=) (number 2)))
+
+what article has the least venues
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string min) (string venue)))
+
 who is the author of multivariate date analysis articles
 (listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
 
 articles written by efron or lakoff
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (concat efron:pe lakoff:pe)))
 
+what article makes the most citations
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string max) (string cites) (getProperty (singleton article:tyar) (string type))))
+
 who wrote an article about city multivariate_data_analysis
 (listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
+
+find an article with no more than two authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string <=) (number 2)))
 
 article that does not cite multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
@@ -999,6 +1563,9 @@ articles that won an award published in annals_of_statistics
 
 an article on statistics that cites multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
+
+writer of two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 articles not written by efron
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string !=) efron:pe))
@@ -1024,14 +1591,35 @@ authors of articles published in 2004
 venues of articles cited by multivariate_data_analysis
 (listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar)))
 
+venue of two article
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+article that references one or two articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 what article is about annals_of_statistics
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string venue) (string =) annals_of_statistics:ve))
 
 articles that won an award written by efron
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string won_award)))
 
+article by only one author
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string <) (number 2)))
+
+what article was cited the most
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string max) (reverse (string cites)) (getProperty (singleton article:tyar) (string type))))
+
+what article is cited at least twice
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string >=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 what article has a publication date the same as the date of multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
+
+venues publishing the fewest articles
+(listValue (countSuperlative (getProperty (singleton venue:tyve) (string type)) (string min) (reverse (string venue)) (getProperty (singleton article:tyar) (string type))))
+
+what article has two venues minimum
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string >=) (number 2)))
 
 publications that include articles published in 2004
 (listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
@@ -1042,8 +1630,29 @@ what articles are written between 2004 and 2010
 article citing multivariate_data_analysis published in 2004
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
 
+how many people
+(listValue (ccount (getProperty (singleton person:type) (string type))))
+
+article published most recently
+(listValue (superlative (getProperty (singleton article:tyar) (string type)) (string max) (ensureNumericProperty (string publication_date))))
+
+articles with two authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string =) (number 2)))
+
+venue of one or two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+article written by more than two authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string >) (number 2)))
+
+journal that publishes the fewest number of articles
+(listValue (countSuperlative (getProperty (singleton venue:tyve) (string type)) (string min) (reverse (string venue)) (getProperty (singleton article:tyar) (string type))))
+
 who is someone that has not authored an article about multivariate_data_analysis
 (listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string !=) multivariate_data_analysis:ar))
+
+name an article found in two publications
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (number 2)))
 
 articles citing efron
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
@@ -1057,8 +1666,29 @@ any article that mentions award winning article
 who is the author of the article who won an award
 (listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
+articles with two authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string =) (number 2)))
+
+what is the earliest published article
+(listValue (superlative (getProperty (singleton article:tyar) (string type)) (string min) (ensureNumericProperty (string publication_date))))
+
+articles that cites at least two article
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string >=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+venues that have published at least two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string >=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+article that cites more than two article
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string >) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+venues of two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 name a person who is the author of an article about multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
+
+articles that cite the most articles
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string max) (string cites) (getProperty (singleton article:tyar) (string type))))
 
 what articles are published in annals_of_statistics
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
@@ -1069,6 +1699,9 @@ articles on multivariate_data_analysis
 articles that cite multivariate_data_analysis published in 2004
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string publication_date) (string =) (date 2004 -1 -1)))
 
+what article has more authors than any other
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string max) (string author)))
+
 who authored multivariate_data_analysis
 (listValue (getProperty multivariate_data_analysis:ar (string author)))
 
@@ -1078,17 +1711,26 @@ article with venue anals of statistics that multivariate_data_analysis cites
 find an additional author to an efron article
 (listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
+articles citing two articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 find an article making a citation of a 2004 published article
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
 
 articles that cite multivariate_data_analysis in annals_of_statistics
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
+what article cites other articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string >) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 which article that cites multivariate_data_analysis was published on 2004
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string cites) (string =) multivariate_data_analysis:ar))
 
 what 2004 article cites multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string cites) (string =) multivariate_data_analysis:ar))
+
+venues of two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 articles published after 2010
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
@@ -1105,6 +1747,9 @@ article publication of multivariate_data_analysis
 what article is cited by an article in annals_of_statistics
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve)))
 
+which article cites the fewest articles
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string min) (string cites) (getProperty (singleton article:tyar) (string type))))
+
 what article cites an efron article
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
@@ -1117,8 +1762,14 @@ article whose author is author of multivariate_data_analysis
 article that is published in 2004
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string publication_date) (string =) (date 2004 -1 -1)))
 
+articles written by two authors at most
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string <=) (number 2)))
+
 authors who published their works in 2004
 (listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1))))
+
+venue of maximum two articles
+(listValue (countComparative (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 what award winning article was in annals_of_statistics
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string won_award)))
@@ -1141,6 +1792,12 @@ what venues cite multivariate_data_analysis
 article that cites multivariate_data_analysis whose venue is annals_of_statistics
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string venue) (string =) annals_of_statistics:ve))
 
+writers of more than two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string >) (number 2) (getProperty (singleton article:tyar) (string type))))
+
+author of at most two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string <=) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 what article does not cite multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string !=) multivariate_data_analysis:ar))
 
@@ -1153,8 +1810,14 @@ person that is author of article that cites multivariate_data_analysis
 article citing awardwinning article
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string won_award))))
 
+who wrote the most articles
+(listValue (countSuperlative (getProperty (singleton person:type) (string type)) (string max) (reverse (string author)) (getProperty (singleton article:tyar) (string type))))
+
 what article was published in 2004
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (string publication_date) (string =) (date 2004 -1 -1)))
+
+article that refernces a single article
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string cites) (string >=) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 find an article published on or before multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string <=) (ensureNumericEntity (getProperty multivariate_data_analysis:ar (string publication_date)))))
@@ -1164,6 +1827,15 @@ what article has annals_of_statistics as a venue
 
 articles cited by multivariate_data_analysis and that won awards
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (string won_award)))
+
+what venue has the fewest articles
+(listValue (countSuperlative (getProperty (singleton venue:tyve) (string type)) (string min) (reverse (string venue)) (getProperty (singleton article:tyar) (string type))))
+
+venue in most of the articles
+(listValue (countSuperlative (getProperty (singleton venue:tyve) (string type)) (string max) (reverse (string venue)) (getProperty (singleton article:tyar) (string type))))
+
+articles that have a minimum of two authors
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string author) (string >=) (number 2)))
 
 find an article published after 2004
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (ensureNumericProperty (string publication_date)) (string >) (ensureNumericEntity (concat (date 2004 -1 -1) (date 2010 -1 -1)))))
@@ -1177,6 +1849,9 @@ writers of articles citing multivariate_data_analysis
 what article has the same venue as multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar)))
 
+which articles cite more than two articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string >) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 which article was published in 2004 authored by efron
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string publication_date) (string =) (date 2004 -1 -1)))
 
@@ -1186,11 +1861,20 @@ articles published in 2004 or before
 multivariate_data_analysis cited articles
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar))
 
+name an article found in more than two venues
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string >) (number 2)))
+
+article that the least number of article cites
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string min) (reverse (string cites)) (getProperty (singleton article:tyar) (string type))))
+
 article whose venue is annals_of_statistics and that won an award
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve) (string won_award)))
 
 an article that multivariate_data_analysis cites
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) multivariate_data_analysis:ar) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
+
+what article has no less than two venues
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string >=) (number 2)))
 
 who is the author of multivariate_data_analysis
 (listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar))
@@ -1201,8 +1885,17 @@ articles written by efron cited by multivariate_data_analysis
 articles cited by efron
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe)))
 
+author of two articles
+(listValue (countComparative (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
+
 articles publised in 2004 that won an award
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string publication_date) (string =) (date 2004 -1 -1)))
+
+articles published in two or more venues
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string >=) (number 2)))
+
+articles that are cited by two articles
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string =) (number 2) (getProperty (singleton article:tyar) (string type))))
 
 who is and author of multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar) (reverse (string author)) (string =) multivariate_data_analysis:ar))
@@ -1210,8 +1903,17 @@ who is and author of multivariate_data_analysis
 articles that cite multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string cites) (string =) multivariate_data_analysis:ar) (string cites) (string =) multivariate_data_analysis:ar))
 
+what article cites the fewest articles
+(listValue (countSuperlative (getProperty (singleton article:tyar) (string type)) (string min) (string cites) (getProperty (singleton article:tyar) (string type))))
+
 what is an article that does not cite multivariate_data_analysis
 (listValue (filter (getProperty (singleton article:tyar) (string type)) (reverse (string cites)) (string !=) multivariate_data_analysis:ar))
+
+find an article with no more than two venues
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string <=) (number 2)))
+
+name an article found in two venues
+(listValue (countComparative (getProperty (singleton article:tyar) (string type)) (string venue) (string =) (number 2)))
 
 what 2004 article was cited by multivariate_data_analysis
 (listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)) (reverse (string cites)) (string =) multivariate_data_analysis:ar))
