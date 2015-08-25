@@ -275,17 +275,17 @@ public class Lexicon {
 				entries.add(e);
 
 				LexEntry ep = e.getParent();
-//				while(LexiconFeatSet.share && ep!=null){
-//					List<LexEntry> entries2 = new ArrayList<LexEntry>();
-//					getLexEntries(ep.getTokens(), entries2);
-//					List<Exp> result = new ArrayList<Exp>();
-//					e.getCat().getSem().allLits(-1, result);
-//					change(entries2, e.getTokens(), ep.getTokens().get(0), result.get(0).getHeadString());
-//					for(LexEntry entry : entries2)
-//						if(!entries3.contains(entry))
-//							entries3.add(entry);
-//					ep = ep.getParent();
-//				}
+				while(LexiconFeatSet.share && ep!=null){
+					List<LexEntry> entries2 = new ArrayList<LexEntry>();
+					getLexEntries(ep.getTokens(), entries2);
+					List<Exp> result = new ArrayList<Exp>();
+					e.getCat().getSem().allLits(-1, result);
+					change(entries2, e.getTokens(), ep.getTokens().get(0), result.get(0).getHeadString());
+					for(LexEntry entry : entries2)
+						if(!entries3.contains(entry))
+							entries3.add(entry);
+					ep = ep.getParent();
+				}
 
 			}
 		}
