@@ -80,9 +80,9 @@ public abstract class Exp {
 //		if (input.startsWith("(intset ")) 
 //			return new IntSet(input,vars);
 //
-//		if (input.startsWith("(forall ") ||
-//				input.startsWith("(exists "))
-//			return new Quant(input,vars);
+		if (input.startsWith("(forall ") ||
+				input.startsWith("(exists "))
+			return new Quant(input,vars);
 //
 //		if (input.startsWith("(min ") ||
 //				input.startsWith("(max "))
@@ -280,8 +280,8 @@ public abstract class Exp {
 	abstract public double varPenalty(List varNames);
 
 	abstract public String toString(List varNames);
-	public String change(List varNames){ return toString(); }
-	public String change2(List varNames, String st){ return toString(); }
+	public String change(List varNames){ return change(varNames, null); }
+	public String change(List varNames, String st){ return toString(varNames); }
 
 
 	abstract public void extractFuncts(List functor, List functee, Exp orig);

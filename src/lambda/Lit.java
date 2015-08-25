@@ -67,22 +67,13 @@ public class Lit extends Exp {
 		else
 			return s+"_2";
 	}
-	
-	@Override
-	public String change2(List varNames, String st){
-		StringBuffer result = new StringBuffer();
-		if(getHeadString().equals("getProperty")){
-			Lit l = (Lit)args[0];
-			result.append("(").append(((Const)l.args[0]).name+":t");
-			result.append(" " + st);
-			result.append(")");
-			return result.toString();
-		}else
-			return change(varNames);
-	}
 
 	@Override
 	public String change(List varNames){
+		return change(varNames, null);
+	}
+
+	public String change(List varNames, String st){
 		StringBuffer result = new StringBuffer();
 		String name = pred.getName().trim();
 		if(name.equals("singleton") || name.equals("listValue") || name.equals("string") ||
@@ -94,9 +85,16 @@ public class Lit extends Exp {
 					result.append(" ").append("null");
 			}
 		}else if(name.equals("getProperty")){
-			result.append("(").append(args[1].change(varNames));
-			result.append(" ").append(args[0].change(varNames));
-			result.append(")");
+			if(st==null){
+				result.append("(").append(args[1].change(varNames));
+				result.append(" ").append(args[0].change(varNames));
+				result.append(")");
+			}else{
+				Lit l = (Lit)args[0];
+				result.append("(").append(((Const)l.args[0]).name+":t");
+				result.append(" " + st);
+				result.append(")");
+			}
 		}else if(name.equals("superlative")){
 			result.append("(").append(args[1].change(varNames).trim());
 
@@ -126,7 +124,11 @@ public class Lit extends Exp {
 					result.append(")");
 				}
 			}else if(args.length == 2){
-				result.append("(and ").append(args[1].change(varNames)+":ar");
+				if(args[1].change(varNames).contains("won"))
+						result.append("(and ").append(args[1].change(varNames)+":ar");
+				else
+					result.append("(and ").append(args[1].change(varNames)+":me");
+
 				result.append(" ").append(args[0].change(varNames));
 				result.append(")");
 			}else{
@@ -138,32 +140,33 @@ public class Lit extends Exp {
 			result.append(" ").append(args[1].change(varNames));
 			result.append(")");
 		}else if(name.equals("countComparative")){
-			result.append(" (lambda $0 e ").append(" (and "+args[0].change2(varNames, " $0"));
+			result.append(" (lambda $0 e ").append(" (and "+((Lit)args[0]).change(varNames, " $0"));
 			result.append(" (").append(args[2].change(varNames));
 			result.append(" (ccount (").append(args[1].change(varNames) + " $0))");
 			result.append(" ").append(args[3].change(varNames));
 			result.append("))");
 
 		}else if(name.equals("countSuperlative")){
-		//	if(args.length == 4){
-				result.append("(").append("arg" + args[1].change(varNames).trim() + " $0");
-				result.append(" ").append(args[0].change2(varNames, "$0"));
-				result.append(" (ccount");
-				result.append(" (").append(args[2].change(varNames)).append(" $0)");
-				result.append(")");
-				result.append(")");
-//			}else{
-//
-//			}
+			//	if(args.length == 4){
+			result.append("(").append("arg" + args[1].change(varNames).trim() + " $0");
+			result.append(" ").append(args[0].change(varNames, "$0"));
+			result.append(" (ccount");
+			result.append(" (").append(args[2].change(varNames)).append(" $0)");
+			result.append(")");
+			result.append(")");
+			//			}else{
+			//
+			//			}
 		}else if(name.equals("time")){
 			result.append(((Const)args[0]).name+":ti");
 		}else if(name.equals("date") && args.length == 3){
-			//			result.append("(jan ");
-			//			result.append(args[2]);
-			//			result.append(")");
-
-			result.append(((Const)args[0]).name+":da");
-
+			if(args[1].getHeadString().contains("jan")){
+				result.append("(jan ");
+				result.append(args[2]);
+				result.append(")");
+			}else{
+				result.append(((Const)args[0]).name+":da");
+			}
 		}else if(name.equals("number") && args.length == 2){
 			result.append("(hour ");
 			result.append(args[0]);
