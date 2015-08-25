@@ -94,9 +94,11 @@ public class PercyToTom {
 			
 		//	formula = formula.replace("concat", "or");
 
-			if(//formula.contains("<=") || formula.contains(">=") ||
-					formula.contains("count") || formula.contains("max") ||
-					formula.contains("min")) continue;
+			if(
+			//formula.contains("<=") || formula.contains(">=") ||
+					formula.contains("countS") || formula.contains("countC") 
+//					formula.contains("min")
+					) continue;
 			
 			if(outName.contains("test")){
 				out.println(utterence + "\n" + formula + "\n");
@@ -115,7 +117,7 @@ public class PercyToTom {
 		PercyToTom percyToTom = new PercyToTom();
 		percyToTom.percy_toGeo("./data/real_train_publication.txt",
 				"./data/train.txt");
-		percyToTom.percy_toGeo("./data/real_train_publication.txt",
+		percyToTom.percy_toGeo("./data/real_test_publication.txt",
 				"./data/test.txt");
 
 	}
