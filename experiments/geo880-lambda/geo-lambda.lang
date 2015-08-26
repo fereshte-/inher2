@@ -42,76 +42,86 @@
 
 ((max obj i obj))
 ((min obj i obj))
-((< i i t))
-((> i i t))
-((>= i i t))
-((<= i i t))
+((< i i obj))
+((> i i obj))
+((>= i i obj))
+((<= i i obj))
 
-((!= me me t))
-((!= lo lo t))
-((!= pe pe t))
-((!= i i t))
-
-
-((= me me t))
-((= lo lo t))
-((= pe pe t))
-((= i i t))
+((!= me me obj))
+((!= lo lo obj))
+((!= pe pe obj))
+((!= i i obj))
 
 
+((= me me obj))
+((= lo lo obj))
+((= pe pe obj))
+((= i i obj))
 
 
-((is_important me me)) 
+
+((vp obj obj))
+((is_important me me) vp) 
 ((type tylo lo))
 ((type type pe))
 ((type tyme me))
 ((type tyho ho))
 
-((start_time me ti))
-((start_time_2 ti me))
-((end_time_2 ti me))
-((end_time me ti))
+((relNp4_time me ti))
+((relNp4_time_2 ti me))
+((start_time me ti) relNp4_time)
+((start_time_2 ti me) relNp4_time_2)
+((end_time_2 ti me) relNp4_time)
+((end_time me ti) relNp4_time_2)
 
-((attendee me pe))
-((attendee_2 pe me))
+((relNp2_person obj obj))
+((relNp2_person_2 obj obj))
+((attendee me pe) relNp2_person)
+((attendee_2 pe me) relNp2_person_2)
 
-((location me lo))
-((location_2 lo me))
+((relNp3_loc obj obj))
+((relNp3_loc_2 obj obj))
+
+((location me lo) relNp3_loc)
+((location_2 lo me) relNp3_loc_2)
 ((length me ho))
 ((length_2 ho me))
-((date me da))
-((date_2 da me))
+
+((relNp1_date obj i))
+((relNp1_date_2 i obj))
+((date me da) relNp1_date)
+((date_2 da me) relNp1_date_2)
 
 
 //publication
 
-((author ar pe))
-((author_2 pe ar))
-((venue ar ve))
-((venue_2 ve ar))
-((publication_date ar da))
-((publication_date_2 da ar))
+
+((author ar pe) relNp2_person)
+((author_2 pe ar) relNp2_person_2)
+((venue ar ve) relNp3_loc)
+((venue_2 ve ar) relNp3_loc_2)
+
+
+((publication_date ar da) relNp1_date)
+((publication_date_2 da ar) relNp1_date_2)
 ((cites ar ar))
-((cites_2 ar ar)) //chert!!!
-((won_award ar ar))
+((cites_2 ar ar))
+((won_award ar ar) vp)
 
 ((type tyar ar))
 ((type type pe))
 ((type tyve ve))
-((article:t ar t))
-((person:t pe t))
-((venue:t ve t))
-
-((!= ve ve t))
-((!= ar ar t))
-((!= pe pe t))
-((!= i i t))
 
 
-((= ve ve t))
-((= ar ar t))
-((= pe pe t))
-((= i i t))
+((!= ve ve obj))
+((!= ar ar obj))
+((!= pe pe obj))
+((!= i i obj))
 
+
+((= ve ve obj))
+((= ar ar obj))
+((= pe pe obj))
+((= i i obj))
 
 )
