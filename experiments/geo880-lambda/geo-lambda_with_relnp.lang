@@ -67,22 +67,24 @@
 ((type tyme me))
 ((type tyho ho))
 
+((relNp obj obj))
+((relNp_2 obj obj))
 
-((relNp4_time me ti) )
-((relNp4_time_2 ti me) )
+((relNp4_time me ti) relNp)
+((relNp4_time_2 ti me) relNp_2)
 
 ((start_time me ti) relNp4_time)
 ((start_time_2 ti me) relNp4_time_2)
 ((end_time_2 ti me) relNp4_time)
 ((end_time me ti) relNp4_time_2)
 
-((relNp2_person obj obj) )
-((relNp2_person_2 obj obj) )
+((relNp2_person obj obj) relNp)
+((relNp2_person_2 obj obj) relNp_2)
 ((attendee me pe) relNp2_person)
 ((attendee_2 pe me) relNp2_person_2)
 
-((relNp3_loc obj obj) )
-((relNp3_loc_2 obj obj) )
+((relNp3_loc obj obj) relNp)
+((relNp3_loc_2 obj obj) relNp)
 
 ((location me lo) relNp3_loc)
 ((location_2 lo me) relNp3_loc_2)
@@ -90,8 +92,8 @@
 ((length me ho))
 ((length_2 ho me))
 
-((relNp1_date obj i) )
-((relNp1_date_2 i obj) )
+((relNp1_date obj i) relNp)
+((relNp1_date_2 i obj) relNp_2)
 ((date me da) relNp1_date)
 ((date_2 da me) relNp1_date_2)
 

@@ -1,16 +1,14 @@
 #! /bin/csh
 
+echo `javac -classpath ../../src:.:../../lib/guava-18.0.jar ../../src/*/*.java TestTrain.java`;
+echo "javac -classpath ../../src:.:../../lib/guava-18.0.jar ../../src/*/*.java TestTrain.java";
 
 echo `rm $2`;
 
 set p = 1;
 while ($p <= 10)
 echo "portion is $p";
-
-set classpath="../../src:.";
-
-
-echo `javac -classpath $classpath ../../src/generateTest/*.java`;
+set classpath="../../src:.:../../lib/guava-18.0.jar";
 echo `java -server -Xmx1500m -classpath $classpath generateTest/ChangeFormat $p`;
 
 echo " portion is computed and stored in train.txt and test.txt";
@@ -24,7 +22,7 @@ echo `cp test.txt  data/geosents280-typed.ccg.test`;
 echo "train and test has changed";
 
 
-echo `java -server -Xmx1500m -classpath $classpath generateTest/ChangeFormat real_train.txt`;
+echo `java -server -Xmx1500m -classpath $classpath generateTest/ChangeFormat train.txt`;
 
 echo "format has changed for GIZA++";
 
@@ -57,10 +55,6 @@ echo `cp fereshte.actual.ti.final data/geo600.dev.giza_probs`;
 
 echo "probs is computed and now we want to run runtest.pl \:D/";
 
-set classpath="../../src:.:../../lib/guava-18.0.jar";
-
-echo "javac -classpath $classpath ../../src/*/*.java TestTrain.java";
-echo `javac -classpath $classpath ../../src/*/*.java TestTrain.java`;
 echo "nohup java -server -Xmx1500m -classpath $classpath TestTrain  np-fixedlex.geo $1 >> $2";
 echo `nohup java -server -Xmx1500m -classpath $classpath TestTrain  np-fixedlex.geo $1 >> $2`;
 

@@ -160,7 +160,7 @@ public class Lit extends Exp {
 		}else if(name.equals("time")){
 			result.append(((Const)args[0]).name+":ti");
 		}else if(name.equals("date") && args.length == 3){
-			System.out.println(this + "\n" + args + "\n" + args[1] + " " + args[2]);
+		//	System.out.println(this + "\n" + args + "\n" + args[1] + " " + args[2]);
 			if(args[1].getHeadString().trim().equals("1:num")){
 				result.append("(jan ");
 				result.append(args[2]);

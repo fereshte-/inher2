@@ -150,7 +150,7 @@ public class Lexicon {
 		//System.out.println("Added: "+l);
 		lexicon.add(l);
 
-		LexEntry lp = l.getParent();
+		LexEntry lp = l.getParent(true);
 		if(LexiconFeatSet.share){
 			while(lp!=null){
 				if( !lexicon.contains(lp)){
@@ -228,14 +228,15 @@ public class Lexicon {
 		System.out.println("[LexEntries and scores:");
 		while (j.hasNext()){
 			LexEntry le = (LexEntry) j.next();
-			System.out.print(le + " ");
+			int index = Globals.lexPhi.indexOf(le);
+			System.out.print(le + " " + Globals.theta.get("LEX:"+index));
 
-			while(le!=null){
-				int index = Globals.lexPhi.indexOf(le);
+			LexEntry lp = le.getParent(true);
+			while(lp!=null){
+				index = Globals.lexPhi.indexOf(lp);
 				if (index!=-1) 
-					System.out.print(Math.max(Globals.theta.get("LEX:"+index),
-							Globals.theta.get("LEXP:"+index)) + " ");
-				le = le.getParent();
+					System.out.print(" " + Globals.theta.get("LEXP:"+index));
+				lp = lp.getParent();
 			}
 			System.out.println();
 		}
@@ -277,7 +278,7 @@ public class Lexicon {
 			if (e.hasWords(words)){
 				entries.add(e);
 
-//				LexEntry ep = e.getParent();
+//				LexEntry ep = e.getParent(true);
 //				while(LexiconFeatSet.share && ep!=null){
 //					List<LexEntry> entries2 = new ArrayList<LexEntry>();
 //					getLexEntries(ep.getTokens(), entries2);

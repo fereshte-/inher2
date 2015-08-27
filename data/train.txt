@@ -1,615 +1,1167 @@
-meeting whose start time is not 10am
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string start_time) (string !=) (time 10 0)))
+meeting whose location is greenberg_cafe and whose attendee is alice
+(and (location_2 greenberg_cafe:lo) (attendee_2 alice:pe))
 
-publication date of multivariate_data_analysis
-(listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
+meeting that is important and whose attendee is alice
+(and is_important:me (attendee_2 alice:pe))
 
-meeting whose date is jan 2
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string date) (string =) (date 2015 1 2)))
+meeting whose start time is 10am or 3pm
+(start_time_2 (or 10:ti 15:ti))
+
+meeting whose date is date of weekly_standup
+(date_2 (date weekly_standup:me))
+
+meeting whose end time is smaller than end time of weekly_standup
+(< (end_time (type meeting:tyme)) (end_time weekly_standup:me))
 
 2004 or 2010
-(listValue (concat (date 2004 -1 -1) (date 2010 -1 -1)))
-
-meeting that is important and whose location is greenberg_cafe
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string is_important)) (string location) (string =) greenberg_cafe:lo))
-
-three hours or one hour
-(listValue (concat (number 3 en.hour) (number 1 en.hour)))
-
-meeting whose end time is end time of weekly_standup
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string end_time) (string =) (getProperty weekly_standup:me (string end_time))))
-
-meeting whose attendee is alice or bob
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string attendee) (string =) (concat alice:pe bob:pe)))
-
-meeting whose end time is end time of weekly_standup
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string end_time) (string =) (getProperty weekly_standup:me (string end_time))))
+(or 2004:da 2010:da)
 
 person that is not attendee of weekly_standup
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string !=) weekly_standup:me))
+(!= (attendee_2 (type person:type)) weekly_standup:me)
 
-person that is not attendee of weekly_standup
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string !=) weekly_standup:me))
+meeting whose date is smaller than jan 2 or jan 3
+(< (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
 
-venue that is not venue of multivariate_data_analysis
-(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string !=) multivariate_data_analysis:ar))
-
-meeting that is important and whose end time is 10am
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string is_important)) (string end_time) (string =) (time 10 0)))
-
-meeting whose attendee is alice and that is important
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string attendee) (string =) alice:pe) (string is_important)))
-
-meeting that is important
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string is_important)))
-
-greenberg_cafe or central_office
-(listValue (concat greenberg_cafe:lo central_office:lo))
-
-meeting whose date is date of weekly_standup
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string date) (string =) (getProperty weekly_standup:me (string date))))
-
-meeting whose attendee is attendee of weekly_standup
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string attendee) (string =) (getProperty weekly_standup:me (string attendee))))
-
-article whose venue is not annals_of_statistics
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string !=) annals_of_statistics:ve))
-
-meeting whose end time is 10am and that is important
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string end_time) (string =) (time 10 0)) (string is_important)))
-
-location that is not location of weekly_standup
-(listValue (filter (getProperty (singleton en.location) (string type)) (reverse (string location)) (string !=) weekly_standup:me))
-
-meeting that is important and whose location is greenberg_cafe
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string is_important)) (string location) (string =) greenberg_cafe:lo))
-
-person that is not author of multivariate_data_analysis
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string !=) multivariate_data_analysis:ar))
-
-article whose venue is annals_of_statistics
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string =) annals_of_statistics:ve))
-
-article that won an award and whose author is efron
-(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string author) (string =) efron:pe))
-
-meeting that is important and whose start time is 10am
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string is_important)) (string start_time) (string =) (time 10 0)))
-
-weekly_standup or annual_review
-(listValue (concat weekly_standup:me annual_review:me))
-
-author of multivariate_data_analysis
-(listValue (getProperty multivariate_data_analysis:ar (string author)))
-
-meeting that is important
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string is_important)))
-
-meeting whose attendee is alice and that is important
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string attendee) (string =) alice:pe) (string is_important)))
-
-article whose author is efron and that won an award
-(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string won_award)))
-
-venue that is not venue of multivariate_data_analysis
-(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string !=) multivariate_data_analysis:ar))
-
-location of weekly_standup
-(listValue (getProperty weekly_standup:me (string location)))
-
-jan 2 or jan 3
-(listValue (concat (date 2015 1 2) (date 2015 1 3)))
-
-venue of multivariate_data_analysis
-(listValue (getProperty multivariate_data_analysis:ar (string venue)))
-
-venue that is not venue of multivariate_data_analysis
-(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string !=) multivariate_data_analysis:ar))
-
-article whose author is efron
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe))
-
-publication date of multivariate_data_analysis
-(listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
+person that is attendee of meeting whose end time is 10am
+(attendee (end_time_2 10:ti))
 
 meeting whose location is location of weekly_standup
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string location) (string =) (getProperty weekly_standup:me (string location))))
+(location_2 (location weekly_standup:me))
 
-meeting whose start time is 10am and that is important
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string start_time) (string =) (time 10 0)) (string is_important)))
-
-meeting whose date is jan 2 or jan 3
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string date) (string =) (concat (date 2015 1 2) (date 2015 1 3))))
-
-person that is not author of multivariate_data_analysis
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string !=) multivariate_data_analysis:ar))
-
-meeting whose location is not greenberg_cafe
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string location) (string !=) greenberg_cafe:lo))
-
-meeting that is important and whose location is greenberg_cafe
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string is_important)) (string location) (string =) greenberg_cafe:lo))
-
-date of weekly_standup
-(listValue (getProperty weekly_standup:me (string date)))
-
-meeting that is important
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string is_important)))
-
-article that won an award and that won an award
-(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string won_award)))
-
-person that is not attendee of weekly_standup
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string !=) weekly_standup:me))
-
-publication date of multivariate_data_analysis
-(listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
+meeting whose start time is larger than start time of weekly_standup
+(> (start_time (type meeting:tyme)) (start_time weekly_standup:me))
 
 location that is not location of weekly_standup
-(listValue (filter (getProperty (singleton en.location) (string type)) (reverse (string location)) (string !=) weekly_standup:me))
+(!= (location_2 (type location:tylo)) weekly_standup:me)
 
-meeting whose date is date of weekly_standup
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string date) (string =) (getProperty weekly_standup:me (string date))))
-
-venue that is venue of multivariate_data_analysis
-(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar))
-
-attendee of weekly_standup
-(listValue (getProperty weekly_standup:me (string attendee)))
-
-article that won an award
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string won_award)))
-
-meeting that is important and whose attendee is alice
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string is_important)) (string attendee) (string =) alice:pe))
-
-article whose author is efron and that won an award
-(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string won_award)))
-
-meeting that is important and that is important
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string is_important)) (string is_important)))
+meeting whose attendee is person that is attendee of weekly_standup
+(attendee_2 (attendee weekly_standup:me))
 
 end time of weekly_standup
-(listValue (getProperty weekly_standup:me (string end_time)))
+(end_time weekly_standup:me)
 
-meeting whose attendee is not alice
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string attendee) (string !=) alice:pe))
+weekly_standup or annual_review
+(or weekly_standup:me annual_review:me)
 
-venue that is venue of multivariate_data_analysis
-(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar))
+person that is attendee of meeting whose date is jan 2
+(attendee (date_2 (jan 2:num)))
 
-article that won an award and whose author is efron
-(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string author) (string =) efron:pe))
+meeting that is important
+is_important:me
 
-person that is not author of multivariate_data_analysis
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string !=) multivariate_data_analysis:ar))
+meeting whose date is jan 2 or jan 3
+(date_2 (or (jan 2:num) (jan 3:num)))
+
+meeting whose end time is end time of weekly_standup
+(end_time_2 (end_time weekly_standup:me))
+
+meeting whose start time is 10am and whose attendee is alice
+(and (start_time_2 10:ti) (attendee_2 alice:pe))
+
+article that won an award
+won_award:ar
+
+meeting whose attendee is person that is attendee of weekly_standup
+(attendee_2 (attendee weekly_standup:me))
+
+meeting whose end time is not 10am
+(!= (end_time (type meeting:tyme)) 10:ti)
+
+meeting that is important and whose start time is 10am
+(and is_important:me (start_time_2 10:ti))
+
+meeting whose end time is 10am and whose start time is 10am
+(and (end_time_2 10:ti) (start_time_2 10:ti))
+
+10am or 3pm
+(or 10:ti 15:ti)
+
+meeting whose date is smaller than jan 2
+(< (date (type meeting:tyme)) (jan 2:num))
+
+meeting whose end time is 10am and that is important
+(and is_important:me (end_time_2 10:ti))
+
+meeting whose date is not jan 2
+(!= (date (type meeting:tyme)) (jan 2:num))
+
+meeting whose start time is larger than start time of weekly_standup
+(> (start_time (type meeting:tyme)) (start_time weekly_standup:me))
+
+meeting whose end time is end time of weekly_standup
+(end_time_2 (end_time weekly_standup:me))
+
+meeting whose attendee is alice and whose end time is 10am
+(and (attendee_2 alice:pe) (end_time_2 10:ti))
+
+meeting whose attendee is alice and that is important
+(and is_important:me (attendee_2 alice:pe))
+
+person that is attendee of meeting whose attendee is alice
+(attendee (attendee_2 alice:pe))
+
+person that is attendee of meeting whose start time is 10am
+(attendee (start_time_2 10:ti))
+
+meeting whose start time is smaller than 10am or 3pm
+(< (start_time (type meeting:tyme)) (or 10:ti 15:ti))
+
+person that is attendee of meeting whose attendee is alice
+(attendee (attendee_2 alice:pe))
+
+meeting whose end time is larger than 10am or 3pm
+(> (end_time (type meeting:tyme)) (or 10:ti 15:ti))
+
+location that is location of meeting whose attendee is alice
+(location (attendee_2 alice:pe))
+
+meeting that is important and whose location is greenberg_cafe
+(and is_important:me (location_2 greenberg_cafe:lo))
+
+meeting whose end time is 10am and whose start time is 10am
+(and (end_time_2 10:ti) (start_time_2 10:ti))
+
+meeting whose start time is 10am and that is important
+(and is_important:me (start_time_2 10:ti))
+
+meeting that is important and that is important
+is_important:me
+
+location that is not location of weekly_standup
+(!= (location_2 (type location:tylo)) weekly_standup:me)
+
+start time of weekly_standup
+(start_time weekly_standup:me)
+
+meeting that is important
+is_important:me
+
+person that is attendee of weekly_standup or annual_review
+(attendee (or weekly_standup:me annual_review:me))
+
+meeting whose location is greenberg_cafe or central_office
+(location_2 (or greenberg_cafe:lo central_office:lo))
+
+meeting whose start time is end time of weekly_standup
+(start_time_2 (end_time weekly_standup:me))
+
+meeting whose date is larger than jan 2 or jan 3
+(> (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
+
+meeting whose attendee is person that is attendee of weekly_standup
+(attendee_2 (attendee weekly_standup:me))
+
+meeting whose date is larger than jan 2 or jan 3
+(> (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
+
+meeting whose date is larger than jan 2
+(> (date (type meeting:tyme)) (jan 2:num))
+
+meeting whose date is jan 2 or jan 3
+(date_2 (or (jan 2:num) (jan 3:num)))
+
+meeting whose location is greenberg_cafe and whose start time is 10am
+(and (location_2 greenberg_cafe:lo) (start_time_2 10:ti))
 
 annals_of_statistics or computational_linguistics
-(listValue (concat annals_of_statistics:ve computational_linguistics:ve))
+(or annals_of_statistics:ve computational_linguistics:ve)
 
-meeting that is important and that is important
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string is_important)) (string is_important)))
+person that is attendee of meeting that is important
+(attendee is_important:me)
 
-meeting whose location is greenberg_cafe or central_office
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string location) (string =) (concat greenberg_cafe:lo central_office:lo)))
+location that is location of meeting whose end time is 10am
+(location (end_time_2 10:ti))
 
-attendee of weekly_standup
-(listValue (getProperty weekly_standup:me (string attendee)))
+meeting whose end time is larger than start time of weekly_standup
+(> (end_time (type meeting:tyme)) (start_time weekly_standup:me))
 
-article whose author is efron
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe))
-
-meeting whose attendee is attendee of weekly_standup
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string attendee) (string =) (getProperty weekly_standup:me (string attendee))))
-
-meeting whose attendee is alice or bob
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string attendee) (string =) (concat alice:pe bob:pe)))
-
-meeting whose end time is 10am
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string end_time) (string =) (time 10 0)))
-
-meeting whose attendee is alice or bob
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string attendee) (string =) (concat alice:pe bob:pe)))
-
-date of weekly_standup
-(listValue (getProperty weekly_standup:me (string date)))
-
-meeting that is important and whose attendee is alice
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string is_important)) (string attendee) (string =) alice:pe))
-
-weekly_standup or annual_review
-(listValue (concat weekly_standup:me annual_review:me))
-
-meeting that is important and whose start time is 10am
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string is_important)) (string start_time) (string =) (time 10 0)))
-
-publication date of multivariate_data_analysis
-(listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
-
-meeting whose location is location of weekly_standup
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string location) (string =) (getProperty weekly_standup:me (string location))))
-
-venue of multivariate_data_analysis
-(listValue (getProperty multivariate_data_analysis:ar (string venue)))
-
-article whose publication date is not 2004
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string !=) (date 2004 -1 -1)))
-
-publication date of multivariate_data_analysis
-(listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
-
-person that is author of multivariate_data_analysis
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string =) multivariate_data_analysis:ar))
-
-meeting whose start time is 10am
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string start_time) (string =) (time 10 0)))
-
-person that is not attendee of weekly_standup
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string !=) weekly_standup:me))
-
-meeting whose date is not jan 2
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string date) (string !=) (date 2015 1 2)))
-
-meeting whose start time is not 10am
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string start_time) (string !=) (time 10 0)))
-
-jan 2 or jan 3
-(listValue (concat (date 2015 1 2) (date 2015 1 3)))
-
-venue of multivariate_data_analysis
-(listValue (getProperty multivariate_data_analysis:ar (string venue)))
-
-meeting whose end time is 10am or 3pm
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string end_time) (string =) (concat (time 10 0) (time 15 0))))
-
-meeting whose location is not greenberg_cafe
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string location) (string !=) greenberg_cafe:lo))
-
-meeting whose start time is 10am or 3pm
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string start_time) (string =) (concat (time 10 0) (time 15 0))))
-
-article whose author is efron or lakoff
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (concat efron:pe lakoff:pe)))
-
-meeting whose end time is 10am or 3pm
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string end_time) (string =) (concat (time 10 0) (time 15 0))))
-
-meeting whose date is jan 2 or jan 3
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string date) (string =) (concat (date 2015 1 2) (date 2015 1 3))))
-
-meeting whose location is location of weekly_standup
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string location) (string =) (getProperty weekly_standup:me (string location))))
-
-meeting whose date is jan 2 or jan 3
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string date) (string =) (concat (date 2015 1 2) (date 2015 1 3))))
-
-meeting whose date is date of weekly_standup
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string date) (string =) (getProperty weekly_standup:me (string date))))
-
-meeting whose date is not jan 2
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string date) (string !=) (date 2015 1 2)))
-
-meeting whose end time is 10am or 3pm
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string end_time) (string =) (concat (time 10 0) (time 15 0))))
-
-meeting whose location is not greenberg_cafe
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string location) (string !=) greenberg_cafe:lo))
-
-date of weekly_standup
-(listValue (getProperty weekly_standup:me (string date)))
-
-person that is not attendee of weekly_standup
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string !=) weekly_standup:me))
-
-end time of weekly_standup
-(listValue (getProperty weekly_standup:me (string end_time)))
-
-article that won an award
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string won_award)))
-
-meeting whose start time is not 10am
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string start_time) (string !=) (time 10 0)))
-
-article whose author is efron and that won an award
-(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string won_award)))
-
-venue that is venue of multivariate_data_analysis
-(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string =) multivariate_data_analysis:ar))
-
-author of multivariate_data_analysis
-(listValue (getProperty multivariate_data_analysis:ar (string author)))
-
-meeting that is important and that is important
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string is_important)) (string is_important)))
-
-meeting whose end time is not 10am
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string end_time) (string !=) (time 10 0)))
-
-meeting whose location is greenberg_cafe or central_office
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string location) (string =) (concat greenberg_cafe:lo central_office:lo)))
-
-location that is not location of weekly_standup
-(listValue (filter (getProperty (singleton en.location) (string type)) (reverse (string location)) (string !=) weekly_standup:me))
-
-article that won an award and whose author is efron
-(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string won_award)) (string author) (string =) efron:pe))
-
-article whose publication date is not 2004
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string !=) (date 2004 -1 -1)))
-
-start time of weekly_standup
-(listValue (getProperty weekly_standup:me (string start_time)))
-
-jan 2 or jan 3
-(listValue (concat (date 2015 1 2) (date 2015 1 3)))
-
-meeting that is important and whose start time is 10am
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string is_important)) (string start_time) (string =) (time 10 0)))
+meeting whose start time is larger than 10am or 3pm
+(> (start_time (type meeting:tyme)) (or 10:ti 15:ti))
 
 meeting whose attendee is alice and that is important
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string attendee) (string =) alice:pe) (string is_important)))
+(and is_important:me (attendee_2 alice:pe))
 
-weekly_standup or annual_review
-(listValue (concat weekly_standup:me annual_review:me))
+meeting whose end time is 10am and whose attendee is alice
+(and (end_time_2 10:ti) (attendee_2 alice:pe))
 
-meeting whose location is greenberg_cafe and that is important
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string location) (string =) greenberg_cafe:lo) (string is_important)))
+meeting whose attendee is alice and that is important
+(and is_important:me (attendee_2 alice:pe))
 
-meeting whose end time is 10am
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string end_time) (string =) (time 10 0)))
+three hours or one hour
+(or (hour 3:num) (hour 1:num))
 
-meeting whose location is greenberg_cafe or central_office
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string location) (string =) (concat greenberg_cafe:lo central_office:lo)))
+meeting whose location is location that is location of weekly_standup
+(location_2 (location weekly_standup:me))
 
-article whose venue is not annals_of_statistics
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string !=) annals_of_statistics:ve))
+person that is attendee of weekly_standup or annual_review
+(attendee (or weekly_standup:me annual_review:me))
 
-location that is not location of weekly_standup
-(listValue (filter (getProperty (singleton en.location) (string type)) (reverse (string location)) (string !=) weekly_standup:me))
+meeting whose end time is 10am and whose end time is 10am
+(end_time_2 10:ti)
 
-date of weekly_standup
-(listValue (getProperty weekly_standup:me (string date)))
+meeting whose location is greenberg_cafe and whose start time is 10am
+(and (location_2 greenberg_cafe:lo) (start_time_2 10:ti))
 
-meeting whose start time is 10am and that is important
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string start_time) (string =) (time 10 0)) (string is_important)))
-
-meeting whose attendee is not alice
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string attendee) (string !=) alice:pe))
-
-article whose publication date is 2004
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string =) (date 2004 -1 -1)))
-
-meeting whose date is not jan 2
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string date) (string !=) (date 2015 1 2)))
-
-meeting whose location is greenberg_cafe
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string location) (string =) greenberg_cafe:lo))
-
-article whose author is not efron
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string !=) efron:pe))
-
-meeting whose attendee is not alice
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string attendee) (string !=) alice:pe))
-
-venue that is not venue of multivariate_data_analysis
-(listValue (filter (getProperty (singleton venue:tyve) (string type)) (reverse (string venue)) (string !=) multivariate_data_analysis:ar))
+location that is location of meeting whose start time is 10am
+(location (start_time_2 10:ti))
 
 meeting that is important and whose location is greenberg_cafe
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string is_important)) (string location) (string =) greenberg_cafe:lo))
+(and is_important:me (location_2 greenberg_cafe:lo))
 
-10am or 3pm
-(listValue (concat (time 10 0) (time 15 0)))
+location that is location of meeting whose date is jan 2
+(location (date_2 (jan 2:num)))
 
-meeting that is important and whose start time is 10am
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string is_important)) (string start_time) (string =) (time 10 0)))
+location that is location of meeting whose attendee is alice
+(location (attendee_2 alice:pe))
 
-attendee of weekly_standup
-(listValue (getProperty weekly_standup:me (string attendee)))
+meeting whose end time is 10am and whose attendee is alice
+(and (end_time_2 10:ti) (attendee_2 alice:pe))
 
-meeting whose end time is 10am and that is important
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string end_time) (string =) (time 10 0)) (string is_important)))
-
-meeting whose attendee is alice or bob
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string attendee) (string =) (concat alice:pe bob:pe)))
-
-person that is not author of multivariate_data_analysis
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string !=) multivariate_data_analysis:ar))
-
-article whose venue is not annals_of_statistics
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string !=) annals_of_statistics:ve))
-
-meeting whose end time is not 10am
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string end_time) (string !=) (time 10 0)))
-
-meeting whose start time is 10am or 3pm
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string start_time) (string =) (concat (time 10 0) (time 15 0))))
-
-article whose author is not efron
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string !=) efron:pe))
-
-meeting whose end time is not 10am
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string end_time) (string !=) (time 10 0)))
-
-article whose author is efron or lakoff
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (concat efron:pe lakoff:pe)))
-
-location that is not location of weekly_standup
-(listValue (filter (getProperty (singleton en.location) (string type)) (reverse (string location)) (string !=) weekly_standup:me))
-
-meeting whose end time is 10am or 3pm
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string end_time) (string =) (concat (time 10 0) (time 15 0))))
-
-article whose author is efron or lakoff
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (concat efron:pe lakoff:pe)))
+meeting whose date is smaller than date of weekly_standup
+(< (date (type meeting:tyme)) (date weekly_standup:me))
 
 person that is attendee of weekly_standup
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) weekly_standup:me))
+(attendee weekly_standup:me)
 
-meeting whose start time is not 10am
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string start_time) (string !=) (time 10 0)))
-
-meeting whose location is greenberg_cafe
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string location) (string =) greenberg_cafe:lo))
-
-end time of weekly_standup
-(listValue (getProperty weekly_standup:me (string end_time)))
-
-venue of multivariate_data_analysis
-(listValue (getProperty multivariate_data_analysis:ar (string venue)))
-
-article whose author is efron or lakoff
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) (concat efron:pe lakoff:pe)))
-
-person that is attendee of weekly_standup
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) weekly_standup:me))
-
-meeting that is important and whose date is jan 2
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string is_important)) (string date) (string =) (date 2015 1 2)))
-
-article whose author is not efron
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string !=) efron:pe))
-
-start time of weekly_standup
-(listValue (getProperty weekly_standup:me (string start_time)))
-
-article whose publication date is not 2004
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string !=) (date 2004 -1 -1)))
-
-publication date of multivariate_data_analysis
-(listValue (getProperty multivariate_data_analysis:ar (string publication_date)))
-
-meeting whose attendee is attendee of weekly_standup
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string attendee) (string =) (getProperty weekly_standup:me (string attendee))))
-
-article whose author is efron and that won an award
-(listValue (filter (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe) (string won_award)))
-
-meeting that is important and whose date is jan 2
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string is_important)) (string date) (string =) (date 2015 1 2)))
-
-meeting whose date is jan 2 or jan 3
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string date) (string =) (concat (date 2015 1 2) (date 2015 1 3))))
-
-article whose venue is not annals_of_statistics
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string venue) (string !=) annals_of_statistics:ve))
-
-meeting whose date is jan 2
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string date) (string =) (date 2015 1 2)))
-
-meeting that is important and that is important
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string is_important)) (string is_important)))
-
-meeting whose start time is 10am and that is important
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string start_time) (string =) (time 10 0)) (string is_important)))
-
-meeting whose date is jan 2 and that is important
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string date) (string =) (date 2015 1 2)) (string is_important)))
-
-meeting whose date is jan 2
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string date) (string =) (date 2015 1 2)))
-
-article whose publication date is not 2004
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string publication_date) (string !=) (date 2004 -1 -1)))
-
-start time of weekly_standup
-(listValue (getProperty weekly_standup:me (string start_time)))
-
-meeting whose location is greenberg_cafe or central_office
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string location) (string =) (concat greenberg_cafe:lo central_office:lo)))
-
-article that won an award
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string won_award)))
-
-meeting whose date is date of weekly_standup
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string date) (string =) (getProperty weekly_standup:me (string date))))
-
-meeting whose attendee is alice and that is important
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string attendee) (string =) alice:pe) (string is_important)))
-
-meeting whose attendee is attendee of weekly_standup
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string attendee) (string =) (getProperty weekly_standup:me (string attendee))))
-
-meeting whose date is not jan 2
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string date) (string !=) (date 2015 1 2)))
-
-meeting whose end time is not 10am
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string end_time) (string !=) (time 10 0)))
-
-end time of weekly_standup
-(listValue (getProperty weekly_standup:me (string end_time)))
-
-article whose author is not efron
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string !=) efron:pe))
-
-meeting whose end time is end time of weekly_standup
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string end_time) (string =) (getProperty weekly_standup:me (string end_time))))
-
-article whose author is efron
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe))
-
-three hours or one hour
-(listValue (concat (number 3 en.hour) (number 1 en.hour)))
-
-10am or 3pm
-(listValue (concat (time 10 0) (time 15 0)))
-
-start time of weekly_standup
-(listValue (getProperty weekly_standup:me (string start_time)))
-
-meeting whose date is not jan 2
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string date) (string !=) (date 2015 1 2)))
-
-alice or bob
-(listValue (concat alice:pe bob:pe))
-
-meeting that is important and whose attendee is alice
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string is_important)) (string attendee) (string =) alice:pe))
-
-person that is attendee of weekly_standup
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string attendee)) (string =) weekly_standup:me))
-
-meeting that is important and that is important
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string is_important)) (string is_important)))
+meeting whose start time is smaller than 10am or 3pm
+(< (start_time (type meeting:tyme)) (or 10:ti 15:ti))
 
 meeting whose location is not greenberg_cafe
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string location) (string !=) greenberg_cafe:lo))
+(!= (location (type meeting:tyme)) greenberg_cafe:lo)
 
-person that is not author of multivariate_data_analysis
-(listValue (filter (getProperty (singleton person:type) (string type)) (reverse (string author)) (string !=) multivariate_data_analysis:ar))
+weekly_standup or annual_review
+(or weekly_standup:me annual_review:me)
 
-meeting whose start time is not 10am
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string start_time) (string !=) (time 10 0)))
+meeting whose start time is 10am and whose start time is 10am
+(start_time_2 10:ti)
 
-article whose author is not efron
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string !=) efron:pe))
+meeting whose end time is larger than end time of weekly_standup
+(> (end_time (type meeting:tyme)) (end_time weekly_standup:me))
 
-meeting that is important
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string is_important)))
+meeting whose end time is larger than 10am or 3pm
+(> (end_time (type meeting:tyme)) (or 10:ti 15:ti))
 
-venue of multivariate_data_analysis
-(listValue (getProperty multivariate_data_analysis:ar (string venue)))
+meeting whose start time is smaller than 10am or 3pm
+(< (start_time (type meeting:tyme)) (or 10:ti 15:ti))
 
-article whose author is efron
-(listValue (filter (getProperty (singleton article:tyar) (string type)) (string author) (string =) efron:pe))
+person that is not attendee of weekly_standup
+(!= (attendee_2 (type person:type)) weekly_standup:me)
 
 meeting whose location is location of weekly_standup
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string location) (string =) (getProperty weekly_standup:me (string location))))
+(location_2 (location weekly_standup:me))
 
-10am or 3pm
-(listValue (concat (time 10 0) (time 15 0)))
+meeting whose end time is 10am or 3pm
+(end_time_2 (or 10:ti 15:ti))
 
-meeting that is important and whose attendee is alice
-(listValue (filter (filter (getProperty (singleton en.meeting) (string type)) (string is_important)) (string attendee) (string =) alice:pe))
+meeting whose end time is larger than start time of weekly_standup
+(> (end_time (type meeting:tyme)) (start_time weekly_standup:me))
 
-three hours or one hour
-(listValue (concat (number 3 en.hour) (number 1 en.hour)))
+person that is attendee of meeting whose attendee is alice
+(attendee (attendee_2 alice:pe))
 
-meeting whose end time is end time of weekly_standup
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string end_time) (string =) (getProperty weekly_standup:me (string end_time))))
+meeting whose start time is 10am and that is important
+(and is_important:me (start_time_2 10:ti))
+
+meeting whose end time is start time of weekly_standup
+(end_time_2 (start_time weekly_standup:me))
+
+end time of weekly_standup
+(end_time weekly_standup:me)
+
+meeting that is important
+is_important:me
+
+location that is location of meeting whose date is jan 2
+(location (date_2 (jan 2:num)))
+
+person that is attendee of meeting whose end time is 10am
+(attendee (end_time_2 10:ti))
+
+meeting whose attendee is alice and whose end time is 10am
+(and (attendee_2 alice:pe) (end_time_2 10:ti))
+
+meeting whose date is date of weekly_standup
+(date_2 (date weekly_standup:me))
+
+meeting whose start time is 10am and whose location is greenberg_cafe
+(and (start_time_2 10:ti) (location_2 greenberg_cafe:lo))
+
+meeting whose start time is smaller than end time of weekly_standup
+(< (start_time (type meeting:tyme)) (end_time weekly_standup:me))
+
+meeting whose location is location that is location of weekly_standup
+(location_2 (location weekly_standup:me))
+
+meeting whose start time is larger than 10am
+(> (start_time (type meeting:tyme)) 10:ti)
+
+meeting whose date is jan 2 and whose date is jan 2
+(date_2 (jan 2:num))
+
+meeting whose start time is not 10am
+(!= (start_time (type meeting:tyme)) 10:ti)
+
+meeting whose end time is larger than start time of weekly_standup
+(> (end_time (type meeting:tyme)) (start_time weekly_standup:me))
+
+meeting whose date is not jan 2
+(!= (date (type meeting:tyme)) (jan 2:num))
+
+meeting whose start time is 10am and whose end time is 10am
+(and (start_time_2 10:ti) (end_time_2 10:ti))
+
+meeting whose date is jan 2 or jan 3
+(date_2 (or (jan 2:num) (jan 3:num)))
+
+meeting whose start time is start time of weekly_standup
+(start_time_2 (start_time weekly_standup:me))
+
+venue that is venue of article that won an award
+(venue won_award:ar)
+
+article whose publication date is smaller than publication date of multivariate_data_analysis
+(< (publication_date (type article:tyar)) (publication_date multivariate_data_analysis:ar))
+
+meeting whose end time is larger than 10am
+(> (end_time (type meeting:tyme)) 10:ti)
+
+meeting whose start time is larger than start time of weekly_standup
+(> (start_time (type meeting:tyme)) (start_time weekly_standup:me))
+
+meeting whose attendee is alice or bob
+(attendee_2 (or alice:pe bob:pe))
+
+meeting whose location is greenberg_cafe or central_office
+(location_2 (or greenberg_cafe:lo central_office:lo))
+
+meeting whose end time is smaller than 10am or 3pm
+(< (end_time (type meeting:tyme)) (or 10:ti 15:ti))
+
+meeting whose start time is end time of weekly_standup
+(start_time_2 (end_time weekly_standup:me))
+
+meeting whose start time is 10am and whose date is jan 2
+(and (start_time_2 10:ti) (date_2 (jan 2:num)))
+
+meeting whose location is greenberg_cafe and that is important
+(and is_important:me (location_2 greenberg_cafe:lo))
+
+meeting whose attendee is not alice
+(!= (attendee (type meeting:tyme)) alice:pe)
+
+person that is attendee of meeting whose start time is 10am
+(attendee (start_time_2 10:ti))
 
 meeting whose end time is 10am
-(listValue (filter (getProperty (singleton en.meeting) (string type)) (string end_time) (string =) (time 10 0)))
+(end_time_2 10:ti)
+
+three hours or one hour
+(or (hour 3:num) (hour 1:num))
+
+meeting whose start time is 10am and whose start time is 10am
+(start_time_2 10:ti)
+
+meeting whose attendee is person that is attendee of weekly_standup
+(attendee_2 (attendee weekly_standup:me))
+
+jan 2 or jan 3
+(or (jan 2:num) (jan 3:num))
+
+location that is location of weekly_standup or annual_review
+(location (or weekly_standup:me annual_review:me))
+
+location that is location of meeting that is important
+(location is_important:me)
+
+meeting whose date is jan 2 and whose attendee is alice
+(and (date_2 (jan 2:num)) (attendee_2 alice:pe))
+
+meeting whose date is jan 2 and whose end time is 10am
+(and (date_2 (jan 2:num)) (end_time_2 10:ti))
+
+meeting whose start time is larger than end time of weekly_standup
+(> (start_time (type meeting:tyme)) (end_time weekly_standup:me))
+
+meeting whose start time is 10am and whose attendee is alice
+(and (start_time_2 10:ti) (attendee_2 alice:pe))
+
+meeting whose date is jan 2 and whose attendee is alice
+(and (date_2 (jan 2:num)) (attendee_2 alice:pe))
+
+person that is not attendee of weekly_standup
+(!= (attendee_2 (type person:type)) weekly_standup:me)
+
+meeting whose start time is start time of weekly_standup
+(start_time_2 (start_time weekly_standup:me))
+
+meeting whose end time is 10am and whose date is jan 2
+(and (end_time_2 10:ti) (date_2 (jan 2:num)))
+
+meeting whose start time is end time of weekly_standup
+(start_time_2 (end_time weekly_standup:me))
+
+person that is attendee of weekly_standup
+(attendee weekly_standup:me)
+
+attendee of weekly_standup
+(attendee weekly_standup:me)
+
+person that is attendee of weekly_standup and that is attendee of weekly_standup
+(attendee weekly_standup:me)
+
+location that is location of meeting whose attendee is alice
+(location (attendee_2 alice:pe))
+
+meeting whose end time is larger than 10am
+(> (end_time (type meeting:tyme)) 10:ti)
+
+meeting whose location is greenberg_cafe and whose attendee is alice
+(and (location_2 greenberg_cafe:lo) (attendee_2 alice:pe))
+
+meeting whose end time is 10am and whose location is greenberg_cafe
+(and (end_time_2 10:ti) (location_2 greenberg_cafe:lo))
+
+meeting whose date is larger than date of weekly_standup
+(> (date (type meeting:tyme)) (date weekly_standup:me))
+
+meeting whose location is location of weekly_standup
+(location_2 (location weekly_standup:me))
+
+meeting whose date is jan 2 or jan 3
+(date_2 (or (jan 2:num) (jan 3:num)))
+
+meeting whose end time is 10am and whose location is greenberg_cafe
+(and (end_time_2 10:ti) (location_2 greenberg_cafe:lo))
+
+person that is attendee of meeting that is important
+(attendee is_important:me)
+
+attendee of weekly_standup
+(attendee weekly_standup:me)
+
+meeting whose end time is larger than end time of weekly_standup
+(> (end_time (type meeting:tyme)) (end_time weekly_standup:me))
+
+meeting whose start time is start time of weekly_standup
+(start_time_2 (start_time weekly_standup:me))
+
+meeting whose start time is larger than 10am
+(> (start_time (type meeting:tyme)) 10:ti)
+
+person that is attendee of meeting that is important
+(attendee is_important:me)
+
+meeting whose date is smaller than jan 2
+(< (date (type meeting:tyme)) (jan 2:num))
+
+meeting whose end time is smaller than start time of weekly_standup
+(< (end_time (type meeting:tyme)) (start_time weekly_standup:me))
+
+meeting that is important and that is important
+is_important:me
+
+meeting whose attendee is alice and whose start time is 10am
+(and (attendee_2 alice:pe) (start_time_2 10:ti))
+
+location that is location of meeting whose start time is 10am
+(location (start_time_2 10:ti))
+
+location that is location of meeting that is important
+(location is_important:me)
+
+meeting whose attendee is attendee of weekly_standup
+(attendee_2 (attendee weekly_standup:me))
+
+meeting whose date is smaller than date of weekly_standup
+(< (date (type meeting:tyme)) (date weekly_standup:me))
+
+location that is location of weekly_standup or annual_review
+(location (or weekly_standup:me annual_review:me))
+
+meeting whose location is greenberg_cafe and whose date is jan 2
+(and (location_2 greenberg_cafe:lo) (date_2 (jan 2:num)))
+
+person that is attendee of meeting whose end time is 10am
+(attendee (end_time_2 10:ti))
+
+meeting whose end time is smaller than start time of weekly_standup
+(< (end_time (type meeting:tyme)) (start_time weekly_standup:me))
 
 start time of weekly_standup
-(listValue (getProperty weekly_standup:me (string start_time)))
+(start_time weekly_standup:me)
+
+meeting that is important and that is important
+is_important:me
+
+meeting that is important and whose location is greenberg_cafe
+(and is_important:me (location_2 greenberg_cafe:lo))
+
+meeting that is important and whose end time is 10am
+(and is_important:me (end_time_2 10:ti))
+
+meeting whose end time is smaller than start time of weekly_standup
+(< (end_time (type meeting:tyme)) (start_time weekly_standup:me))
+
+meeting that is important and whose location is greenberg_cafe
+(and is_important:me (location_2 greenberg_cafe:lo))
+
+meeting whose start time is 10am and whose attendee is alice
+(and (start_time_2 10:ti) (attendee_2 alice:pe))
+
+jan 2 or jan 3
+(or (jan 2:num) (jan 3:num))
+
+meeting whose attendee is not alice
+(!= (attendee (type meeting:tyme)) alice:pe)
+
+meeting whose date is jan 2
+(date_2 (jan 2:num))
+
+meeting whose date is not jan 2
+(!= (date (type meeting:tyme)) (jan 2:num))
+
+meeting whose end time is smaller than 10am
+(< (end_time (type meeting:tyme)) 10:ti)
+
+meeting whose start time is smaller than start time of weekly_standup
+(< (start_time (type meeting:tyme)) (start_time weekly_standup:me))
+
+end time of weekly_standup
+(end_time weekly_standup:me)
+
+meeting whose start time is 10am or 3pm
+(start_time_2 (or 10:ti 15:ti))
+
+meeting whose end time is larger than 10am
+(> (end_time (type meeting:tyme)) 10:ti)
+
+meeting whose end time is 10am and whose end time is 10am
+(end_time_2 10:ti)
+
+meeting that is important and whose date is jan 2
+(and is_important:me (date_2 (jan 2:num)))
+
+location that is location of meeting whose end time is 10am
+(location (end_time_2 10:ti))
+
+location that is location of meeting that is important
+(location is_important:me)
+
+meeting whose location is greenberg_cafe and whose attendee is alice
+(and (location_2 greenberg_cafe:lo) (attendee_2 alice:pe))
+
+meeting whose end time is 10am and whose start time is 10am
+(and (end_time_2 10:ti) (start_time_2 10:ti))
+
+meeting whose attendee is alice and that is important
+(and is_important:me (attendee_2 alice:pe))
+
+10am or 3pm
+(or 10:ti 15:ti)
+
+person that is attendee of meeting whose start time is 10am
+(attendee (start_time_2 10:ti))
+
+location that is location of meeting whose attendee is alice
+(location (attendee_2 alice:pe))
+
+meeting whose start time is larger than end time of weekly_standup
+(> (start_time (type meeting:tyme)) (end_time weekly_standup:me))
+
+meeting whose date is jan 2 and whose end time is 10am
+(and (date_2 (jan 2:num)) (end_time_2 10:ti))
+
+meeting whose start time is 10am and whose location is greenberg_cafe
+(and (start_time_2 10:ti) (location_2 greenberg_cafe:lo))
+
+meeting whose location is greenberg_cafe and whose location is greenberg_cafe
+(location_2 greenberg_cafe:lo)
+
+meeting whose attendee is alice and whose start time is 10am
+(and (attendee_2 alice:pe) (start_time_2 10:ti))
+
+meeting whose start time is smaller than start time of weekly_standup
+(< (start_time (type meeting:tyme)) (start_time weekly_standup:me))
+
+person that is attendee of meeting whose date is jan 2
+(attendee (date_2 (jan 2:num)))
+
+meeting whose attendee is alice and whose date is jan 2
+(and (attendee_2 alice:pe) (date_2 (jan 2:num)))
+
+meeting whose start time is 10am and whose start time is 10am
+(start_time_2 10:ti)
+
+meeting whose end time is 10am and whose date is jan 2
+(and (end_time_2 10:ti) (date_2 (jan 2:num)))
+
+article whose publication date is not 2004
+(!= (publication_date (type article:tyar)) 2004:da)
+
+meeting whose date is jan 2
+(date_2 (jan 2:num))
+
+meeting whose end time is 10am
+(end_time_2 10:ti)
+
+person that is attendee of meeting whose date is jan 2
+(attendee (date_2 (jan 2:num)))
+
+meeting whose location is greenberg_cafe
+(location_2 greenberg_cafe:lo)
+
+article whose author is efron or lakoff
+(author_2 (or efron:pe lakoff:pe))
+
+meeting whose end time is larger than end time of weekly_standup
+(> (end_time (type meeting:tyme)) (end_time weekly_standup:me))
+
+meeting whose date is jan 2 and whose attendee is alice
+(and (date_2 (jan 2:num)) (attendee_2 alice:pe))
+
+meeting whose location is greenberg_cafe and whose location is greenberg_cafe
+(location_2 greenberg_cafe:lo)
+
+location that is location of weekly_standup or annual_review
+(location (or weekly_standup:me annual_review:me))
+
+meeting whose location is location that is location of weekly_standup
+(location_2 (location weekly_standup:me))
+
+meeting whose location is greenberg_cafe and whose attendee is alice
+(and (location_2 greenberg_cafe:lo) (attendee_2 alice:pe))
+
+meeting whose start time is smaller than start time of weekly_standup
+(< (start_time (type meeting:tyme)) (start_time weekly_standup:me))
+
+meeting whose date is not jan 2
+(!= (date (type meeting:tyme)) (jan 2:num))
+
+meeting whose date is not jan 2
+(!= (date (type meeting:tyme)) (jan 2:num))
+
+article whose publication date is 2004
+(publication_date_2 2004:da)
+
+weekly_standup or annual_review
+(or weekly_standup:me annual_review:me)
+
+meeting whose date is larger than jan 2
+(> (date (type meeting:tyme)) (jan 2:num))
+
+meeting whose date is jan 2
+(date_2 (jan 2:num))
+
+meeting that is important and whose start time is 10am
+(and is_important:me (start_time_2 10:ti))
+
+meeting whose attendee is alice or bob
+(attendee_2 (or alice:pe bob:pe))
+
+location that is location of meeting whose date is jan 2
+(location (date_2 (jan 2:num)))
+
+meeting whose date is date of weekly_standup
+(date_2 (date weekly_standup:me))
+
+meeting whose location is location that is location of weekly_standup
+(location_2 (location weekly_standup:me))
+
+person that is attendee of meeting whose start time is 10am
+(attendee (start_time_2 10:ti))
+
+meeting whose end time is 10am or 3pm
+(end_time_2 (or 10:ti 15:ti))
+
+location that is location of meeting that is important
+(location is_important:me)
+
+location that is location of weekly_standup and that is location of weekly_standup
+(location weekly_standup:me)
+
+date of weekly_standup
+(date weekly_standup:me)
+
+meeting whose start time is larger than 10am or 3pm
+(> (start_time (type meeting:tyme)) (or 10:ti 15:ti))
+
+meeting whose date is jan 2 and whose date is jan 2
+(date_2 (jan 2:num))
+
+person that is attendee of meeting that is important
+(attendee is_important:me)
+
+meeting whose start time is smaller than 10am
+(< (start_time (type meeting:tyme)) 10:ti)
+
+meeting whose attendee is alice and whose end time is 10am
+(and (attendee_2 alice:pe) (end_time_2 10:ti))
+
+meeting whose start time is smaller than 10am or 3pm
+(< (start_time (type meeting:tyme)) (or 10:ti 15:ti))
+
+meeting whose end time is 10am and whose end time is 10am
+(end_time_2 10:ti)
+
+meeting whose end time is smaller than start time of weekly_standup
+(< (end_time (type meeting:tyme)) (start_time weekly_standup:me))
+
+meeting whose start time is 10am and whose date is jan 2
+(and (start_time_2 10:ti) (date_2 (jan 2:num)))
+
+alice or bob
+(or alice:pe bob:pe)
+
+meeting whose location is greenberg_cafe and whose date is jan 2
+(and (location_2 greenberg_cafe:lo) (date_2 (jan 2:num)))
+
+meeting whose end time is start time of weekly_standup
+(end_time_2 (start_time weekly_standup:me))
+
+meeting whose attendee is attendee of weekly_standup
+(attendee_2 (attendee weekly_standup:me))
+
+meeting whose date is smaller than jan 2 or jan 3
+(< (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
+
+person that is attendee of meeting whose location is greenberg_cafe
+(attendee (location_2 greenberg_cafe:lo))
+
+location that is location of meeting that is important
+(location is_important:me)
+
+meeting whose end time is end time of weekly_standup
+(end_time_2 (end_time weekly_standup:me))
+
+meeting whose location is greenberg_cafe
+(location_2 greenberg_cafe:lo)
+
+meeting whose end time is 10am and whose date is jan 2
+(and (end_time_2 10:ti) (date_2 (jan 2:num)))
+
+start time of weekly_standup
+(start_time weekly_standup:me)
+
+meeting whose attendee is alice and whose date is jan 2
+(and (attendee_2 alice:pe) (date_2 (jan 2:num)))
+
+person that is attendee of meeting whose location is greenberg_cafe
+(attendee (location_2 greenberg_cafe:lo))
+
+meeting whose start time is smaller than 10am
+(< (start_time (type meeting:tyme)) 10:ti)
+
+meeting whose end time is 10am and that is important
+(and is_important:me (end_time_2 10:ti))
+
+meeting whose end time is 10am or 3pm
+(end_time_2 (or 10:ti 15:ti))
+
+meeting whose start time is 10am and whose date is jan 2
+(and (start_time_2 10:ti) (date_2 (jan 2:num)))
+
+meeting whose start time is smaller than start time of weekly_standup
+(< (start_time (type meeting:tyme)) (start_time weekly_standup:me))
+
+meeting that is important
+is_important:me
+
+meeting whose start time is larger than start time of weekly_standup
+(> (start_time (type meeting:tyme)) (start_time weekly_standup:me))
+
+meeting whose end time is not 10am
+(!= (end_time (type meeting:tyme)) 10:ti)
+
+meeting whose start time is not 10am
+(!= (start_time (type meeting:tyme)) 10:ti)
+
+meeting whose date is larger than jan 2 or jan 3
+(> (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
+
+10am or 3pm
+(or 10:ti 15:ti)
+
+meeting whose start time is 10am and whose date is jan 2
+(and (start_time_2 10:ti) (date_2 (jan 2:num)))
+
+meeting whose date is jan 2 and whose start time is 10am
+(and (date_2 (jan 2:num)) (start_time_2 10:ti))
+
+meeting whose start time is smaller than end time of weekly_standup
+(< (start_time (type meeting:tyme)) (end_time weekly_standup:me))
+
+meeting whose start time is 10am
+(start_time_2 10:ti)
+
+meeting whose date is jan 2 and whose location is greenberg_cafe
+(and (date_2 (jan 2:num)) (location_2 greenberg_cafe:lo))
+
+meeting whose location is greenberg_cafe or central_office
+(location_2 (or greenberg_cafe:lo central_office:lo))
+
+meeting whose date is jan 2 and whose attendee is alice
+(and (date_2 (jan 2:num)) (attendee_2 alice:pe))
+
+meeting whose start time is smaller than end time of weekly_standup
+(< (start_time (type meeting:tyme)) (end_time weekly_standup:me))
+
+date of weekly_standup
+(date weekly_standup:me)
+
+meeting whose attendee is alice and whose end time is 10am
+(and (attendee_2 alice:pe) (end_time_2 10:ti))
+
+location that is location of weekly_standup or annual_review
+(location (or weekly_standup:me annual_review:me))
+
+person that is attendee of weekly_standup and that is attendee of weekly_standup
+(attendee weekly_standup:me)
+
+location that is not location of weekly_standup
+(!= (location_2 (type location:tylo)) weekly_standup:me)
+
+person that is attendee of meeting whose location is greenberg_cafe
+(attendee (location_2 greenberg_cafe:lo))
+
+meeting whose end time is 10am and whose start time is 10am
+(and (end_time_2 10:ti) (start_time_2 10:ti))
+
+meeting whose date is jan 2 and whose location is greenberg_cafe
+(and (date_2 (jan 2:num)) (location_2 greenberg_cafe:lo))
+
+meeting whose start time is smaller than 10am
+(< (start_time (type meeting:tyme)) 10:ti)
+
+meeting that is important and whose attendee is alice
+(and is_important:me (attendee_2 alice:pe))
+
+meeting whose start time is 10am and whose start time is 10am
+(start_time_2 10:ti)
+
+meeting whose start time is 10am and whose attendee is alice
+(and (start_time_2 10:ti) (attendee_2 alice:pe))
+
+meeting whose end time is 10am and whose date is jan 2
+(and (end_time_2 10:ti) (date_2 (jan 2:num)))
+
+attendee of weekly_standup
+(attendee weekly_standup:me)
+
+meeting whose end time is larger than end time of weekly_standup
+(> (end_time (type meeting:tyme)) (end_time weekly_standup:me))
+
+meeting whose date is jan 2 and whose start time is 10am
+(and (date_2 (jan 2:num)) (start_time_2 10:ti))
+
+meeting whose date is smaller than jan 2
+(< (date (type meeting:tyme)) (jan 2:num))
+
+meeting whose end time is 10am and whose location is greenberg_cafe
+(and (end_time_2 10:ti) (location_2 greenberg_cafe:lo))
+
+meeting whose start time is 10am and whose location is greenberg_cafe
+(and (start_time_2 10:ti) (location_2 greenberg_cafe:lo))
+
+meeting whose attendee is alice and whose start time is 10am
+(and (attendee_2 alice:pe) (start_time_2 10:ti))
+
+meeting whose location is greenberg_cafe and whose date is jan 2
+(and (location_2 greenberg_cafe:lo) (date_2 (jan 2:num)))
+
+meeting whose end time is smaller than start time of weekly_standup
+(< (end_time (type meeting:tyme)) (start_time weekly_standup:me))
+
+meeting whose start time is 10am and that is important
+(and is_important:me (start_time_2 10:ti))
+
+location that is location of meeting whose date is jan 2
+(location (date_2 (jan 2:num)))
+
+meeting whose location is not greenberg_cafe
+(!= (location (type meeting:tyme)) greenberg_cafe:lo)
+
+greenberg_cafe or central_office
+(or greenberg_cafe:lo central_office:lo)
+
+meeting whose start time is larger than 10am
+(> (start_time (type meeting:tyme)) 10:ti)
+
+meeting whose date is jan 2 and whose start time is 10am
+(and (date_2 (jan 2:num)) (start_time_2 10:ti))
+
+meeting whose date is date of weekly_standup
+(date_2 (date weekly_standup:me))
+
+meeting whose attendee is alice or bob
+(attendee_2 (or alice:pe bob:pe))
+
+meeting whose end time is larger than start time of weekly_standup
+(> (end_time (type meeting:tyme)) (start_time weekly_standup:me))
+
+article whose venue is annals_of_statistics and whose author is efron
+(and (venue_2 annals_of_statistics:ve) (author_2 efron:pe))
+
+meeting whose location is greenberg_cafe and whose date is jan 2
+(and (location_2 greenberg_cafe:lo) (date_2 (jan 2:num)))
+
+person that is attendee of weekly_standup and that is attendee of weekly_standup
+(attendee weekly_standup:me)
+
+meeting whose location is not greenberg_cafe
+(!= (location (type meeting:tyme)) greenberg_cafe:lo)
+
+meeting whose date is jan 2 and that is important
+(and is_important:me (date_2 (jan 2:num)))
+
+meeting whose attendee is alice and whose attendee is alice
+(attendee_2 alice:pe)
+
+meeting that is important and whose start time is 10am
+(and is_important:me (start_time_2 10:ti))
+
+person that is attendee of meeting whose date is jan 2
+(attendee (date_2 (jan 2:num)))
+
+meeting whose end time is 10am and whose location is greenberg_cafe
+(and (end_time_2 10:ti) (location_2 greenberg_cafe:lo))
+
+meeting that is important and that is important
+is_important:me
+
+location that is location of meeting whose attendee is alice
+(location (attendee_2 alice:pe))
+
+meeting whose date is smaller than jan 2
+(< (date (type meeting:tyme)) (jan 2:num))
+
+meeting whose end time is smaller than end time of weekly_standup
+(< (end_time (type meeting:tyme)) (end_time weekly_standup:me))
+
+start time of weekly_standup
+(start_time weekly_standup:me)
+
+three hours or one hour
+(or (hour 3:num) (hour 1:num))
+
+meeting that is important and whose attendee is alice
+(and is_important:me (attendee_2 alice:pe))
+
+meeting whose attendee is alice or bob
+(attendee_2 (or alice:pe bob:pe))
+
+meeting whose date is smaller than jan 2 or jan 3
+(< (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
+
+meeting whose location is location that is location of weekly_standup
+(location_2 (location weekly_standup:me))
+
+meeting whose start time is 10am and whose end time is 10am
+(and (start_time_2 10:ti) (end_time_2 10:ti))
+
+location of weekly_standup
+(location weekly_standup:me)
+
+meeting whose location is greenberg_cafe and whose start time is 10am
+(and (location_2 greenberg_cafe:lo) (start_time_2 10:ti))
+
+meeting whose date is jan 2 and whose start time is 10am
+(and (date_2 (jan 2:num)) (start_time_2 10:ti))
+
+meeting whose attendee is not alice
+(!= (attendee (type meeting:tyme)) alice:pe)
+
+meeting whose date is jan 2 and whose end time is 10am
+(and (date_2 (jan 2:num)) (end_time_2 10:ti))
+
+meeting whose start time is not 10am
+(!= (start_time (type meeting:tyme)) 10:ti)
+
+person that is attendee of meeting whose attendee is alice
+(attendee (attendee_2 alice:pe))
+
+meeting whose location is greenberg_cafe or central_office
+(location_2 (or greenberg_cafe:lo central_office:lo))
+
+meeting that is important and whose date is jan 2
+(and is_important:me (date_2 (jan 2:num)))
+
+start time of weekly_standup
+(start_time weekly_standup:me)
+
+meeting whose end time is 10am
+(end_time_2 10:ti)
+
+date of weekly_standup
+(date weekly_standup:me)
+
+meeting that is important and whose attendee is alice
+(and is_important:me (attendee_2 alice:pe))
+
+meeting whose location is not greenberg_cafe
+(!= (location (type meeting:tyme)) greenberg_cafe:lo)
+
+meeting whose start time is 10am and whose start time is 10am
+(start_time_2 10:ti)
+
+location that is location of weekly_standup and that is location of weekly_standup
+(location weekly_standup:me)
+
+meeting whose start time is larger than 10am or 3pm
+(> (start_time (type meeting:tyme)) (or 10:ti 15:ti))
+
+meeting whose attendee is alice and whose location is greenberg_cafe
+(and (attendee_2 alice:pe) (location_2 greenberg_cafe:lo))
+
+meeting whose date is larger than jan 2 or jan 3
+(> (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
+
+meeting whose end time is smaller than 10am or 3pm
+(< (end_time (type meeting:tyme)) (or 10:ti 15:ti))
+
+meeting whose end time is 10am and whose attendee is alice
+(and (end_time_2 10:ti) (attendee_2 alice:pe))
+
+meeting whose location is location of weekly_standup
+(location_2 (location weekly_standup:me))
+
+meeting whose end time is 10am and whose date is jan 2
+(and (end_time_2 10:ti) (date_2 (jan 2:num)))
+
+meeting whose end time is larger than 10am or 3pm
+(> (end_time (type meeting:tyme)) (or 10:ti 15:ti))
+
+meeting whose end time is start time of weekly_standup
+(end_time_2 (start_time weekly_standup:me))
+
+meeting whose location is greenberg_cafe and whose start time is 10am
+(and (location_2 greenberg_cafe:lo) (start_time_2 10:ti))
+
+location that is not location of weekly_standup
+(!= (location_2 (type location:tylo)) weekly_standup:me)
+
+meeting whose start time is end time of weekly_standup
+(start_time_2 (end_time weekly_standup:me))
+
+meeting whose end time is 10am and whose location is greenberg_cafe
+(and (end_time_2 10:ti) (location_2 greenberg_cafe:lo))
+
+meeting whose attendee is attendee of weekly_standup
+(attendee_2 (attendee weekly_standup:me))
+
+meeting whose date is larger than date of weekly_standup
+(> (date (type meeting:tyme)) (date weekly_standup:me))
+
+date of weekly_standup
+(date weekly_standup:me)
+
+location that is not location of weekly_standup
+(!= (location_2 (type location:tylo)) weekly_standup:me)
+
+meeting whose date is larger than date of weekly_standup
+(> (date (type meeting:tyme)) (date weekly_standup:me))
+
+meeting whose start time is not 10am
+(!= (start_time (type meeting:tyme)) 10:ti)
+
+meeting whose end time is end time of weekly_standup
+(end_time_2 (end_time weekly_standup:me))
+
+meeting whose date is larger than jan 2
+(> (date (type meeting:tyme)) (jan 2:num))
+
+person that is attendee of weekly_standup or annual_review
+(attendee (or weekly_standup:me annual_review:me))
+
+meeting whose attendee is alice and whose start time is 10am
+(and (attendee_2 alice:pe) (start_time_2 10:ti))
+
+end time of weekly_standup
+(end_time weekly_standup:me)
+
+meeting whose date is smaller than jan 2 or jan 3
+(< (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
+
+meeting whose start time is not 10am
+(!= (start_time (type meeting:tyme)) 10:ti)
+
+location that is location of meeting whose end time is 10am
+(location (end_time_2 10:ti))
+
+meeting that is important and whose start time is 10am
+(and is_important:me (start_time_2 10:ti))
+
+meeting whose attendee is alice and whose location is greenberg_cafe
+(and (attendee_2 alice:pe) (location_2 greenberg_cafe:lo))
+
+meeting whose end time is smaller than end time of weekly_standup
+(< (end_time (type meeting:tyme)) (end_time weekly_standup:me))
+
+meeting that is important and that is important
+is_important:me
+
+person that is attendee of meeting whose location is greenberg_cafe
+(attendee (location_2 greenberg_cafe:lo))
+
+meeting whose end time is not 10am
+(!= (end_time (type meeting:tyme)) 10:ti)
+
+person that is attendee of meeting whose end time is 10am
+(attendee (end_time_2 10:ti))
+
+person that is not attendee of weekly_standup
+(!= (attendee_2 (type person:type)) weekly_standup:me)
+
+meeting whose attendee is attendee of weekly_standup
+(attendee_2 (attendee weekly_standup:me))
+
+article whose venue is annals_of_statistics and that won an award
+(and won_award:ar (venue_2 annals_of_statistics:ve))
+
+meeting whose date is smaller than date of weekly_standup
+(< (date (type meeting:tyme)) (date weekly_standup:me))
+
+meeting whose end time is larger than start time of weekly_standup
+(> (end_time (type meeting:tyme)) (start_time weekly_standup:me))
+
+person that is not attendee of weekly_standup
+(!= (attendee_2 (type person:type)) weekly_standup:me)
+
+meeting whose end time is 10am or 3pm
+(end_time_2 (or 10:ti 15:ti))
+
+person that is attendee of weekly_standup
+(attendee weekly_standup:me)
+
+meeting whose date is jan 2 and whose location is greenberg_cafe
+(and (date_2 (jan 2:num)) (location_2 greenberg_cafe:lo))
+
+meeting whose end time is larger than end time of weekly_standup
+(> (end_time (type meeting:tyme)) (end_time weekly_standup:me))
+
+person that is author of multivariate_data_analysis and that is author of multivariate_data_analysis
+(author multivariate_data_analysis:ar)
+
+location that is location of meeting whose start time is 10am
+(location (start_time_2 10:ti))
+
+person that is attendee of meeting whose location is greenberg_cafe
+(attendee (location_2 greenberg_cafe:lo))
+
+meeting whose start time is smaller than 10am
+(< (start_time (type meeting:tyme)) 10:ti)
+
+meeting whose end time is smaller than 10am
+(< (end_time (type meeting:tyme)) 10:ti)
+
+meeting whose end time is not 10am
+(!= (end_time (type meeting:tyme)) 10:ti)
+
+jan 2 or jan 3
+(or (jan 2:num) (jan 3:num))
+
+meeting whose end time is start time of weekly_standup
+(end_time_2 (start_time weekly_standup:me))
+
+meeting whose attendee is alice and whose date is jan 2
+(and (attendee_2 alice:pe) (date_2 (jan 2:num)))
 

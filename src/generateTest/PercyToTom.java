@@ -5,12 +5,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
 import javafx.util.converter.PercentageStringConverter;
+import lambda.Lang;
+import lambda.PType;
+import learn.DataSet;
 import utils.LispReader;
 
 public class PercyToTom {
@@ -98,10 +102,10 @@ public class PercyToTom {
 			formula = formula.replace("en.person.bob", "bob:pe");
 
 
-			formula = formula.replace("en.hour ", "hour:tyho ");
-			formula = formula.replace("en.person ", "person:type ");
-			formula = formula.replace("en.meeting ", "meeting:tyme ");
-			formula = formula.replace("en.location ", "location:tylo ");
+			formula = formula.replace("en.hour", "hour:tyho");
+//			formula = formula.replace("en.person", "person:type");
+			formula = formula.replace("en.meeting", "meeting:tyme");
+			formula = formula.replace("en.location", "location:tylo");
 
 //publication
 			
@@ -129,47 +133,47 @@ public class PercyToTom {
 					formula.contains("countS") || formula.contains("countC") 
 					|| formula.contains("min") || formula.contains("max")
 					|| formula.contains("cites") || formula.contains("length")
-					|| formula.contains("count") || formula.length() > 150
+					|| formula.contains("count") //|| formula.length() > 180
 					) continue;
 			
 			
 			if(outName.contains("test")){
-//				if(formula.contains("attendee")){
-//					if(attendee > 0 )	continue;
-//					else	attendee++;
-//				}
-//				if(formula.contains("location")){
-//					if(location > 0 )	continue;
-//					else	location++;
-//				}
-//				if(formula.contains("(date")){
-//					if(date > 0 )	continue;
-//					else	date++;
-//				}
-//				if(formula.contains("is_important")){
-//					if(is_important > 0 )	continue;
-//					else	is_important++;
-//				}
+				if(formula.contains("attendee")){
+					if(attendee > 0 )	continue;
+					else	attendee++;
+				}
+				if(formula.contains("location")){
+					if(location > 0 )	continue;
+					else	location++;
+				}
+				if(formula.contains("(date")){
+					if(date > 0 )	continue;
+					else	date++;
+				}
+				if(formula.contains("is_important")){
+					if(is_important > 0 )	continue;
+					else	is_important++;
+				}
 				//out.println(utterence + "\n" + formula + "\n");
 				triples.add(new Triple(original, formula, utterence));
 
 			}else{
-//				if(formula.contains("author")){
-//					if(author > 2 )	continue;
-//					else	author++;
-//				}
-//				if(formula.contains("venue")){
-//					if(venue > 2 )	continue;
-//					else	venue++;
-//				}
-//				if(formula.contains("publication_date")){
-//					if(pub_date > 2 )	continue;
-//					else	pub_date++;
-//				}
-//				if(formula.contains("won_award")){
-//					if(won_award > 2 )	continue;
-//					else	won_award++;
-//				}
+				if(formula.contains("author")){
+					if(author > 2 )	continue;
+					else	author++;
+				}
+				if(formula.contains("venue")){
+					if(venue > 2 )	continue;
+					else	venue++;
+				}
+				if(formula.contains("publication_date")){
+					if(pub_date > 2 )	continue;
+					else	pub_date++;
+				}
+				if(formula.contains("won_award")){
+					if(won_award > 2 )	continue;
+					else	won_award++;
+				}
 				//out.println(utterence + "\n" + formula + "\n");
 				triples.add(new Triple(original, formula, utterence));
 			}
@@ -201,6 +205,17 @@ public class PercyToTom {
 		out.close();
 	}
 	
+	public static void print(DataSet dataset, String fileName) throws FileNotFoundException, UnsupportedEncodingException{
+		PrintWriter out = new PrintWriter(fileName, "UTF-8");
+		for(int i=0; i<dataset.size(); i++){
+			out.println(dataset.sent(i));
+			out.println(dataset.sem(i));
+			out.println();
+		}
+		out.close();
+
+	}
+	
 	public static void main(String[] args) throws IOException {
 		PercyToTom percyToTom = new PercyToTom();
 		
@@ -208,9 +223,19 @@ public class PercyToTom {
 //				"./data/train.txt");
 //		percyToTom.percy_toGeo("./data/real_test_both.txt",
 //				"./data/test.txt");
-		percyToTom.percent("./data/real_train_calandar.txt",
-				"./data/real_train_publication.txt" , "./data/train.txt", 1, 0.05);
-		percyToTom.percent("./data/real_test_calandar.txt",
-				"./data/real_test_publication.txt" , "./data/test.txt", 0.05, 1);
+		
+		PType.addTypesFromFile("geo-lambda.types");
+		Lang.loadLangFromFile("geo-lambda.lang");
+		
+		percyToTom.percent("../../data/real_train_calandar.txt",
+				"../../data/real_train_publication.txt" , "../../data/train.txt", 1, 0.05);
+		DataSet train = new DataSet("../../data/train.txt");
+		print(train, "../../data/train.txt");
+		
+		percyToTom.percent("../../data/real_test_calandar.txt",
+				"../../data/real_test_publication.txt" , "../../data/test.txt", 0.05, 1);
+		DataSet test = new DataSet("../../data/test.txt");
+		print(test, "../../data/test.txt");
+
 	}
 }

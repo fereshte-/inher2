@@ -67,6 +67,9 @@ public class LexEntry {
 	//>
 
 	public LexEntry getParent(){
+		return getParent(false);
+	}
+	public LexEntry getParent(boolean isFirst){
 		Exp sem = getCat().getSem();
 		if(sem == null) return null;
 
@@ -76,9 +79,9 @@ public class LexEntry {
 
 		if(result.size() == 1 ){
 			Lit what = result.get(0);
-			String to = what.getHeadString();
+			String to = "";
 			if(what!=null){
-				if(myTokens.size() ==1 && !Lang.hasPred((String)myTokens.get(0)))
+				if(isFirst)
 					to= what.getHeadString();
 				else
 					to = what.getParent();

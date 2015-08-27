@@ -48,7 +48,7 @@ public class LexiconFeatSet implements LexicalFeatureSet {
 		if(
 				share && 
 				l!=null){
-			LexEntry lp = l.getParent();
+			LexEntry lp = l.getParent(true);
 			
 			while(lp!=null){
 				i = indexOf(lp);
@@ -72,7 +72,7 @@ public class LexiconFeatSet implements LexicalFeatureSet {
 		double score = 0;
 		double sc = 0.25;
 		if(share && l.getCat().getSem() != null){
-			LexEntry lp = l.getParent();
+			LexEntry lp = l.getParent(true);
 			while(lp!=null){
 				int i= indexOf(lp);
 				if (i!=-1) 
@@ -115,7 +115,7 @@ public class LexiconFeatSet implements LexicalFeatureSet {
 			}
 
 
-			LexEntry lp = l.getParent();
+			LexEntry lp = l.getParent(true);
 			sc *= 0.5;
 			while (share && lp!=null){
 				if(!lexItems.containsKey(lp)){
