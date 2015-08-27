@@ -9,9 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
-import javafx.util.converter.PercentageStringConverter;
 import lambda.Lang;
 import lambda.PType;
 import learn.DataSet;
