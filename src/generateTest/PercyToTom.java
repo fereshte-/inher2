@@ -5,15 +5,54 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
+import javafx.util.converter.PercentageStringConverter;
 import utils.LispReader;
 
 public class PercyToTom {
+	
+	private class Triple{
+		String original, formula, utterence;
+		public Triple(String original, String formula, String utterence) {
+			this.original = original;
+			this.formula = formula;
+			this.utterence = utterence;
+		}
+	}
 
-	public void percy_toGeo(String fileName, String outName) throws FileNotFoundException{
-		PrintWriter out = new PrintWriter(outName);
-
+	String change(String utterence){
+		utterence = utterence.replace("?", " ");
+		utterence = utterence.replace("-", " ");
+		utterence = utterence.replace("'s", " 's");
+		utterence = utterence.replace("weekly standup", "weekly_standup");
+		utterence = utterence.replace("annual review", "annual_review");
+		utterence = utterence.replace("greenberg cafe", "greenberg_cafe");
+		utterence = utterence.replace("central office", "central_office");
+		
+		utterence = utterence.replace("multivariate data analysis",
+				"multivariate_data_analysis");
+		utterence = utterence.replace("annals of statistics", "annals_of_statistics");
+		utterence = utterence.replace("computational linguistics", "computational_linguistics");
+		
+		return utterence;
+	}
+	
+	public List<Triple> percy_toGeo(String fileName, String outName) throws FileNotFoundException{
+		
+		List triples = new LinkedList<Triple>();
+		int won_award = 0;
+		int venue =0;
+		int pub_date =0;
+		int author =0;
+		
+		int is_important = 0;
+		int location =0;
+		int date=0;
+		int attendee = 0;
 		// detemine if it is a function application or a literal
 		LispReader wholeFileLr = new LispReader(new FileReader(fileName));
 		while(wholeFileLr.hasNext()){
@@ -45,20 +84,8 @@ public class PercyToTom {
 			formula = formula.replaceAll("call .size", "ccount");
 			formula = formula.replaceAll("!type", "type");
 			
-			utterence = utterence.replace("?", " ");
-			utterence = utterence.replace("-", " ");
-			utterence = utterence.replace("'s", " 's");
-			utterence = utterence.replace("weekly standup", "weekly_standup");
-			utterence = utterence.replace("annual review", "annual_review");
-			utterence = utterence.replace("greenberg cafe", "greenberg_cafe");
-			utterence = utterence.replace("central office", "central_office");
-			
-			utterence = utterence.replace("multivariate data analysis",
-					"multivariate_data_analysis");
-			utterence = utterence.replace("annals of statistics", "annals_of_statistics");
-			utterence = utterence.replace("computational linguistics", "computational_linguistics");
-
-
+			utterence = change (utterence);
+			original = change(original);
 			
 			
 // calandar
@@ -93,33 +120,97 @@ public class PercyToTom {
 			formula = formula.replace("en.venue", "venue:tyve");
 			
 		//	formula = formula.replace("concat", "or");
+			
+			
+
 
 			if(
 					formula.contains("<=") || formula.contains(">=") ||
 					formula.contains("countS") || formula.contains("countC") 
 					|| formula.contains("min") || formula.contains("max")
-					|| formula.contains("count")
+					|| formula.contains("cites") || formula.contains("length")
+					|| formula.contains("count") || formula.length() > 150
 					) continue;
 			
+			
 			if(outName.contains("test")){
-				out.println(utterence + "\n" + formula + "\n");
+//				if(formula.contains("attendee")){
+//					if(attendee > 0 )	continue;
+//					else	attendee++;
+//				}
+//				if(formula.contains("location")){
+//					if(location > 0 )	continue;
+//					else	location++;
+//				}
+//				if(formula.contains("(date")){
+//					if(date > 0 )	continue;
+//					else	date++;
+//				}
+//				if(formula.contains("is_important")){
+//					if(is_important > 0 )	continue;
+//					else	is_important++;
+//				}
+				//out.println(utterence + "\n" + formula + "\n");
+				triples.add(new Triple(original, formula, utterence));
+
 			}else{
-				out.println(utterence + "\n" + formula + "\n");
-		//		out.println(original + "\n" + formula + "\n");
+//				if(formula.contains("author")){
+//					if(author > 2 )	continue;
+//					else	author++;
+//				}
+//				if(formula.contains("venue")){
+//					if(venue > 2 )	continue;
+//					else	venue++;
+//				}
+//				if(formula.contains("publication_date")){
+//					if(pub_date > 2 )	continue;
+//					else	pub_date++;
+//				}
+//				if(formula.contains("won_award")){
+//					if(won_award > 2 )	continue;
+//					else	won_award++;
+//				}
+				//out.println(utterence + "\n" + formula + "\n");
+				triples.add(new Triple(original, formula, utterence));
 			}
-		//	out.println(original + "\n" + formula + "\n");
 
 		}
-		out.close();
+		return triples;
 	
+	}
+	
+	public void percent(String one, String two, String outName, double perOne, double perTwo) throws FileNotFoundException{
+		List <Triple> l1 = percy_toGeo(one, outName);
+		List <Triple> l2 = percy_toGeo(two, outName);
+		
+		Collections.shuffle(l1);
+		Collections.shuffle(l2);
+
+		int size = l1.size();
+		l1.subList((int) (perOne * size), size).clear();
+		int size2=l2.size();
+		l2.subList((int) (perTwo * size2), size2);
+		
+		
+		l1.addAll(l2);
+		Collections.shuffle(l1);
+		PrintWriter out = new PrintWriter(outName);
+		for(Triple x : l1){
+			out.println(x.original + "\n" + x.formula + "\n");
+		}
+		out.close();
 	}
 	
 	public static void main(String[] args) throws IOException {
 		PercyToTom percyToTom = new PercyToTom();
-		percyToTom.percy_toGeo("./data/real_train_both.txt",
-				"./data/train.txt");
-		percyToTom.percy_toGeo("./data/real_test_both.txt",
-				"./data/test.txt");
-
+		
+//		percyToTom.percy_toGeo("./data/real_train_both.txt",
+//				"./data/train.txt");
+//		percyToTom.percy_toGeo("./data/real_test_both.txt",
+//				"./data/test.txt");
+		percyToTom.percent("./data/real_train_calandar.txt",
+				"./data/real_train_publication.txt" , "./data/train.txt", 1, 0.05);
+		percyToTom.percent("./data/real_test_calandar.txt",
+				"./data/real_test_publication.txt" , "./data/test.txt", 0.05, 1);
 	}
 }

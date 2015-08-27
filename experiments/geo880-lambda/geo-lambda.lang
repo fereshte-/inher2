@@ -84,6 +84,7 @@
 
 ((location me lo) relNp3_loc)
 ((location_2 lo me) relNp3_loc_2)
+
 ((length me ho))
 ((length_2 ho me))
 
@@ -104,8 +105,10 @@
 
 ((publication_date ar da) relNp1_date)
 ((publication_date_2 da ar) relNp1_date_2)
+
 ((cites ar ar))
 ((cites_2 ar ar))
+
 ((won_award ar ar) vp)
 
 ((type tyar ar))

@@ -321,6 +321,11 @@ public class Train {
 		DataSet data=null;
 		// for each pass over the data
 		for (int j=0; j<EPOCHS; j++){
+			System.out.println("%%%%%%%%%%%%%%%%%%%%");
+			parser.printLexiconWithWeights();
+			System.out.println("%%%%%%%%%%%%%%%%%%%%");
+			Globals.theta.printValues(Globals.theta);
+			System.out.println("%%%%%%%%%%%%%%%%%%%%");
 			System.out.println("Training, iteration "+j);
 			int total=0, correct=0, wrong=0, looCorrect=0, looWrong=0;
 			for (int l=0;l<trainData.size(); l++){
@@ -347,11 +352,7 @@ public class Train {
 							System.out.println(" (epoch:"+j+" file:"+l+" "+filename+")");
 						} else System.out.println(i+": ===========");
 					}
-//					System.out.println("%%%%%%%%%%%%%%%%%%%%");
-//					parser.printLexiconWithWeights();
-//					System.out.println("%%%%%%%%%%%%%%%%%%%%");
-//					Globals.theta.printValues(Globals.theta);
-//					System.out.println("%%%%%%%%%%%%%%%%%%%%");
+					
 
 
 					// get the training example

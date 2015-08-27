@@ -189,7 +189,7 @@ public class ChangeFormat {
 		if(isNumeric(args[0])){
 			System.out.println("hello!!!!!!!");
 
-			double portion = Double.parseDouble(args[0]) / 10 ;
+			double portion = Double.parseDouble(args[0]) / 60 ;
 			changeFormat.makePortion(portion, "../../data/train.txt", "train.txt");
 			changeFormat.makePortion(1, "../../data/test.txt", "test.txt");
 		}else{

@@ -24,7 +24,7 @@ import lambda.*;
 
 public class ExpParseFeats implements ParseFeatureSet {
 
-	static boolean share = true;
+	public static boolean share = true;
 
 	public void setFeats(Cell c, List<Cell> children, HashVector feats){
 		if (c.getStart()!=0 || c.getEnd()!=Globals.lastWordIndex) 

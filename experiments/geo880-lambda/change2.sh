@@ -1,9 +1,9 @@
 #! /bin/csh
 
 
-echo `rm run.test`;
+echo `rm $2`;
 
-set p = 10;
+set p = 1;
 while ($p <= 10)
 echo "portion is $p";
 
@@ -61,8 +61,8 @@ set classpath="../../src:.:../../lib/guava-18.0.jar";
 
 echo "javac -classpath $classpath ../../src/*/*.java TestTrain.java";
 echo `javac -classpath $classpath ../../src/*/*.java TestTrain.java`;
-echo "nohup java -server -Xmx1500m -classpath $classpath TestTrain  np-fixedlex.geo >> run.test";
-echo `nohup java -server -Xmx1500m -classpath $classpath TestTrain  np-fixedlex.geo >> run.test`;
+echo "nohup java -server -Xmx1500m -classpath $classpath TestTrain  np-fixedlex.geo $1 >> $2";
+echo `nohup java -server -Xmx1500m -classpath $classpath TestTrain  np-fixedlex.geo $1 >> $2`;
 
 
 
