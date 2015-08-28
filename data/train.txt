@@ -1,893 +1,236 @@
-meeting whose location is greenberg_cafe and whose attendee is alice
-(and (location_2 greenberg_cafe:lo) (attendee_2 alice:pe))
+meeting whose attendee is person that is attendee of weekly_standup
+(attendee_2 (attendee weekly_standup:me))
 
-meeting that is important and whose attendee is alice
-(and is_important:me (attendee_2 alice:pe))
+weekly_standup or annual_review
+(or weekly_standup:me annual_review:me)
 
-meeting whose start time is 10am or 3pm
-(start_time_2 (or 10:ti 15:ti))
-
-meeting whose date is date of weekly_standup
-(date_2 (date weekly_standup:me))
-
-meeting whose end time is smaller than end time of weekly_standup
-(< (end_time (type meeting:tyme)) (end_time weekly_standup:me))
-
-2004 or 2010
-(or 2004:da 2010:da)
-
-person that is not attendee of weekly_standup
-(!= (attendee_2 (type person:type)) weekly_standup:me)
-
-meeting whose date is smaller than jan 2 or jan 3
-(< (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
-
-person that is attendee of meeting whose end time is 10am
-(attendee (end_time_2 10:ti))
-
-meeting whose location is location of weekly_standup
-(location_2 (location weekly_standup:me))
-
-meeting whose start time is larger than start time of weekly_standup
-(> (start_time (type meeting:tyme)) (start_time weekly_standup:me))
+article whose publication date is smaller than 2004
+(< (publication_date (type article:tyar)) 2004:da)
 
 location that is not location of weekly_standup
 (!= (location_2 (type location:tylo)) weekly_standup:me)
 
-meeting whose attendee is person that is attendee of weekly_standup
-(attendee_2 (attendee weekly_standup:me))
-
-end time of weekly_standup
-(end_time weekly_standup:me)
-
-weekly_standup or annual_review
-(or weekly_standup:me annual_review:me)
-
-person that is attendee of meeting whose date is jan 2
-(attendee (date_2 (jan 2:num)))
-
-meeting that is important
-is_important:me
-
-meeting whose date is jan 2 or jan 3
-(date_2 (or (jan 2:num) (jan 3:num)))
-
-meeting whose end time is end time of weekly_standup
-(end_time_2 (end_time weekly_standup:me))
-
-meeting whose start time is 10am and whose attendee is alice
-(and (start_time_2 10:ti) (attendee_2 alice:pe))
-
-article that won an award
-won_award:ar
-
-meeting whose attendee is person that is attendee of weekly_standup
-(attendee_2 (attendee weekly_standup:me))
-
-meeting whose end time is not 10am
-(!= (end_time (type meeting:tyme)) 10:ti)
-
-meeting that is important and whose start time is 10am
-(and is_important:me (start_time_2 10:ti))
-
-meeting whose end time is 10am and whose start time is 10am
-(and (end_time_2 10:ti) (start_time_2 10:ti))
-
-10am or 3pm
-(or 10:ti 15:ti)
-
-meeting whose date is smaller than jan 2
-(< (date (type meeting:tyme)) (jan 2:num))
-
-meeting whose end time is 10am and that is important
-(and is_important:me (end_time_2 10:ti))
-
-meeting whose date is not jan 2
-(!= (date (type meeting:tyme)) (jan 2:num))
-
-meeting whose start time is larger than start time of weekly_standup
-(> (start_time (type meeting:tyme)) (start_time weekly_standup:me))
-
-meeting whose end time is end time of weekly_standup
-(end_time_2 (end_time weekly_standup:me))
-
-meeting whose attendee is alice and whose end time is 10am
-(and (attendee_2 alice:pe) (end_time_2 10:ti))
-
-meeting whose attendee is alice and that is important
-(and is_important:me (attendee_2 alice:pe))
-
-person that is attendee of meeting whose attendee is alice
-(attendee (attendee_2 alice:pe))
-
-person that is attendee of meeting whose start time is 10am
-(attendee (start_time_2 10:ti))
-
-meeting whose start time is smaller than 10am or 3pm
-(< (start_time (type meeting:tyme)) (or 10:ti 15:ti))
-
-person that is attendee of meeting whose attendee is alice
-(attendee (attendee_2 alice:pe))
-
-meeting whose end time is larger than 10am or 3pm
-(> (end_time (type meeting:tyme)) (or 10:ti 15:ti))
-
-location that is location of meeting whose attendee is alice
-(location (attendee_2 alice:pe))
-
-meeting that is important and whose location is greenberg_cafe
-(and is_important:me (location_2 greenberg_cafe:lo))
-
-meeting whose end time is 10am and whose start time is 10am
-(and (end_time_2 10:ti) (start_time_2 10:ti))
-
-meeting whose start time is 10am and that is important
-(and is_important:me (start_time_2 10:ti))
-
-meeting that is important and that is important
-is_important:me
-
-location that is not location of weekly_standup
-(!= (location_2 (type location:tylo)) weekly_standup:me)
-
-start time of weekly_standup
-(start_time weekly_standup:me)
-
-meeting that is important
-is_important:me
-
-person that is attendee of weekly_standup or annual_review
-(attendee (or weekly_standup:me annual_review:me))
-
-meeting whose location is greenberg_cafe or central_office
-(location_2 (or greenberg_cafe:lo central_office:lo))
-
-meeting whose start time is end time of weekly_standup
-(start_time_2 (end_time weekly_standup:me))
-
-meeting whose date is larger than jan 2 or jan 3
-(> (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
-
-meeting whose attendee is person that is attendee of weekly_standup
-(attendee_2 (attendee weekly_standup:me))
-
-meeting whose date is larger than jan 2 or jan 3
-(> (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
-
-meeting whose date is larger than jan 2
-(> (date (type meeting:tyme)) (jan 2:num))
-
-meeting whose date is jan 2 or jan 3
-(date_2 (or (jan 2:num) (jan 3:num)))
-
-meeting whose location is greenberg_cafe and whose start time is 10am
-(and (location_2 greenberg_cafe:lo) (start_time_2 10:ti))
-
-annals_of_statistics or computational_linguistics
-(or annals_of_statistics:ve computational_linguistics:ve)
-
-person that is attendee of meeting that is important
-(attendee is_important:me)
-
-location that is location of meeting whose end time is 10am
-(location (end_time_2 10:ti))
-
-meeting whose end time is larger than start time of weekly_standup
-(> (end_time (type meeting:tyme)) (start_time weekly_standup:me))
-
-meeting whose start time is larger than 10am or 3pm
-(> (start_time (type meeting:tyme)) (or 10:ti 15:ti))
-
-meeting whose attendee is alice and that is important
-(and is_important:me (attendee_2 alice:pe))
-
-meeting whose end time is 10am and whose attendee is alice
-(and (end_time_2 10:ti) (attendee_2 alice:pe))
-
-meeting whose attendee is alice and that is important
-(and is_important:me (attendee_2 alice:pe))
-
-three hours or one hour
-(or (hour 3:num) (hour 1:num))
-
 meeting whose location is location that is location of weekly_standup
 (location_2 (location weekly_standup:me))
-
-person that is attendee of weekly_standup or annual_review
-(attendee (or weekly_standup:me annual_review:me))
-
-meeting whose end time is 10am and whose end time is 10am
-(end_time_2 10:ti)
-
-meeting whose location is greenberg_cafe and whose start time is 10am
-(and (location_2 greenberg_cafe:lo) (start_time_2 10:ti))
-
-location that is location of meeting whose start time is 10am
-(location (start_time_2 10:ti))
-
-meeting that is important and whose location is greenberg_cafe
-(and is_important:me (location_2 greenberg_cafe:lo))
-
-location that is location of meeting whose date is jan 2
-(location (date_2 (jan 2:num)))
-
-location that is location of meeting whose attendee is alice
-(location (attendee_2 alice:pe))
-
-meeting whose end time is 10am and whose attendee is alice
-(and (end_time_2 10:ti) (attendee_2 alice:pe))
-
-meeting whose date is smaller than date of weekly_standup
-(< (date (type meeting:tyme)) (date weekly_standup:me))
-
-person that is attendee of weekly_standup
-(attendee weekly_standup:me)
-
-meeting whose start time is smaller than 10am or 3pm
-(< (start_time (type meeting:tyme)) (or 10:ti 15:ti))
-
-meeting whose location is not greenberg_cafe
-(!= (location (type meeting:tyme)) greenberg_cafe:lo)
-
-weekly_standup or annual_review
-(or weekly_standup:me annual_review:me)
-
-meeting whose start time is 10am and whose start time is 10am
-(start_time_2 10:ti)
-
-meeting whose end time is larger than end time of weekly_standup
-(> (end_time (type meeting:tyme)) (end_time weekly_standup:me))
-
-meeting whose end time is larger than 10am or 3pm
-(> (end_time (type meeting:tyme)) (or 10:ti 15:ti))
-
-meeting whose start time is smaller than 10am or 3pm
-(< (start_time (type meeting:tyme)) (or 10:ti 15:ti))
-
-person that is not attendee of weekly_standup
-(!= (attendee_2 (type person:type)) weekly_standup:me)
-
-meeting whose location is location of weekly_standup
-(location_2 (location weekly_standup:me))
-
-meeting whose end time is 10am or 3pm
-(end_time_2 (or 10:ti 15:ti))
-
-meeting whose end time is larger than start time of weekly_standup
-(> (end_time (type meeting:tyme)) (start_time weekly_standup:me))
-
-person that is attendee of meeting whose attendee is alice
-(attendee (attendee_2 alice:pe))
-
-meeting whose start time is 10am and that is important
-(and is_important:me (start_time_2 10:ti))
-
-meeting whose end time is start time of weekly_standup
-(end_time_2 (start_time weekly_standup:me))
-
-end time of weekly_standup
-(end_time weekly_standup:me)
-
-meeting that is important
-is_important:me
-
-location that is location of meeting whose date is jan 2
-(location (date_2 (jan 2:num)))
-
-person that is attendee of meeting whose end time is 10am
-(attendee (end_time_2 10:ti))
-
-meeting whose attendee is alice and whose end time is 10am
-(and (attendee_2 alice:pe) (end_time_2 10:ti))
-
-meeting whose date is date of weekly_standup
-(date_2 (date weekly_standup:me))
-
-meeting whose start time is 10am and whose location is greenberg_cafe
-(and (start_time_2 10:ti) (location_2 greenberg_cafe:lo))
-
-meeting whose start time is smaller than end time of weekly_standup
-(< (start_time (type meeting:tyme)) (end_time weekly_standup:me))
-
-meeting whose location is location that is location of weekly_standup
-(location_2 (location weekly_standup:me))
-
-meeting whose start time is larger than 10am
-(> (start_time (type meeting:tyme)) 10:ti)
-
-meeting whose date is jan 2 and whose date is jan 2
-(date_2 (jan 2:num))
-
-meeting whose start time is not 10am
-(!= (start_time (type meeting:tyme)) 10:ti)
-
-meeting whose end time is larger than start time of weekly_standup
-(> (end_time (type meeting:tyme)) (start_time weekly_standup:me))
-
-meeting whose date is not jan 2
-(!= (date (type meeting:tyme)) (jan 2:num))
-
-meeting whose start time is 10am and whose end time is 10am
-(and (start_time_2 10:ti) (end_time_2 10:ti))
-
-meeting whose date is jan 2 or jan 3
-(date_2 (or (jan 2:num) (jan 3:num)))
-
-meeting whose start time is start time of weekly_standup
-(start_time_2 (start_time weekly_standup:me))
-
-venue that is venue of article that won an award
-(venue won_award:ar)
-
-article whose publication date is smaller than publication date of multivariate_data_analysis
-(< (publication_date (type article:tyar)) (publication_date multivariate_data_analysis:ar))
-
-meeting whose end time is larger than 10am
-(> (end_time (type meeting:tyme)) 10:ti)
-
-meeting whose start time is larger than start time of weekly_standup
-(> (start_time (type meeting:tyme)) (start_time weekly_standup:me))
 
 meeting whose attendee is alice or bob
 (attendee_2 (or alice:pe bob:pe))
 
-meeting whose location is greenberg_cafe or central_office
-(location_2 (or greenberg_cafe:lo central_office:lo))
-
-meeting whose end time is smaller than 10am or 3pm
-(< (end_time (type meeting:tyme)) (or 10:ti 15:ti))
-
-meeting whose start time is end time of weekly_standup
-(start_time_2 (end_time weekly_standup:me))
-
-meeting whose start time is 10am and whose date is jan 2
-(and (start_time_2 10:ti) (date_2 (jan 2:num)))
-
-meeting whose location is greenberg_cafe and that is important
-(and is_important:me (location_2 greenberg_cafe:lo))
-
-meeting whose attendee is not alice
-(!= (attendee (type meeting:tyme)) alice:pe)
-
-person that is attendee of meeting whose start time is 10am
-(attendee (start_time_2 10:ti))
-
-meeting whose end time is 10am
-(end_time_2 10:ti)
-
-three hours or one hour
-(or (hour 3:num) (hour 1:num))
-
-meeting whose start time is 10am and whose start time is 10am
-(start_time_2 10:ti)
-
-meeting whose attendee is person that is attendee of weekly_standup
-(attendee_2 (attendee weekly_standup:me))
-
-jan 2 or jan 3
-(or (jan 2:num) (jan 3:num))
-
-location that is location of weekly_standup or annual_review
-(location (or weekly_standup:me annual_review:me))
-
-location that is location of meeting that is important
-(location is_important:me)
-
-meeting whose date is jan 2 and whose attendee is alice
-(and (date_2 (jan 2:num)) (attendee_2 alice:pe))
-
-meeting whose date is jan 2 and whose end time is 10am
-(and (date_2 (jan 2:num)) (end_time_2 10:ti))
-
-meeting whose start time is larger than end time of weekly_standup
-(> (start_time (type meeting:tyme)) (end_time weekly_standup:me))
-
-meeting whose start time is 10am and whose attendee is alice
-(and (start_time_2 10:ti) (attendee_2 alice:pe))
-
-meeting whose date is jan 2 and whose attendee is alice
-(and (date_2 (jan 2:num)) (attendee_2 alice:pe))
-
-person that is not attendee of weekly_standup
-(!= (attendee_2 (type person:type)) weekly_standup:me)
-
-meeting whose start time is start time of weekly_standup
-(start_time_2 (start_time weekly_standup:me))
-
-meeting whose end time is 10am and whose date is jan 2
-(and (end_time_2 10:ti) (date_2 (jan 2:num)))
-
-meeting whose start time is end time of weekly_standup
-(start_time_2 (end_time weekly_standup:me))
-
-person that is attendee of weekly_standup
-(attendee weekly_standup:me)
-
 attendee of weekly_standup
 (attendee weekly_standup:me)
-
-person that is attendee of weekly_standup and that is attendee of weekly_standup
-(attendee weekly_standup:me)
-
-location that is location of meeting whose attendee is alice
-(location (attendee_2 alice:pe))
-
-meeting whose end time is larger than 10am
-(> (end_time (type meeting:tyme)) 10:ti)
-
-meeting whose location is greenberg_cafe and whose attendee is alice
-(and (location_2 greenberg_cafe:lo) (attendee_2 alice:pe))
-
-meeting whose end time is 10am and whose location is greenberg_cafe
-(and (end_time_2 10:ti) (location_2 greenberg_cafe:lo))
-
-meeting whose date is larger than date of weekly_standup
-(> (date (type meeting:tyme)) (date weekly_standup:me))
-
-meeting whose location is location of weekly_standup
-(location_2 (location weekly_standup:me))
-
-meeting whose date is jan 2 or jan 3
-(date_2 (or (jan 2:num) (jan 3:num)))
-
-meeting whose end time is 10am and whose location is greenberg_cafe
-(and (end_time_2 10:ti) (location_2 greenberg_cafe:lo))
-
-person that is attendee of meeting that is important
-(attendee is_important:me)
-
-attendee of weekly_standup
-(attendee weekly_standup:me)
-
-meeting whose end time is larger than end time of weekly_standup
-(> (end_time (type meeting:tyme)) (end_time weekly_standup:me))
-
-meeting whose start time is start time of weekly_standup
-(start_time_2 (start_time weekly_standup:me))
-
-meeting whose start time is larger than 10am
-(> (start_time (type meeting:tyme)) 10:ti)
-
-person that is attendee of meeting that is important
-(attendee is_important:me)
 
 meeting whose date is smaller than jan 2
 (< (date (type meeting:tyme)) (jan 2:num))
 
-meeting whose end time is smaller than start time of weekly_standup
-(< (end_time (type meeting:tyme)) (start_time weekly_standup:me))
-
-meeting that is important and that is important
-is_important:me
-
-meeting whose attendee is alice and whose start time is 10am
-(and (attendee_2 alice:pe) (start_time_2 10:ti))
-
-location that is location of meeting whose start time is 10am
-(location (start_time_2 10:ti))
-
-location that is location of meeting that is important
-(location is_important:me)
-
-meeting whose attendee is attendee of weekly_standup
-(attendee_2 (attendee weekly_standup:me))
-
-meeting whose date is smaller than date of weekly_standup
-(< (date (type meeting:tyme)) (date weekly_standup:me))
-
-location that is location of weekly_standup or annual_review
-(location (or weekly_standup:me annual_review:me))
-
-meeting whose location is greenberg_cafe and whose date is jan 2
-(and (location_2 greenberg_cafe:lo) (date_2 (jan 2:num)))
-
-person that is attendee of meeting whose end time is 10am
-(attendee (end_time_2 10:ti))
-
-meeting whose end time is smaller than start time of weekly_standup
-(< (end_time (type meeting:tyme)) (start_time weekly_standup:me))
-
-start time of weekly_standup
-(start_time weekly_standup:me)
-
-meeting that is important and that is important
-is_important:me
-
-meeting that is important and whose location is greenberg_cafe
-(and is_important:me (location_2 greenberg_cafe:lo))
-
-meeting that is important and whose end time is 10am
-(and is_important:me (end_time_2 10:ti))
-
-meeting whose end time is smaller than start time of weekly_standup
-(< (end_time (type meeting:tyme)) (start_time weekly_standup:me))
-
-meeting that is important and whose location is greenberg_cafe
-(and is_important:me (location_2 greenberg_cafe:lo))
-
-meeting whose start time is 10am and whose attendee is alice
-(and (start_time_2 10:ti) (attendee_2 alice:pe))
-
-jan 2 or jan 3
-(or (jan 2:num) (jan 3:num))
-
 meeting whose attendee is not alice
 (!= (attendee (type meeting:tyme)) alice:pe)
-
-meeting whose date is jan 2
-(date_2 (jan 2:num))
-
-meeting whose date is not jan 2
-(!= (date (type meeting:tyme)) (jan 2:num))
-
-meeting whose end time is smaller than 10am
-(< (end_time (type meeting:tyme)) 10:ti)
-
-meeting whose start time is smaller than start time of weekly_standup
-(< (start_time (type meeting:tyme)) (start_time weekly_standup:me))
-
-end time of weekly_standup
-(end_time weekly_standup:me)
-
-meeting whose start time is 10am or 3pm
-(start_time_2 (or 10:ti 15:ti))
-
-meeting whose end time is larger than 10am
-(> (end_time (type meeting:tyme)) 10:ti)
-
-meeting whose end time is 10am and whose end time is 10am
-(end_time_2 10:ti)
-
-meeting that is important and whose date is jan 2
-(and is_important:me (date_2 (jan 2:num)))
-
-location that is location of meeting whose end time is 10am
-(location (end_time_2 10:ti))
-
-location that is location of meeting that is important
-(location is_important:me)
-
-meeting whose location is greenberg_cafe and whose attendee is alice
-(and (location_2 greenberg_cafe:lo) (attendee_2 alice:pe))
-
-meeting whose end time is 10am and whose start time is 10am
-(and (end_time_2 10:ti) (start_time_2 10:ti))
-
-meeting whose attendee is alice and that is important
-(and is_important:me (attendee_2 alice:pe))
-
-10am or 3pm
-(or 10:ti 15:ti)
-
-person that is attendee of meeting whose start time is 10am
-(attendee (start_time_2 10:ti))
-
-location that is location of meeting whose attendee is alice
-(location (attendee_2 alice:pe))
-
-meeting whose start time is larger than end time of weekly_standup
-(> (start_time (type meeting:tyme)) (end_time weekly_standup:me))
-
-meeting whose date is jan 2 and whose end time is 10am
-(and (date_2 (jan 2:num)) (end_time_2 10:ti))
-
-meeting whose start time is 10am and whose location is greenberg_cafe
-(and (start_time_2 10:ti) (location_2 greenberg_cafe:lo))
-
-meeting whose location is greenberg_cafe and whose location is greenberg_cafe
-(location_2 greenberg_cafe:lo)
-
-meeting whose attendee is alice and whose start time is 10am
-(and (attendee_2 alice:pe) (start_time_2 10:ti))
-
-meeting whose start time is smaller than start time of weekly_standup
-(< (start_time (type meeting:tyme)) (start_time weekly_standup:me))
-
-person that is attendee of meeting whose date is jan 2
-(attendee (date_2 (jan 2:num)))
-
-meeting whose attendee is alice and whose date is jan 2
-(and (attendee_2 alice:pe) (date_2 (jan 2:num)))
-
-meeting whose start time is 10am and whose start time is 10am
-(start_time_2 10:ti)
-
-meeting whose end time is 10am and whose date is jan 2
-(and (end_time_2 10:ti) (date_2 (jan 2:num)))
-
-article whose publication date is not 2004
-(!= (publication_date (type article:tyar)) 2004:da)
-
-meeting whose date is jan 2
-(date_2 (jan 2:num))
-
-meeting whose end time is 10am
-(end_time_2 10:ti)
-
-person that is attendee of meeting whose date is jan 2
-(attendee (date_2 (jan 2:num)))
-
-meeting whose location is greenberg_cafe
-(location_2 greenberg_cafe:lo)
-
-article whose author is efron or lakoff
-(author_2 (or efron:pe lakoff:pe))
-
-meeting whose end time is larger than end time of weekly_standup
-(> (end_time (type meeting:tyme)) (end_time weekly_standup:me))
-
-meeting whose date is jan 2 and whose attendee is alice
-(and (date_2 (jan 2:num)) (attendee_2 alice:pe))
-
-meeting whose location is greenberg_cafe and whose location is greenberg_cafe
-(location_2 greenberg_cafe:lo)
-
-location that is location of weekly_standup or annual_review
-(location (or weekly_standup:me annual_review:me))
-
-meeting whose location is location that is location of weekly_standup
-(location_2 (location weekly_standup:me))
-
-meeting whose location is greenberg_cafe and whose attendee is alice
-(and (location_2 greenberg_cafe:lo) (attendee_2 alice:pe))
-
-meeting whose start time is smaller than start time of weekly_standup
-(< (start_time (type meeting:tyme)) (start_time weekly_standup:me))
-
-meeting whose date is not jan 2
-(!= (date (type meeting:tyme)) (jan 2:num))
-
-meeting whose date is not jan 2
-(!= (date (type meeting:tyme)) (jan 2:num))
-
-article whose publication date is 2004
-(publication_date_2 2004:da)
-
-weekly_standup or annual_review
-(or weekly_standup:me annual_review:me)
-
-meeting whose date is larger than jan 2
-(> (date (type meeting:tyme)) (jan 2:num))
-
-meeting whose date is jan 2
-(date_2 (jan 2:num))
-
-meeting that is important and whose start time is 10am
-(and is_important:me (start_time_2 10:ti))
-
-meeting whose attendee is alice or bob
-(attendee_2 (or alice:pe bob:pe))
-
-location that is location of meeting whose date is jan 2
-(location (date_2 (jan 2:num)))
-
-meeting whose date is date of weekly_standup
-(date_2 (date weekly_standup:me))
-
-meeting whose location is location that is location of weekly_standup
-(location_2 (location weekly_standup:me))
-
-person that is attendee of meeting whose start time is 10am
-(attendee (start_time_2 10:ti))
-
-meeting whose end time is 10am or 3pm
-(end_time_2 (or 10:ti 15:ti))
-
-location that is location of meeting that is important
-(location is_important:me)
-
-location that is location of weekly_standup and that is location of weekly_standup
-(location weekly_standup:me)
-
-date of weekly_standup
-(date weekly_standup:me)
-
-meeting whose start time is larger than 10am or 3pm
-(> (start_time (type meeting:tyme)) (or 10:ti 15:ti))
-
-meeting whose date is jan 2 and whose date is jan 2
-(date_2 (jan 2:num))
-
-person that is attendee of meeting that is important
-(attendee is_important:me)
-
-meeting whose start time is smaller than 10am
-(< (start_time (type meeting:tyme)) 10:ti)
-
-meeting whose attendee is alice and whose end time is 10am
-(and (attendee_2 alice:pe) (end_time_2 10:ti))
-
-meeting whose start time is smaller than 10am or 3pm
-(< (start_time (type meeting:tyme)) (or 10:ti 15:ti))
-
-meeting whose end time is 10am and whose end time is 10am
-(end_time_2 10:ti)
-
-meeting whose end time is smaller than start time of weekly_standup
-(< (end_time (type meeting:tyme)) (start_time weekly_standup:me))
-
-meeting whose start time is 10am and whose date is jan 2
-(and (start_time_2 10:ti) (date_2 (jan 2:num)))
 
 alice or bob
 (or alice:pe bob:pe)
 
-meeting whose location is greenberg_cafe and whose date is jan 2
-(and (location_2 greenberg_cafe:lo) (date_2 (jan 2:num)))
+meeting whose location is location of weekly_standup
+(location_2 (location weekly_standup:me))
 
-meeting whose end time is start time of weekly_standup
-(end_time_2 (start_time weekly_standup:me))
-
-meeting whose attendee is attendee of weekly_standup
-(attendee_2 (attendee weekly_standup:me))
-
-meeting whose date is smaller than jan 2 or jan 3
-(< (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
-
-person that is attendee of meeting whose location is greenberg_cafe
-(attendee (location_2 greenberg_cafe:lo))
-
-location that is location of meeting that is important
-(location is_important:me)
-
-meeting whose end time is end time of weekly_standup
-(end_time_2 (end_time weekly_standup:me))
-
-meeting whose location is greenberg_cafe
-(location_2 greenberg_cafe:lo)
-
-meeting whose end time is 10am and whose date is jan 2
-(and (end_time_2 10:ti) (date_2 (jan 2:num)))
-
-start time of weekly_standup
-(start_time weekly_standup:me)
-
-meeting whose attendee is alice and whose date is jan 2
-(and (attendee_2 alice:pe) (date_2 (jan 2:num)))
-
-person that is attendee of meeting whose location is greenberg_cafe
-(attendee (location_2 greenberg_cafe:lo))
-
-meeting whose start time is smaller than 10am
-(< (start_time (type meeting:tyme)) 10:ti)
-
-meeting whose end time is 10am and that is important
-(and is_important:me (end_time_2 10:ti))
-
-meeting whose end time is 10am or 3pm
-(end_time_2 (or 10:ti 15:ti))
-
-meeting whose start time is 10am and whose date is jan 2
-(and (start_time_2 10:ti) (date_2 (jan 2:num)))
-
-meeting whose start time is smaller than start time of weekly_standup
-(< (start_time (type meeting:tyme)) (start_time weekly_standup:me))
-
-meeting that is important
-is_important:me
-
-meeting whose start time is larger than start time of weekly_standup
-(> (start_time (type meeting:tyme)) (start_time weekly_standup:me))
-
-meeting whose end time is not 10am
-(!= (end_time (type meeting:tyme)) 10:ti)
-
-meeting whose start time is not 10am
-(!= (start_time (type meeting:tyme)) 10:ti)
-
-meeting whose date is larger than jan 2 or jan 3
-(> (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
-
-10am or 3pm
-(or 10:ti 15:ti)
-
-meeting whose start time is 10am and whose date is jan 2
-(and (start_time_2 10:ti) (date_2 (jan 2:num)))
-
-meeting whose date is jan 2 and whose start time is 10am
-(and (date_2 (jan 2:num)) (start_time_2 10:ti))
-
-meeting whose start time is smaller than end time of weekly_standup
-(< (start_time (type meeting:tyme)) (end_time weekly_standup:me))
-
-meeting whose start time is 10am
-(start_time_2 10:ti)
-
-meeting whose date is jan 2 and whose location is greenberg_cafe
-(and (date_2 (jan 2:num)) (location_2 greenberg_cafe:lo))
-
-meeting whose location is greenberg_cafe or central_office
-(location_2 (or greenberg_cafe:lo central_office:lo))
-
-meeting whose date is jan 2 and whose attendee is alice
-(and (date_2 (jan 2:num)) (attendee_2 alice:pe))
-
-meeting whose start time is smaller than end time of weekly_standup
-(< (start_time (type meeting:tyme)) (end_time weekly_standup:me))
-
-date of weekly_standup
-(date weekly_standup:me)
-
-meeting whose attendee is alice and whose end time is 10am
-(and (attendee_2 alice:pe) (end_time_2 10:ti))
-
-location that is location of weekly_standup or annual_review
-(location (or weekly_standup:me annual_review:me))
-
-person that is attendee of weekly_standup and that is attendee of weekly_standup
-(attendee weekly_standup:me)
+publication date of multivariate_data_analysis
+(publication_date multivariate_data_analysis:ar)
 
 location that is not location of weekly_standup
 (!= (location_2 (type location:tylo)) weekly_standup:me)
 
-person that is attendee of meeting whose location is greenberg_cafe
-(attendee (location_2 greenberg_cafe:lo))
+meeting whose location is location that is location of weekly_standup
+(location_2 (location weekly_standup:me))
 
-meeting whose end time is 10am and whose start time is 10am
-(and (end_time_2 10:ti) (start_time_2 10:ti))
+article whose author is not efron
+(!= (author (type article:tyar)) efron:pe)
 
-meeting whose date is jan 2 and whose location is greenberg_cafe
-(and (date_2 (jan 2:num)) (location_2 greenberg_cafe:lo))
-
-meeting whose start time is smaller than 10am
-(< (start_time (type meeting:tyme)) 10:ti)
-
-meeting that is important and whose attendee is alice
-(and is_important:me (attendee_2 alice:pe))
-
-meeting whose start time is 10am and whose start time is 10am
-(start_time_2 10:ti)
-
-meeting whose start time is 10am and whose attendee is alice
-(and (start_time_2 10:ti) (attendee_2 alice:pe))
-
-meeting whose end time is 10am and whose date is jan 2
-(and (end_time_2 10:ti) (date_2 (jan 2:num)))
-
-attendee of weekly_standup
-(attendee weekly_standup:me)
-
-meeting whose end time is larger than end time of weekly_standup
-(> (end_time (type meeting:tyme)) (end_time weekly_standup:me))
-
-meeting whose date is jan 2 and whose start time is 10am
-(and (date_2 (jan 2:num)) (start_time_2 10:ti))
-
-meeting whose date is smaller than jan 2
-(< (date (type meeting:tyme)) (jan 2:num))
-
-meeting whose end time is 10am and whose location is greenberg_cafe
-(and (end_time_2 10:ti) (location_2 greenberg_cafe:lo))
-
-meeting whose start time is 10am and whose location is greenberg_cafe
-(and (start_time_2 10:ti) (location_2 greenberg_cafe:lo))
-
-meeting whose attendee is alice and whose start time is 10am
-(and (attendee_2 alice:pe) (start_time_2 10:ti))
-
-meeting whose location is greenberg_cafe and whose date is jan 2
-(and (location_2 greenberg_cafe:lo) (date_2 (jan 2:num)))
-
-meeting whose end time is smaller than start time of weekly_standup
-(< (end_time (type meeting:tyme)) (start_time weekly_standup:me))
-
-meeting whose start time is 10am and that is important
-(and is_important:me (start_time_2 10:ti))
+meeting whose location is greenberg_cafe
+(location_2 greenberg_cafe:lo)
 
 location that is location of meeting whose date is jan 2
 (location (date_2 (jan 2:num)))
 
-meeting whose location is not greenberg_cafe
-(!= (location (type meeting:tyme)) greenberg_cafe:lo)
+location that is location of meeting whose attendee is alice
+(location (attendee_2 alice:pe))
+
+person that is attendee of meeting whose attendee is alice
+(attendee (attendee_2 alice:pe))
+
+meeting whose attendee is alice or bob
+(attendee_2 (or alice:pe bob:pe))
+
+three hours or one hour
+(or (hour 3:num) (hour 1:num))
 
 greenberg_cafe or central_office
 (or greenberg_cafe:lo central_office:lo)
 
-meeting whose start time is larger than 10am
-(> (start_time (type meeting:tyme)) 10:ti)
+person that is attendee of weekly_standup and that is attendee of weekly_standup
+(attendee weekly_standup:me)
 
-meeting whose date is jan 2 and whose start time is 10am
-(and (date_2 (jan 2:num)) (start_time_2 10:ti))
+meeting whose attendee is alice and whose attendee is alice
+(attendee_2 alice:pe)
+
+meeting whose date is larger than jan 2 or jan 3
+(> (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
+
+meeting whose date is larger than date of weekly_standup
+(> (date (type meeting:tyme)) (date weekly_standup:me))
+
+meeting whose location is location that is location of weekly_standup
+(location_2 (location weekly_standup:me))
+
+person that is author of multivariate_data_analysis and that is author of multivariate_data_analysis
+(author multivariate_data_analysis:ar)
+
+person that is attendee of meeting whose location is greenberg_cafe
+(attendee (location_2 greenberg_cafe:lo))
+
+jan 2 or jan 3
+(or (jan 2:num) (jan 3:num))
+
+meeting whose attendee is alice and whose date is jan 2
+(and (attendee_2 alice:pe) (date_2 (jan 2:num)))
+
+meeting whose date is jan 2
+(date_2 (jan 2:num))
+
+meeting whose location is not greenberg_cafe
+(!= (location (type meeting:tyme)) greenberg_cafe:lo)
+
+article whose venue is annals_of_statistics and whose author is efron
+(and (venue_2 annals_of_statistics:ve) (author_2 efron:pe))
+
+person that is author of article whose author is efron
+(author (author_2 efron:pe))
+
+meeting whose date is date of weekly_standup
+(date_2 (date weekly_standup:me))
+
+meeting whose location is greenberg_cafe and whose date is jan 2
+(and (location_2 greenberg_cafe:lo) (date_2 (jan 2:num)))
+
+meeting whose date is jan 2 and whose date is jan 2
+(date_2 (jan 2:num))
+
+meeting whose date is jan 2
+(date_2 (jan 2:num))
+
+meeting whose date is larger than jan 2
+(> (date (type meeting:tyme)) (jan 2:num))
+
+meeting whose date is jan 2 or jan 3
+(date_2 (or (jan 2:num) (jan 3:num)))
+
+meeting whose attendee is not alice
+(!= (attendee (type meeting:tyme)) alice:pe)
+
+meeting whose location is greenberg_cafe and whose attendee is alice
+(and (location_2 greenberg_cafe:lo) (attendee_2 alice:pe))
+
+person that is attendee of meeting whose date is jan 2
+(attendee (date_2 (jan 2:num)))
+
+meeting whose attendee is person that is attendee of weekly_standup
+(attendee_2 (attendee weekly_standup:me))
+
+meeting whose date is jan 2 or jan 3
+(date_2 (or (jan 2:num) (jan 3:num)))
+
+venue that is venue of multivariate_data_analysis
+(venue multivariate_data_analysis:ar)
+
+three hours or one hour
+(or (hour 3:num) (hour 1:num))
+
+person that is not attendee of weekly_standup
+(!= (attendee_2 (type person:type)) weekly_standup:me)
+
+person that is attendee of weekly_standup and that is attendee of weekly_standup
+(attendee weekly_standup:me)
+
+meeting whose attendee is person that is attendee of weekly_standup
+(attendee_2 (attendee weekly_standup:me))
+
+meeting whose location is location of weekly_standup
+(location_2 (location weekly_standup:me))
+
+meeting whose date is larger than jan 2 or jan 3
+(> (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
+
+meeting whose date is not jan 2
+(!= (date (type meeting:tyme)) (jan 2:num))
+
+meeting whose date is jan 2 or jan 3
+(date_2 (or (jan 2:num) (jan 3:num)))
+
+meeting whose date is jan 2 and whose date is jan 2
+(date_2 (jan 2:num))
+
+three hours or one hour
+(or (hour 3:num) (hour 1:num))
+
+venue that is venue of article whose author is efron
+(venue (author_2 efron:pe))
+
+person that is not attendee of weekly_standup
+(!= (attendee_2 (type person:type)) weekly_standup:me)
+
+meeting whose location is greenberg_cafe and whose attendee is alice
+(and (location_2 greenberg_cafe:lo) (attendee_2 alice:pe))
+
+meeting whose location is greenberg_cafe and whose location is greenberg_cafe
+(location_2 greenberg_cafe:lo)
+
+location that is location of weekly_standup and that is location of weekly_standup
+(location weekly_standup:me)
+
+location that is location of weekly_standup or annual_review
+(location (or weekly_standup:me annual_review:me))
+
+meeting whose date is smaller than jan 2
+(< (date (type meeting:tyme)) (jan 2:num))
+
+meeting whose date is smaller than date of weekly_standup
+(< (date (type meeting:tyme)) (date weekly_standup:me))
+
+article whose publication date is 2004
+(publication_date_2 2004:da)
+
+publication date of multivariate_data_analysis
+(publication_date multivariate_data_analysis:ar)
+
+meeting whose date is jan 2 and whose attendee is alice
+(and (date_2 (jan 2:num)) (attendee_2 alice:pe))
+
+location that is location of weekly_standup or annual_review
+(location (or weekly_standup:me annual_review:me))
+
+article whose author is efron and whose author is efron
+(author_2 efron:pe)
+
+venue that is venue of multivariate_data_analysis
+(venue multivariate_data_analysis:ar)
+
+location that is location of meeting whose date is jan 2
+(location (date_2 (jan 2:num)))
+
+person that is attendee of weekly_standup
+(attendee weekly_standup:me)
+
+meeting whose date is not jan 2
+(!= (date (type meeting:tyme)) (jan 2:num))
+
+date of weekly_standup
+(date weekly_standup:me)
+
+meeting whose location is greenberg_cafe or central_office
+(location_2 (or greenberg_cafe:lo central_office:lo))
+
+meeting whose location is greenberg_cafe and whose date is jan 2
+(and (location_2 greenberg_cafe:lo) (date_2 (jan 2:num)))
+
+meeting whose attendee is alice or bob
+(attendee_2 (or alice:pe bob:pe))
 
 meeting whose date is date of weekly_standup
 (date_2 (date weekly_standup:me))
@@ -895,14 +238,176 @@ meeting whose date is date of weekly_standup
 meeting whose attendee is alice or bob
 (attendee_2 (or alice:pe bob:pe))
 
-meeting whose end time is larger than start time of weekly_standup
-(> (end_time (type meeting:tyme)) (start_time weekly_standup:me))
+person that is attendee of meeting whose attendee is alice
+(attendee (attendee_2 alice:pe))
 
-article whose venue is annals_of_statistics and whose author is efron
-(and (venue_2 annals_of_statistics:ve) (author_2 efron:pe))
+location that is location of meeting whose attendee is alice
+(location (attendee_2 alice:pe))
+
+meeting whose date is larger than date of weekly_standup
+(> (date (type meeting:tyme)) (date weekly_standup:me))
+
+person that is attendee of meeting whose location is greenberg_cafe
+(attendee (location_2 greenberg_cafe:lo))
+
+article whose publication date is larger than 2004 or 2010
+(> (publication_date (type article:tyar)) (or 2004:da 2010:da))
+
+meeting whose attendee is attendee of weekly_standup
+(attendee_2 (attendee weekly_standup:me))
+
+venue that is venue of article whose author is efron
+(venue (author_2 efron:pe))
+
+meeting whose attendee is attendee of weekly_standup
+(attendee_2 (attendee weekly_standup:me))
+
+person that is attendee of meeting whose location is greenberg_cafe
+(attendee (location_2 greenberg_cafe:lo))
 
 meeting whose location is greenberg_cafe and whose date is jan 2
 (and (location_2 greenberg_cafe:lo) (date_2 (jan 2:num)))
+
+person that is author of multivariate_data_analysis and that is author of multivariate_data_analysis
+(author multivariate_data_analysis:ar)
+
+meeting whose date is smaller than date of weekly_standup
+(< (date (type meeting:tyme)) (date weekly_standup:me))
+
+person that is author of article whose publication date is 2004
+(author (publication_date_2 2004:da))
+
+meeting whose date is date of weekly_standup
+(date_2 (date weekly_standup:me))
+
+meeting whose date is smaller than jan 2 or jan 3
+(< (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
+
+meeting whose location is location of weekly_standup
+(location_2 (location weekly_standup:me))
+
+person that is attendee of meeting whose location is greenberg_cafe
+(attendee (location_2 greenberg_cafe:lo))
+
+venue that is not venue of multivariate_data_analysis
+(!= (venue_2 (type venue:tyve)) multivariate_data_analysis:ar)
+
+person that is attendee of meeting whose location is greenberg_cafe
+(attendee (location_2 greenberg_cafe:lo))
+
+attendee of weekly_standup
+(attendee weekly_standup:me)
+
+person that is attendee of meeting whose attendee is alice
+(attendee (attendee_2 alice:pe))
+
+location that is not location of weekly_standup
+(!= (location_2 (type location:tylo)) weekly_standup:me)
+
+person that is attendee of weekly_standup or annual_review
+(attendee (or weekly_standup:me annual_review:me))
+
+meeting whose attendee is attendee of weekly_standup
+(attendee_2 (attendee weekly_standup:me))
+
+meeting whose attendee is alice and whose date is jan 2
+(and (attendee_2 alice:pe) (date_2 (jan 2:num)))
+
+meeting whose location is location of weekly_standup
+(location_2 (location weekly_standup:me))
+
+meeting whose date is larger than jan 2 or jan 3
+(> (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
+
+article whose publication date is larger than 2004
+(> (publication_date (type article:tyar)) 2004:da)
+
+meeting whose location is not greenberg_cafe
+(!= (location (type meeting:tyme)) greenberg_cafe:lo)
+
+person that is not attendee of weekly_standup
+(!= (attendee_2 (type person:type)) weekly_standup:me)
+
+location that is location of weekly_standup or annual_review
+(location (or weekly_standup:me annual_review:me))
+
+meeting whose date is smaller than jan 2
+(< (date (type meeting:tyme)) (jan 2:num))
+
+weekly_standup or annual_review
+(or weekly_standup:me annual_review:me)
+
+venue of multivariate_data_analysis
+(venue multivariate_data_analysis:ar)
+
+10am or 3pm
+(or 10:ti 15:ti)
+
+person that is not attendee of weekly_standup
+(!= (attendee_2 (type person:type)) weekly_standup:me)
+
+meeting whose date is not jan 2
+(!= (date (type meeting:tyme)) (jan 2:num))
+
+publication date of multivariate_data_analysis
+(publication_date multivariate_data_analysis:ar)
+
+meeting whose date is smaller than jan 2 or jan 3
+(< (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
+
+person that is author of article whose author is efron
+(author (author_2 efron:pe))
+
+date of weekly_standup
+(date weekly_standup:me)
+
+location that is not location of weekly_standup
+(!= (location_2 (type location:tylo)) weekly_standup:me)
+
+meeting whose location is greenberg_cafe and whose attendee is alice
+(and (location_2 greenberg_cafe:lo) (attendee_2 alice:pe))
+
+person that is attendee of weekly_standup or annual_review
+(attendee (or weekly_standup:me annual_review:me))
+
+meeting whose location is greenberg_cafe and whose date is jan 2
+(and (location_2 greenberg_cafe:lo) (date_2 (jan 2:num)))
+
+meeting whose location is location that is location of weekly_standup
+(location_2 (location weekly_standup:me))
+
+meeting whose location is greenberg_cafe
+(location_2 greenberg_cafe:lo)
+
+meeting whose date is larger than date of weekly_standup
+(> (date (type meeting:tyme)) (date weekly_standup:me))
+
+meeting whose location is greenberg_cafe or central_office
+(location_2 (or greenberg_cafe:lo central_office:lo))
+
+meeting whose date is jan 2 and whose location is greenberg_cafe
+(and (date_2 (jan 2:num)) (location_2 greenberg_cafe:lo))
+
+jan 2 or jan 3
+(or (jan 2:num) (jan 3:num))
+
+meeting whose date is smaller than jan 2 or jan 3
+(< (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
+
+meeting whose date is jan 2
+(date_2 (jan 2:num))
+
+person that is attendee of meeting whose attendee is alice
+(attendee (attendee_2 alice:pe))
+
+meeting whose attendee is not alice
+(!= (attendee (type meeting:tyme)) alice:pe)
+
+meeting whose date is jan 2 and whose attendee is alice
+(and (date_2 (jan 2:num)) (attendee_2 alice:pe))
+
+meeting whose date is smaller than jan 2
+(< (date (type meeting:tyme)) (jan 2:num))
 
 person that is attendee of weekly_standup and that is attendee of weekly_standup
 (attendee weekly_standup:me)
@@ -910,258 +415,177 @@ person that is attendee of weekly_standup and that is attendee of weekly_standup
 meeting whose location is not greenberg_cafe
 (!= (location (type meeting:tyme)) greenberg_cafe:lo)
 
-meeting whose date is jan 2 and that is important
-(and is_important:me (date_2 (jan 2:num)))
-
-meeting whose attendee is alice and whose attendee is alice
-(attendee_2 alice:pe)
-
-meeting that is important and whose start time is 10am
-(and is_important:me (start_time_2 10:ti))
-
-person that is attendee of meeting whose date is jan 2
-(attendee (date_2 (jan 2:num)))
-
-meeting whose end time is 10am and whose location is greenberg_cafe
-(and (end_time_2 10:ti) (location_2 greenberg_cafe:lo))
-
-meeting that is important and that is important
-is_important:me
-
-location that is location of meeting whose attendee is alice
-(location (attendee_2 alice:pe))
-
-meeting whose date is smaller than jan 2
-(< (date (type meeting:tyme)) (jan 2:num))
-
-meeting whose end time is smaller than end time of weekly_standup
-(< (end_time (type meeting:tyme)) (end_time weekly_standup:me))
-
-start time of weekly_standup
-(start_time weekly_standup:me)
-
-three hours or one hour
-(or (hour 3:num) (hour 1:num))
-
-meeting that is important and whose attendee is alice
-(and is_important:me (attendee_2 alice:pe))
-
-meeting whose attendee is alice or bob
-(attendee_2 (or alice:pe bob:pe))
-
-meeting whose date is smaller than jan 2 or jan 3
-(< (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
-
-meeting whose location is location that is location of weekly_standup
-(location_2 (location weekly_standup:me))
-
-meeting whose start time is 10am and whose end time is 10am
-(and (start_time_2 10:ti) (end_time_2 10:ti))
-
-location of weekly_standup
-(location weekly_standup:me)
-
-meeting whose location is greenberg_cafe and whose start time is 10am
-(and (location_2 greenberg_cafe:lo) (start_time_2 10:ti))
-
-meeting whose date is jan 2 and whose start time is 10am
-(and (date_2 (jan 2:num)) (start_time_2 10:ti))
-
-meeting whose attendee is not alice
-(!= (attendee (type meeting:tyme)) alice:pe)
-
-meeting whose date is jan 2 and whose end time is 10am
-(and (date_2 (jan 2:num)) (end_time_2 10:ti))
-
-meeting whose start time is not 10am
-(!= (start_time (type meeting:tyme)) 10:ti)
-
-person that is attendee of meeting whose attendee is alice
-(attendee (attendee_2 alice:pe))
-
-meeting whose location is greenberg_cafe or central_office
-(location_2 (or greenberg_cafe:lo central_office:lo))
-
-meeting that is important and whose date is jan 2
-(and is_important:me (date_2 (jan 2:num)))
-
-start time of weekly_standup
-(start_time weekly_standup:me)
-
-meeting whose end time is 10am
-(end_time_2 10:ti)
-
-date of weekly_standup
-(date weekly_standup:me)
-
-meeting that is important and whose attendee is alice
-(and is_important:me (attendee_2 alice:pe))
-
-meeting whose location is not greenberg_cafe
-(!= (location (type meeting:tyme)) greenberg_cafe:lo)
-
-meeting whose start time is 10am and whose start time is 10am
-(start_time_2 10:ti)
-
-location that is location of weekly_standup and that is location of weekly_standup
-(location weekly_standup:me)
-
-meeting whose start time is larger than 10am or 3pm
-(> (start_time (type meeting:tyme)) (or 10:ti 15:ti))
-
-meeting whose attendee is alice and whose location is greenberg_cafe
-(and (attendee_2 alice:pe) (location_2 greenberg_cafe:lo))
-
-meeting whose date is larger than jan 2 or jan 3
-(> (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
-
-meeting whose end time is smaller than 10am or 3pm
-(< (end_time (type meeting:tyme)) (or 10:ti 15:ti))
-
-meeting whose end time is 10am and whose attendee is alice
-(and (end_time_2 10:ti) (attendee_2 alice:pe))
-
-meeting whose location is location of weekly_standup
-(location_2 (location weekly_standup:me))
-
-meeting whose end time is 10am and whose date is jan 2
-(and (end_time_2 10:ti) (date_2 (jan 2:num)))
-
-meeting whose end time is larger than 10am or 3pm
-(> (end_time (type meeting:tyme)) (or 10:ti 15:ti))
-
-meeting whose end time is start time of weekly_standup
-(end_time_2 (start_time weekly_standup:me))
-
-meeting whose location is greenberg_cafe and whose start time is 10am
-(and (location_2 greenberg_cafe:lo) (start_time_2 10:ti))
-
-location that is not location of weekly_standup
-(!= (location_2 (type location:tylo)) weekly_standup:me)
-
-meeting whose start time is end time of weekly_standup
-(start_time_2 (end_time weekly_standup:me))
-
-meeting whose end time is 10am and whose location is greenberg_cafe
-(and (end_time_2 10:ti) (location_2 greenberg_cafe:lo))
-
-meeting whose attendee is attendee of weekly_standup
-(attendee_2 (attendee weekly_standup:me))
-
-meeting whose date is larger than date of weekly_standup
-(> (date (type meeting:tyme)) (date weekly_standup:me))
-
-date of weekly_standup
-(date weekly_standup:me)
-
-location that is not location of weekly_standup
-(!= (location_2 (type location:tylo)) weekly_standup:me)
-
-meeting whose date is larger than date of weekly_standup
-(> (date (type meeting:tyme)) (date weekly_standup:me))
-
-meeting whose start time is not 10am
-(!= (start_time (type meeting:tyme)) 10:ti)
-
-meeting whose end time is end time of weekly_standup
-(end_time_2 (end_time weekly_standup:me))
-
-meeting whose date is larger than jan 2
-(> (date (type meeting:tyme)) (jan 2:num))
-
-person that is attendee of weekly_standup or annual_review
-(attendee (or weekly_standup:me annual_review:me))
-
-meeting whose attendee is alice and whose start time is 10am
-(and (attendee_2 alice:pe) (start_time_2 10:ti))
-
-end time of weekly_standup
-(end_time weekly_standup:me)
-
-meeting whose date is smaller than jan 2 or jan 3
-(< (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
-
-meeting whose start time is not 10am
-(!= (start_time (type meeting:tyme)) 10:ti)
-
-location that is location of meeting whose end time is 10am
-(location (end_time_2 10:ti))
-
-meeting that is important and whose start time is 10am
-(and is_important:me (start_time_2 10:ti))
-
-meeting whose attendee is alice and whose location is greenberg_cafe
-(and (attendee_2 alice:pe) (location_2 greenberg_cafe:lo))
-
-meeting whose end time is smaller than end time of weekly_standup
-(< (end_time (type meeting:tyme)) (end_time weekly_standup:me))
-
-meeting that is important and that is important
-is_important:me
-
-person that is attendee of meeting whose location is greenberg_cafe
-(attendee (location_2 greenberg_cafe:lo))
-
-meeting whose end time is not 10am
-(!= (end_time (type meeting:tyme)) 10:ti)
-
-person that is attendee of meeting whose end time is 10am
-(attendee (end_time_2 10:ti))
-
-person that is not attendee of weekly_standup
-(!= (attendee_2 (type person:type)) weekly_standup:me)
-
-meeting whose attendee is attendee of weekly_standup
-(attendee_2 (attendee weekly_standup:me))
-
-article whose venue is annals_of_statistics and that won an award
-(and won_award:ar (venue_2 annals_of_statistics:ve))
-
-meeting whose date is smaller than date of weekly_standup
-(< (date (type meeting:tyme)) (date weekly_standup:me))
-
-meeting whose end time is larger than start time of weekly_standup
-(> (end_time (type meeting:tyme)) (start_time weekly_standup:me))
-
-person that is not attendee of weekly_standup
-(!= (attendee_2 (type person:type)) weekly_standup:me)
-
-meeting whose end time is 10am or 3pm
-(end_time_2 (or 10:ti 15:ti))
-
-person that is attendee of weekly_standup
-(attendee weekly_standup:me)
-
-meeting whose date is jan 2 and whose location is greenberg_cafe
-(and (date_2 (jan 2:num)) (location_2 greenberg_cafe:lo))
-
-meeting whose end time is larger than end time of weekly_standup
-(> (end_time (type meeting:tyme)) (end_time weekly_standup:me))
-
-person that is author of multivariate_data_analysis and that is author of multivariate_data_analysis
-(author multivariate_data_analysis:ar)
-
-location that is location of meeting whose start time is 10am
-(location (start_time_2 10:ti))
-
-person that is attendee of meeting whose location is greenberg_cafe
-(attendee (location_2 greenberg_cafe:lo))
-
-meeting whose start time is smaller than 10am
-(< (start_time (type meeting:tyme)) 10:ti)
-
-meeting whose end time is smaller than 10am
-(< (end_time (type meeting:tyme)) 10:ti)
-
-meeting whose end time is not 10am
-(!= (end_time (type meeting:tyme)) 10:ti)
+meeting whose location is greenberg_cafe and whose location is greenberg_cafe
+(location_2 greenberg_cafe:lo)
 
 jan 2 or jan 3
 (or (jan 2:num) (jan 3:num))
 
-meeting whose end time is start time of weekly_standup
-(end_time_2 (start_time weekly_standup:me))
+person that is not attendee of weekly_standup
+(!= (attendee_2 (type person:type)) weekly_standup:me)
+
+venue that is venue of multivariate_data_analysis
+(venue multivariate_data_analysis:ar)
+
+meeting whose date is jan 2 and whose location is greenberg_cafe
+(and (date_2 (jan 2:num)) (location_2 greenberg_cafe:lo))
+
+meeting whose date is jan 2 and whose attendee is alice
+(and (date_2 (jan 2:num)) (attendee_2 alice:pe))
+
+publication date of multivariate_data_analysis
+(publication_date multivariate_data_analysis:ar)
+
+meeting whose date is smaller than jan 2 or jan 3
+(< (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
+
+meeting whose date is larger than jan 2 or jan 3
+(> (date (type meeting:tyme)) (or (jan 2:num) (jan 3:num)))
 
 meeting whose attendee is alice and whose date is jan 2
 (and (attendee_2 alice:pe) (date_2 (jan 2:num)))
+
+meeting whose location is greenberg_cafe or central_office
+(location_2 (or greenberg_cafe:lo central_office:lo))
+
+location that is location of meeting whose attendee is alice
+(location (attendee_2 alice:pe))
+
+meeting whose attendee is alice and whose location is greenberg_cafe
+(and (attendee_2 alice:pe) (location_2 greenberg_cafe:lo))
+
+meeting whose attendee is attendee of weekly_standup
+(attendee_2 (attendee weekly_standup:me))
+
+meeting whose date is larger than jan 2
+(> (date (type meeting:tyme)) (jan 2:num))
+
+meeting whose date is date of weekly_standup
+(date_2 (date weekly_standup:me))
+
+article whose venue is venue that is venue of multivariate_data_analysis
+(venue_2 (venue multivariate_data_analysis:ar))
+
+meeting whose attendee is alice and whose location is greenberg_cafe
+(and (attendee_2 alice:pe) (location_2 greenberg_cafe:lo))
+
+person that is author of article whose publication date is 2004
+(author (publication_date_2 2004:da))
+
+venue that is venue of article whose author is efron
+(venue (author_2 efron:pe))
+
+meeting whose date is not jan 2
+(!= (date (type meeting:tyme)) (jan 2:num))
+
+date of weekly_standup
+(date weekly_standup:me)
+
+location that is location of meeting whose date is jan 2
+(location (date_2 (jan 2:num)))
+
+article whose publication date is publication date of multivariate_data_analysis
+(publication_date_2 (publication_date multivariate_data_analysis:ar))
+
+person that is attendee of meeting whose date is jan 2
+(attendee (date_2 (jan 2:num)))
+
+venue that is venue of article whose venue is annals_of_statistics
+(venue (venue_2 annals_of_statistics:ve))
+
+person that is attendee of meeting whose date is jan 2
+(attendee (date_2 (jan 2:num)))
+
+meeting whose date is jan 2 or jan 3
+(date_2 (or (jan 2:num) (jan 3:num)))
+
+person that is attendee of weekly_standup
+(attendee weekly_standup:me)
+
+location that is location of meeting whose attendee is alice
+(location (attendee_2 alice:pe))
+
+10am or 3pm
+(or 10:ti 15:ti)
+
+meeting whose location is greenberg_cafe or central_office
+(location_2 (or greenberg_cafe:lo central_office:lo))
+
+meeting whose date is not jan 2
+(!= (date (type meeting:tyme)) (jan 2:num))
+
+article whose author is person that is author of multivariate_data_analysis
+(author_2 (author multivariate_data_analysis:ar))
+
+location of weekly_standup
+(location weekly_standup:me)
+
+person that is attendee of weekly_standup or annual_review
+(attendee (or weekly_standup:me annual_review:me))
+
+person that is attendee of meeting whose date is jan 2
+(attendee (date_2 (jan 2:num)))
+
+date of weekly_standup
+(date weekly_standup:me)
+
+meeting whose date is jan 2 and whose location is greenberg_cafe
+(and (date_2 (jan 2:num)) (location_2 greenberg_cafe:lo))
+
+weekly_standup or annual_review
+(or weekly_standup:me annual_review:me)
+
+person that is attendee of weekly_standup
+(attendee weekly_standup:me)
+
+location that is location of meeting whose attendee is alice
+(location (attendee_2 alice:pe))
+
+meeting whose date is smaller than date of weekly_standup
+(< (date (type meeting:tyme)) (date weekly_standup:me))
+
+location that is location of weekly_standup or annual_review
+(location (or weekly_standup:me annual_review:me))
+
+meeting whose location is greenberg_cafe and whose attendee is alice
+(and (location_2 greenberg_cafe:lo) (attendee_2 alice:pe))
+
+meeting whose location is location that is location of weekly_standup
+(location_2 (location weekly_standup:me))
+
+location that is not location of weekly_standup
+(!= (location_2 (type location:tylo)) weekly_standup:me)
+
+meeting whose attendee is person that is attendee of weekly_standup
+(attendee_2 (attendee weekly_standup:me))
+
+annals_of_statistics or computational_linguistics
+(or annals_of_statistics:ve computational_linguistics:ve)
+
+meeting whose date is larger than jan 2
+(> (date (type meeting:tyme)) (jan 2:num))
+
+article whose author is author of multivariate_data_analysis
+(author_2 (author multivariate_data_analysis:ar))
+
+location that is location of weekly_standup and that is location of weekly_standup
+(location weekly_standup:me)
+
+10am or 3pm
+(or 10:ti 15:ti)
+
+meeting whose location is not greenberg_cafe
+(!= (location (type meeting:tyme)) greenberg_cafe:lo)
+
+location that is location of meeting whose date is jan 2
+(location (date_2 (jan 2:num)))
+
+meeting whose date is jan 2 and whose attendee is alice
+(and (date_2 (jan 2:num)) (attendee_2 alice:pe))
+
+attendee of weekly_standup
+(attendee weekly_standup:me)
+
+article whose venue is venue that is venue of multivariate_data_analysis
+(venue_2 (venue multivariate_data_analysis:ar))
 

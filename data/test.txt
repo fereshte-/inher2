@@ -1,5 +1,101 @@
+article whose venue is annals_of_statistics and whose venue is annals_of_statistics
+(venue_2 annals_of_statistics:ve)
+
+person that is author of article whose publication date is 2004
+(author (publication_date_2 2004:da))
+
+venue that is not venue of multivariate_data_analysis
+(!= (venue_2 (type venue:tyve)) multivariate_data_analysis:ar)
+
+person that is author of multivariate_data_analysis and that is author of multivariate_data_analysis
+(author multivariate_data_analysis:ar)
+
+article whose author is efron
+(author_2 efron:pe)
+
 annals_of_statistics or computational_linguistics
 (or annals_of_statistics:ve computational_linguistics:ve)
+
+venue that is venue of multivariate_data_analysis and that is venue of multivariate_data_analysis
+(venue multivariate_data_analysis:ar)
+
+article whose venue is annals_of_statistics or computational_linguistics
+(venue_2 (or annals_of_statistics:ve computational_linguistics:ve))
+
+article whose venue is not annals_of_statistics
+(!= (venue (type article:tyar)) annals_of_statistics:ve)
+
+article whose author is efron or lakoff
+(author_2 (or efron:pe lakoff:pe))
+
+person that is author of multivariate_data_analysis and that is author of multivariate_data_analysis
+(author multivariate_data_analysis:ar)
+
+article whose publication date is larger than publication date of multivariate_data_analysis
+(> (publication_date (type article:tyar)) (publication_date multivariate_data_analysis:ar))
+
+article whose venue is annals_of_statistics
+(venue_2 annals_of_statistics:ve)
+
+article whose publication date is 2004 and whose venue is annals_of_statistics
+(and (publication_date_2 2004:da) (venue_2 annals_of_statistics:ve))
+
+article whose publication date is publication date of multivariate_data_analysis
+(publication_date_2 (publication_date multivariate_data_analysis:ar))
+
+article whose venue is venue that is venue of multivariate_data_analysis
+(venue_2 (venue multivariate_data_analysis:ar))
+
+article whose publication date is 2004 or 2010
+(publication_date_2 (or 2004:da 2010:da))
+
+person that is author of multivariate_data_analysis and that is author of multivariate_data_analysis
+(author multivariate_data_analysis:ar)
+
+person that is not author of multivariate_data_analysis
+(!= (author_2 (type person:type)) multivariate_data_analysis:ar)
+
+article whose author is efron and whose publication date is 2004
+(and (author_2 efron:pe) (publication_date_2 2004:da))
+
+person that is not author of multivariate_data_analysis
+(!= (author_2 (type person:type)) multivariate_data_analysis:ar)
+
+article whose publication date is 2004 and whose author is efron
+(and (publication_date_2 2004:da) (author_2 efron:pe))
+
+article whose publication date is not 2004
+(!= (publication_date (type article:tyar)) 2004:da)
+
+person that is not author of multivariate_data_analysis
+(!= (author_2 (type person:type)) multivariate_data_analysis:ar)
+
+article whose publication date is smaller than 2004 or 2010
+(< (publication_date (type article:tyar)) (or 2004:da 2010:da))
+
+person that is author of article whose author is efron
+(author (author_2 efron:pe))
+
+article whose publication date is 2004 or 2010
+(publication_date_2 (or 2004:da 2010:da))
+
+article whose author is efron or lakoff
+(author_2 (or efron:pe lakoff:pe))
+
+person that is not author of multivariate_data_analysis
+(!= (author_2 (type person:type)) multivariate_data_analysis:ar)
+
+person that is author of article whose venue is annals_of_statistics
+(author (venue_2 annals_of_statistics:ve))
+
+article whose publication date is smaller than publication date of multivariate_data_analysis
+(< (publication_date (type article:tyar)) (publication_date multivariate_data_analysis:ar))
+
+article whose author is efron and whose author is efron
+(author_2 efron:pe)
+
+article whose venue is annals_of_statistics or computational_linguistics
+(venue_2 (or annals_of_statistics:ve computational_linguistics:ve))
 
 article whose publication date is 2004 and whose author is efron
 (and (publication_date_2 2004:da) (author_2 efron:pe))
@@ -7,105 +103,9 @@ article whose publication date is 2004 and whose author is efron
 article whose venue is annals_of_statistics or computational_linguistics
 (venue_2 (or annals_of_statistics:ve computational_linguistics:ve))
 
+person that is not author of multivariate_data_analysis
+(!= (author_2 (type person:type)) multivariate_data_analysis:ar)
+
 person that is author of multivariate_data_analysis
 (author multivariate_data_analysis:ar)
-
-person that is author of article whose venue is annals_of_statistics
-(author (venue_2 annals_of_statistics:ve))
-
-meeting whose start time is larger than 10am
-(> (start_time (type meeting:tyme)) 10:ti)
-
-article whose venue is annals_of_statistics or computational_linguistics
-(venue_2 (or annals_of_statistics:ve computational_linguistics:ve))
-
-person that is not author of multivariate_data_analysis
-(!= (author_2 (type person:type)) multivariate_data_analysis:ar)
-
-venue that is venue of article that won an award
-(venue won_award:ar)
-
-article whose venue is annals_of_statistics or computational_linguistics
-(venue_2 (or annals_of_statistics:ve computational_linguistics:ve))
-
-article whose venue is annals_of_statistics and that won an award
-(and won_award:ar (venue_2 annals_of_statistics:ve))
-
-article whose publication date is larger than publication date of multivariate_data_analysis
-(> (publication_date (type article:tyar)) (publication_date multivariate_data_analysis:ar))
-
-article whose venue is venue that is venue of multivariate_data_analysis
-(venue_2 (venue multivariate_data_analysis:ar))
-
-person that is author of article whose author is efron
-(author (author_2 efron:pe))
-
-person that is author of multivariate_data_analysis and that is author of multivariate_data_analysis
-(author multivariate_data_analysis:ar)
-
-person that is not author of multivariate_data_analysis
-(!= (author_2 (type person:type)) multivariate_data_analysis:ar)
-
-person that is author of multivariate_data_analysis and that is author of multivariate_data_analysis
-(author multivariate_data_analysis:ar)
-
-article whose author is efron and whose author is efron
-(author_2 efron:pe)
-
-venue that is venue of article that won an award
-(venue won_award:ar)
-
-venue that is venue of multivariate_data_analysis and that is venue of multivariate_data_analysis
-(venue multivariate_data_analysis:ar)
-
-article that won an award and whose author is efron
-(and won_award:ar (author_2 efron:pe))
-
-article whose publication date is publication date of multivariate_data_analysis
-(publication_date_2 (publication_date multivariate_data_analysis:ar))
-
-venue that is not venue of multivariate_data_analysis
-(!= (venue_2 (type venue:tyve)) multivariate_data_analysis:ar)
-
-article whose author is efron or lakoff
-(author_2 (or efron:pe lakoff:pe))
-
-person that is not author of multivariate_data_analysis
-(!= (author_2 (type person:type)) multivariate_data_analysis:ar)
-
-article whose author is efron
-(author_2 efron:pe)
-
-person that is author of multivariate_data_analysis and that is author of multivariate_data_analysis
-(author multivariate_data_analysis:ar)
-
-article that won an award and whose author is efron
-(and won_award:ar (author_2 efron:pe))
-
-article whose author is efron and that won an award
-(and won_award:ar (author_2 efron:pe))
-
-article that won an award and whose venue is annals_of_statistics
-(and won_award:ar (venue_2 annals_of_statistics:ve))
-
-article whose venue is annals_of_statistics and whose venue is annals_of_statistics
-(venue_2 annals_of_statistics:ve)
-
-person that is not author of multivariate_data_analysis
-(!= (author_2 (type person:type)) multivariate_data_analysis:ar)
-
-person that is not author of multivariate_data_analysis
-(!= (author_2 (type person:type)) multivariate_data_analysis:ar)
-
-article whose author is efron or lakoff
-(author_2 (or efron:pe lakoff:pe))
-
-article whose venue is annals_of_statistics
-(venue_2 annals_of_statistics:ve)
-
-article whose publication date is smaller than publication date of multivariate_data_analysis
-(< (publication_date (type article:tyar)) (publication_date multivariate_data_analysis:ar))
-
-article whose venue is not annals_of_statistics
-(!= (venue (type article:tyar)) annals_of_statistics:ve)
 

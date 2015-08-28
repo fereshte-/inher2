@@ -5,7 +5,7 @@ echo "javac -classpath ../../src:.:../../lib/guava-18.0.jar ../../src/*/*.java T
 
 echo `rm $2`;
 
-set p = 1;
+set p = 10;
 while ($p <= 10)
 echo "portion is $p";
 set classpath="../../src:.:../../lib/guava-18.0.jar";

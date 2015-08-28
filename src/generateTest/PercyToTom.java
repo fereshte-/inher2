@@ -131,47 +131,49 @@ public class PercyToTom {
 					formula.contains("countS") || formula.contains("countC") 
 					|| formula.contains("min") || formula.contains("max")
 					|| formula.contains("cites") || formula.contains("length")
-					|| formula.contains("count") //|| formula.length() > 180
+					|| formula.contains("count") 
+					|| formula.contains("won_award") || formula.contains("is_important")
+					|| formula.contains("start_time") || formula.contains("end_time")
 					) continue;
 			
 			
 			if(outName.contains("test")){
-				if(formula.contains("attendee")){
-					if(attendee > 0 )	continue;
-					else	attendee++;
-				}
-				if(formula.contains("location")){
-					if(location > 0 )	continue;
-					else	location++;
-				}
-				if(formula.contains("(date")){
-					if(date > 0 )	continue;
-					else	date++;
-				}
-				if(formula.contains("is_important")){
-					if(is_important > 0 )	continue;
-					else	is_important++;
-				}
+//				if(formula.contains("attendee")){
+//					if(attendee > 0 )	continue;
+//					else	attendee++;
+//				}
+//				if(formula.contains("location")){
+//					if(location > 0 )	continue;
+//					else	location++;
+//				}
+//				if(formula.contains("(date")){
+//					if(date > 0 )	continue;
+//					else	date++;
+//				}
+//				if(formula.contains("is_important")){
+//					if(is_important > 0 )	continue;
+//					else	is_important++;
+//				}
 				//out.println(utterence + "\n" + formula + "\n");
 				triples.add(new Triple(original, formula, utterence));
 
 			}else{
-				if(formula.contains("author")){
-					if(author > 2 )	continue;
-					else	author++;
-				}
-				if(formula.contains("venue")){
-					if(venue > 2 )	continue;
-					else	venue++;
-				}
-				if(formula.contains("publication_date")){
-					if(pub_date > 2 )	continue;
-					else	pub_date++;
-				}
-				if(formula.contains("won_award")){
-					if(won_award > 2 )	continue;
-					else	won_award++;
-				}
+//				if(formula.contains("author")){
+//					if(author > 2 )	continue;
+//					else	author++;
+//				}
+//				if(formula.contains("venue")){
+//					if(venue > 2 )	continue;
+//					else	venue++;
+//				}
+//				if(formula.contains("publication_date")){
+//					if(pub_date > 2 )	continue;
+//					else	pub_date++;
+//				}
+//				if(formula.contains("won_award")){
+//					if(won_award > 2 )	continue;
+//					else	won_award++;
+//				}
 				//out.println(utterence + "\n" + formula + "\n");
 				triples.add(new Triple(original, formula, utterence));
 			}
@@ -191,7 +193,7 @@ public class PercyToTom {
 		int size = l1.size();
 		l1.subList((int) (perOne * size), size).clear();
 		int size2=l2.size();
-		l2.subList((int) (perTwo * size2), size2);
+		l2.subList((int) (perTwo * size2), size2).clear();
 		
 		
 		l1.addAll(l2);
@@ -199,6 +201,7 @@ public class PercyToTom {
 		PrintWriter out = new PrintWriter(outName);
 		for(Triple x : l1){
 			out.println(x.original + "\n" + x.formula + "\n");
+		//	out.println(x.utterence+ "\n" + x.formula + "\n");
 		}
 		out.close();
 	}
@@ -226,12 +229,12 @@ public class PercyToTom {
 		Lang.loadLangFromFile("geo-lambda.lang");
 		
 		percyToTom.percent("../../data/real_train_calandar.txt",
-				"../../data/real_train_publication.txt" , "../../data/train.txt", 1, 0.05);
+				"../../data/real_train_publication.txt" , "../../data/train.txt", 1, 0.2);
 		DataSet train = new DataSet("../../data/train.txt");
 		print(train, "../../data/train.txt");
 		
 		percyToTom.percent("../../data/real_test_calandar.txt",
-				"../../data/real_test_publication.txt" , "../../data/test.txt", 0.05, 1);
+				"../../data/real_test_publication.txt" , "../../data/test.txt", 0, 1);
 		DataSet test = new DataSet("../../data/test.txt");
 		print(test, "../../data/test.txt");
 
