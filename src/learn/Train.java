@@ -441,9 +441,9 @@ public class Train {
 					} else continue;
 					firstChart=null;
 					
-//					System.out.println("^^^^^^   first feats  ^^^^^^");
-//					firstfeats.printValues(firstfeats);
-//					System.out.println("^^^^^^   first feats  ^^^^^^");
+					System.out.println("^^^^^^   first feats  ^^^^^^");
+					firstfeats.printValues(firstfeats);
+					System.out.println("^^^^^^   first feats  ^^^^^^");
 
 					
 					if (verbose) mes = "Second";
@@ -477,9 +477,9 @@ public class Train {
 //					double gamma = 0.001;
 //					Globals.theta.addTimesInto(-gamma, update);
 					
-//					System.out.println("^^^^^    second feats    ^^^^^^");
-//					secondfeats.printValues(firstfeats);
-//					System.out.println("^^^^^    second feats    ^^^^^^");
+					System.out.println("^^^^^    second feats    ^^^^^^");
+					secondfeats.printValues(firstfeats);
+					System.out.println("^^^^^    second feats    ^^^^^^");
 
 
 					// now do the update

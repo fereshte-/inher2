@@ -132,8 +132,9 @@ public class PercyToTom {
 					|| formula.contains("min") || formula.contains("max")
 					|| formula.contains("cites") || formula.contains("length")
 					|| formula.contains("count") 
-					|| formula.contains("won_award") || formula.contains("is_important")
+				//	|| formula.contains("won_award") || formula.contains("is_important")
 					|| formula.contains("start_time") || formula.contains("end_time")
+				//	|| formula.length() > 120
 					) continue;
 			
 			
@@ -192,6 +193,7 @@ public class PercyToTom {
 
 		int size = l1.size();
 		l1.subList((int) (perOne * size), size).clear();
+		
 		int size2=l2.size();
 		l2.subList((int) (perTwo * size2), size2).clear();
 		
@@ -229,7 +231,7 @@ public class PercyToTom {
 		Lang.loadLangFromFile("geo-lambda.lang");
 		
 		percyToTom.percent("../../data/real_train_calandar.txt",
-				"../../data/real_train_publication.txt" , "../../data/train.txt", 1, 0.2);
+				"../../data/real_train_publication.txt" , "../../data/train.txt", 1, 0.3);
 		DataSet train = new DataSet("../../data/train.txt");
 		print(train, "../../data/train.txt");
 		
