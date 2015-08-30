@@ -77,7 +77,6 @@ public class Lit extends Exp {
 		StringBuffer result = new StringBuffer();
 		String name = pred.getName().trim();
 		if(name.equals("listValue") ){
-			System.out.println("in list value ----- " + args[0].getHeadString());
 			if(args[0].getHeadString().trim().equals("filter") ||
 					args[0].getHeadString().trim().equals("countComparative")){
 				
@@ -106,13 +105,10 @@ public class Lit extends Exp {
 					result.append(" ").append("null");
 			}
 		}else if(name.equals("getProperty")){
-			System.out.println("------getproperty----" + args[1].toString().trim() + " " + args[0].getHeadString().trim()+
-					" ' + "+ args[1].toString().trim().equals("(string type:e)")+ " " + st + args.length);
 			if(st == -1 || args.length != 2){
 				System.err.println("getProperty should have a variable and have two args");
 				result.append("(" + args[1].change(varNames) + " " + args[0].change(varNames)+ ")");
 			}else if(args[1].toString().trim().equals("(string type:e)")){
-				System.out.println("we are here!!!");
 				Lit l = (Lit)args[0];
 				result.append("(").append(((Const)l.args[0]).name+":t");
 				result.append(" $" + st);
@@ -142,8 +138,6 @@ public class Lit extends Exp {
 				System.out.println("there should be a vairable in filter");
 				System.exit(-1);
 			}else if (args.length == 4){
-				System.out.println("in filter--------" + args[3].getHeadString().trim() + " " + 
-						args[3].getHeadString().trim().equals("filter"));
 
 				result.append("(and ");
 				result.append(args[0].change(varNames, st));
@@ -566,7 +560,6 @@ public class Lit extends Exp {
 				return null;
 			}
 			Type common = t1.commonSubType(t2);
-			System.out.println("in concat " + t1 + " " + t2 + " " + common);
 			if (!restrict(common, left, right, vars, varTypes)){
 				inferedType=null; // update cache
 				return null;

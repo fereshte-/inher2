@@ -266,7 +266,6 @@ public abstract class Exp {
 						common= (PType) vt.commonSubType(common);
 					}
 				}
-				System.out.println("after adding variables issues " + common);
 				if(common == null){
 					return false;
 				}
@@ -276,7 +275,6 @@ public abstract class Exp {
 					int vi= vars.indexOf(v);	
 					if (vi!=-1){
 						Type vt = varTs.get(vi);
-						System.out.println("in left vt is " + st + " " +vt);
 						if (!vt.subType(st)){
 							if (st.subType(vt)){
 								newTypes.set(vi,st);
@@ -290,7 +288,6 @@ public abstract class Exp {
 					int vi= vars.indexOf(v);	
 					if (vi!=-1){
 						Type vt = varTs.get(vi);
-						System.out.println("in right vt is " + st +  " " +vt);
 
 						if (!vt.subType(st)){
 							if (st.subType(vt)){
@@ -303,7 +300,6 @@ public abstract class Exp {
 					newVarTypes.add(newTypes);
 				}
 			}
-			System.out.println("new varTypes is " + newVarTypes.toString());
 			if (newVarTypes.size()==0){
 				return false;
 			}
