@@ -57,10 +57,22 @@ public class Const extends Exp{
 	
 	@Override
 	public String change(List varNames){
+		System.out.println("in const-------------- " + this.toString() + " " + -1);
+
 		if(!t.toString().equals("e"))
 			return name+":"+t;
 		return name;
 
+	}
+	@Override
+	public String change(List varNames, int st){
+		System.out.println("in const-------------- " + this.toString() + " " + st);
+		if(!t.toString().equals("e")){
+			return "(= " + name+ ":" + t + " $" + (st) + ")";
+		}else if (Lang.getPred(name, 1) != null && st != -1){
+			return "(" + name + " $" + st + ")" ;
+		}
+		return name;
 	}
 
 	public List<Exp> getExp(){

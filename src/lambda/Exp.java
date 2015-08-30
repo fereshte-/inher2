@@ -67,11 +67,12 @@ public abstract class Exp {
 			return new Equals(input,vars);
 		}
 
-//		if (input.startsWith("(count ")) 
-//			return new Count(input,vars);
-//
-//		if (input.startsWith("(sum ")) 
-//			return new Sum(input,vars);
+		if (input.startsWith("(count ")) 
+			return new Count(input,vars);
+
+		if (input.startsWith("(sum ") ||
+				input.startsWith("(avg ")) 
+			return new Sum(input,vars);
 //
 //		if (input.startsWith("(set ")) 
 //			return new SetExp(input,vars);
@@ -280,8 +281,8 @@ public abstract class Exp {
 	abstract public double varPenalty(List varNames);
 
 	abstract public String toString(List varNames);
-	public String change(List varNames){ return change(varNames, null); }
-	public String change(List varNames, String st){ return toString(varNames); }
+	public String change(List varNames){ return change(varNames, -1); }
+	public String change(List varNames, int st){ return toString(varNames); }
 
 
 	abstract public void extractFuncts(List functor, List functee, Exp orig);

@@ -50,20 +50,20 @@ public class DataSet {
 
 				if (line!=null && !line.equals("") && !line.startsWith("//")){
 					sents.add(line);
-				//	System.out.println("line is " + line);
+					System.out.println("line is \n" + line);
 
 					count++;
 
 					// read semantics
 					line = in.readLine();
 					if (line!=null){
-					//	System.out.println(count+":*****: "+line);
+						System.out.println(count+":*****: \n"+line);
 						Exp e = Exp.makeExp(line);
 						String s= e.change(new LinkedList());
-					//	System.out.println(":::sss::::   " + s);
+						System.out.println(":::sss::::   \n" + s);
 
 						e = Exp.makeExp(s);
-					//	System.out.println(":::eeee::::   " + e);
+						System.out.println(":::eeee::::   \n" + e);
 						e=e.simplify(new LinkedList<Var>());
 						if (e==null || !e.wellTyped()){
 							System.err.println("ERROR: Mistyped Exp in DataSet at"+

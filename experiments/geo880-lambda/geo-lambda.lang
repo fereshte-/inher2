@@ -28,40 +28,35 @@
 ((concat pe pe pe))
 ((concat lo lo lo))
 ((concat i i i))
+((concat obj obj obj))
 
 
 
 ((ccount obj i))
-((avg i i))
 ((number num num))
 ((number num tyho num))
-((sum i i))
 ((jan num da))
 ((hour num ho))
 
 
 ((max obj i obj))
 ((min obj i obj))
-((< i i obj))
-((> i i obj))
-((>= i i obj))
-((<= i i obj))
 
-((!= me me obj))
-((!= lo lo obj))
-((!= pe pe obj))
-((!= i i obj))
+((>= i i t))
+((<= i i t))
 
 
-((= me me obj))
-((= lo lo obj))
-((= pe pe obj))
-((= i i obj))
+
+
+((!= obj obj t))
+
+((!= i i t))
+
 
 
 
 ((vp obj obj))
-((is_important me me) vp) 
+((is_important me t) vp) 
 ((type tylo lo))
 ((type type pe))
 ((type tyme me))
@@ -95,15 +90,32 @@
 ((date me da) relNp1_date)
 ((date_2 da me) relNp1_date_2)
 
+((start_time me ti t))
+((end_time me ti t))
+((location me lo t))
+((length me ho t))
+((date me da t))
+((attendee me pe t))
+
 
 //publication
 
+((author ar pe t))
+((venue ar ve t))
+((publication_date ar da t))
+((cites ar ar t))
 
 ((author ar pe) relNp2_person)
 ((author_2 pe ar) relNp2_person_2)
 ((venue ar ve) relNp3_loc)
 ((venue_2 ve ar) relNp3_loc_2)
 
+((author:t pe t))
+((location:t lo t))
+((venue:t ve t))
+((article:t ar t))
+((meeting:t me t))
+((person:t pe t))
 
 ((publication_date ar da) relNp1_date)
 ((publication_date_2 da ar) relNp1_date_2)
@@ -111,22 +123,13 @@
 ((cites ar ar))
 ((cites_2 ar ar))
 
-((won_award ar ar) vp)
+((won_award ar t) vp)
 
 ((type tyar ar))
 ((type type pe))
 ((type tyve ve))
 
-
-((!= ve ve obj))
-((!= ar ar obj))
-((!= pe pe obj))
-((!= i i obj))
-
-
-((= ve ve obj))
-((= ar ar obj))
-((= pe pe obj))
-((= i i obj))
+((!= obj obj t))
+((!= i i t))
 
 )

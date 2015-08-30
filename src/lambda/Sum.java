@@ -32,6 +32,10 @@ public class Sum extends Exp {
 	public Sum(String input, Map vars){
 		LispReader lr = new LispReader(new StringReader(input));
 		String stype = lr.next(); // read 'sum'
+		if(stype.trim().equals("sum"))
+			mtype = SUM;
+		else
+			mtype = AVG;
 		// always sum over sets of entities
 		arg = new Var(PType.E);
 		String argname = lr.next();
@@ -48,7 +52,8 @@ public class Sum extends Exp {
 		return Arrays.asList(set, body);
 	}
 
-	public Sum(Exp a, Exp b, Exp c){
+	public Sum(int type, Exp a, Exp b, Exp c){
+		mtype = type;		
 		arg = new Var(PType.E);
 		set = b;
 		body = c;
@@ -99,6 +104,7 @@ public class Sum extends Exp {
 	public boolean equals(Object o){
 		if (o instanceof Sum){
 			Sum c = (Sum)o;
+			if(c.mtype != mtype) return false;
 			arg.setEqualTo(c.arg);
 			c.arg.setEqualTo(arg);
 			if (!c.body.equals(body)){
@@ -120,6 +126,7 @@ public class Sum extends Exp {
 	public boolean equals(int type, Exp o){
 		if (o instanceof Sum){
 			Sum c = (Sum)o;
+			if(c.mtype != mtype) return false;
 			arg.setEqualTo(c.arg);
 			c.arg.setEqualTo(arg);
 			if (!c.body.equals(body)){
@@ -143,7 +150,7 @@ public class Sum extends Exp {
 	}
 
 	public Exp copy(){
-		Sum c = new Sum(arg.copy(),set.copy(),body.copy());
+		Sum c = new Sum(mtype, arg.copy(),set.copy(),body.copy());
 		Var v = new Var(arg.type());
 		c.set = c.set.replace(c.arg,v);
 		c.body = c.body.replace(c.arg,v);
@@ -161,7 +168,9 @@ public class Sum extends Exp {
 
 	public String toString(List varNames){
 		varNames.add(arg);
-		String result="(sum ";
+		String result="";
+		if(mtype == SUM) result = "(sum ";
+		else			result = "(avg ";
 		result += arg.toString(varNames)+" "
 				+set.toString(varNames)+" "
 				+body.toString(varNames)+")";
@@ -201,7 +210,7 @@ public class Sum extends Exp {
 		}
 		arg.setTempType(null);
 		return PType.T.equals(set.type()) &&
-				PType.I.equals(body.type());	    
+				body.type().subType(PType.I);	    
 	}
 
 	public void freeVars(List bound, List free){
@@ -338,7 +347,7 @@ public class Sum extends Exp {
 	}
 
 	public Exp deleteExp(Exp l){
-		return new Sum(arg,set.deleteExp(l),body.deleteExp(l));
+		return new Sum(mtype, arg,set.deleteExp(l),body.deleteExp(l));
 	}
 
 	void getOuterRefs(Exp e, List<Exp> refs){
@@ -347,13 +356,15 @@ public class Sum extends Exp {
 	}
 
 	public void getConstStrings(List<String> result){
-		result.add("sum");
+		if(mtype == SUM) result.add("sum");
+		else result.add("avg");
 		body.getConstStrings(result);
 		set.getConstStrings(result);
 	}
 
 	public String getHeadString(){
-		return "sum";
+		if(mtype == SUM) return "sum";
+		return "avg";
 	}
 
 	public double avgDepth(int d){
@@ -363,4 +374,9 @@ public class Sum extends Exp {
 	Var arg;
 	Exp set;
 	Exp body;
+	
+	public static int SUM=0;
+	public static int AVG=1;
+
+	int mtype; // sum or avg
 }

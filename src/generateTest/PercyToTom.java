@@ -126,15 +126,15 @@ public class PercyToTom {
 			
 
 
-			if(
-					formula.contains("<=") || formula.contains(">=") ||
-					formula.contains("countS") || formula.contains("countC") 
-					|| formula.contains("min") || formula.contains("max")
-					|| formula.contains("cites") || formula.contains("length")
-					|| formula.contains("count") 
+			if( false
+				//	|| formula.contains("<=") || formula.contains(">=") 
+				//	|| formula.contains("countS") || formula.contains("countC") 
+				//	|| formula.contains("min") || formula.contains("max")
+				//	|| formula.contains("cites") || formula.contains("length")
+				//	|| formula.contains("count") || formula.contains("aggregate") 
 				//	|| formula.contains("won_award") || formula.contains("is_important")
-					|| formula.contains("start_time") || formula.contains("end_time")
-				//	|| formula.length() > 120
+				//	|| formula.contains("start_time") || formula.contains("end_time")
+					|| formula.length() > 150
 					) continue;
 			
 			
@@ -202,8 +202,8 @@ public class PercyToTom {
 		Collections.shuffle(l1);
 		PrintWriter out = new PrintWriter(outName);
 		for(Triple x : l1){
-			out.println(x.original + "\n" + x.formula + "\n");
-		//	out.println(x.utterence+ "\n" + x.formula + "\n");
+		//	out.println(x.original + "\n" + x.formula + "\n");
+			out.println(x.utterence+ "\n" + x.formula + "\n");
 		}
 		out.close();
 	}
@@ -231,12 +231,12 @@ public class PercyToTom {
 		Lang.loadLangFromFile("geo-lambda.lang");
 		
 		percyToTom.percent("../../data/real_train_calandar.txt",
-				"../../data/real_train_publication.txt" , "../../data/train.txt", 1, 0.3);
+				"../../data/real_train_publication.txt" , "../../data/train.txt", 1, 0);
 		DataSet train = new DataSet("../../data/train.txt");
 		print(train, "../../data/train.txt");
 		
 		percyToTom.percent("../../data/real_test_calandar.txt",
-				"../../data/real_test_publication.txt" , "../../data/test.txt", 0, 1);
+				"../../data/real_test_publication.txt" , "../../data/test.txt", 1, 0);
 		DataSet test = new DataSet("../../data/test.txt");
 		print(test, "../../data/test.txt");
 

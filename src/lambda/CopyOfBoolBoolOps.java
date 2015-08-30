@@ -1,19 +1,19 @@
 /***************************  LICENSE  *******************************
-* This file is part of UBL.
-* 
-* UBL is free software: you can redistribute it and/or modify
-* it under the terms of the GNU Lesser General Public License as 
-* published by the Free Software Foundation, either version 3 of the 
-* License, or (at your option) any later version.
-* 
-* UBL is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU Lesser General Public License for more details.
-*
-* You should have received a copy of the GNU Lesser General Public 
-* License along with UBL.  If not, see <http://www.gnu.org/licenses/>.
-***********************************************************************/
+ * This file is part of UBL.
+ * 
+ * UBL is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as 
+ * published by the Free Software Foundation, either version 3 of the 
+ * License, or (at your option) any later version.
+ * 
+ * UBL is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public 
+ * License along with UBL.  If not, see <http://www.gnu.org/licenses/>.
+ ***********************************************************************/
 
 
 
@@ -32,20 +32,26 @@ import parser.*;
  * right now only conjoins two things.  i should do a 
  *  more general version later.
  */
-public class BoolBoolOps extends Exp {
+public class CopyOfBoolBoolOps extends Exp {
 
-	private BoolBoolOps(){
+	private CopyOfBoolBoolOps(){
 		exps = new LinkedList();
 	}
 
-	private BoolBoolOps(int type, Set<Exp> entries){
+	private CopyOfBoolBoolOps(int type, Set<Exp> entries){
 		op_type=type;
 		exps = new LinkedList();
-		for (Exp e : entries)
+		for (Exp e : entries){
 			exps.add(e);
+			if(rtype == null)
+				rtype = e.type();
+			else
+				rtype.commonSuperType(e.type());
+		}
+
 	}
 
-	public BoolBoolOps(String input,Map vars){
+	public CopyOfBoolBoolOps(String input,Map vars){
 		exps = new LinkedList();
 		LispReader lr = new LispReader(new StringReader(input));
 		String t = lr.next();  
@@ -60,46 +66,63 @@ public class BoolBoolOps extends Exp {
 			System.exit(-1);
 		}
 		while (lr.hasNext()){
-			exps.add(Exp.makeExp(lr.next(),vars));
-		}
+			Exp e = Exp.makeExp(lr.next(),vars);
+			exps.add(e);
+			if(rtype == null)
+				rtype = e.type();
+			else
+				rtype.commonSuperType(e.type());		}
 	}
 
-	static public BoolBoolOps makeConj(Exp one, Exp two){
-		BoolBoolOps result = new BoolBoolOps();
+	static public CopyOfBoolBoolOps makeConj(Exp one, Exp two){
+		CopyOfBoolBoolOps result = new CopyOfBoolBoolOps();
 		result.op_type = CONJ;
 		result.exps.add(one);
 		result.exps.add(two);
+		result.rtype = one.type().commonSuperType(two.type());
 		return result;
 	}
 
-	static public BoolBoolOps makeConj(Exp one){
-		BoolBoolOps result = new BoolBoolOps();
+	static public CopyOfBoolBoolOps makeConj(Exp one){
+		CopyOfBoolBoolOps result = new CopyOfBoolBoolOps();
 		result.op_type = CONJ;
 		result.exps.add(one);
+		result.rtype = one.type();
+
 		return result;
 	}
 
-	static public BoolBoolOps makeDisj(Exp one, Exp two){
-		BoolBoolOps result = new BoolBoolOps();
+	static public CopyOfBoolBoolOps makeDisj(Exp one, Exp two){
+		CopyOfBoolBoolOps result = new CopyOfBoolBoolOps();
 		result.op_type = DISJ;
 		result.exps.add(one);
 		result.exps.add(two);
+		result.rtype = one.type().commonSuperType(two.type());
 		return result;
 	}
 
-	static public BoolBoolOps makePair(int type, Exp one, Exp two){
-		BoolBoolOps result = new BoolBoolOps();
+	static public CopyOfBoolBoolOps makePair(int type, Exp one, Exp two){
+		CopyOfBoolBoolOps result = new CopyOfBoolBoolOps();
 		result.op_type = type;
 		result.exps.add(one);
 		result.exps.add(two);
+		result.rtype = one.type().commonSuperType(two.type());
 		return result;
 	}
 
 	public Exp simplify(List<Var> vars){
 		removeTrues();
+		List exps2 = new LinkedList();
 		for (int i=0; i<exps.size(); i++){
 			exps.set(i,((Exp)exps.get(i)).simplify(vars));
+			if(exps.get(i) instanceof CopyOfBoolBoolOps && exps.get(i).getHeadString().equals(this.getHeadPairs())){
+				CopyOfBoolBoolOps e= (CopyOfBoolBoolOps) exps.get(i).simplify(vars);
+				exps2.addAll(e.exps);
+			}else
+				exps2.add(exps.get(i));
+			
 		}
+		exps = exps2;
 		removeDuplicates();
 		if (exps.size()==1) return exps.get(0);
 		return this;
@@ -110,13 +133,14 @@ public class BoolBoolOps extends Exp {
 		//System.out.println("Exps: "+exps);
 		Exp e;
 		if (equals(olde)) return newe;
-		if (olde instanceof BoolBoolOps){
-			BoolBoolOps other = (BoolBoolOps)olde;
+		if (olde instanceof CopyOfBoolBoolOps){
+			CopyOfBoolBoolOps other = (CopyOfBoolBoolOps)olde;
 			if (other.op_type==op_type &&
 					other.exps.size()<exps.size() &&
 					exps.containsAll(other.exps)){
 				exps.removeAll(other.exps);
 				exps.add(newe);
+				
 			}
 		}
 
@@ -131,8 +155,8 @@ public class BoolBoolOps extends Exp {
 				return null;
 			// flatten the conjunction of disjunction
 			if ((op_type==CONJ || op_type==DISJ)
-					&& e instanceof BoolBoolOps){
-				BoolBoolOps b = (BoolBoolOps)e;
+					&& e instanceof CopyOfBoolBoolOps){
+				CopyOfBoolBoolOps b = (CopyOfBoolBoolOps)e;
 				if (op_type==b.op_type){
 					List<Exp> l = b.exps;
 					exps.remove(i);
@@ -154,9 +178,9 @@ public class BoolBoolOps extends Exp {
 		//System.out.println("Exps: "+exps);
 		Exp e;
 		if (this==olde) return newe;
-		if (olde instanceof BoolBoolOps){
+		if (olde instanceof CopyOfBoolBoolOps){
 			// see if we have a subset of the expressions
-			BoolBoolOps other = (BoolBoolOps)olde;
+			CopyOfBoolBoolOps other = (CopyOfBoolBoolOps)olde;
 			if (other.op_type==op_type &&
 					other.exps.size()<exps.size()){
 				boolean foundAll = true;
@@ -188,8 +212,8 @@ public class BoolBoolOps extends Exp {
 				return null;
 			// flatten the conjunction of disjunction
 			if ((op_type==CONJ || op_type==DISJ)
-					&& e instanceof BoolBoolOps){
-				BoolBoolOps b = (BoolBoolOps)e;
+					&& e instanceof CopyOfBoolBoolOps){
+				CopyOfBoolBoolOps b = (CopyOfBoolBoolOps)e;
 				if (op_type==b.op_type){
 					List<Exp> l = b.exps;
 					exps.remove(i);
@@ -217,13 +241,13 @@ public class BoolBoolOps extends Exp {
 	public void removeDuplicates(){
 		for (int i=0; i<exps.size(); i++){
 			for (int j=0; j<exps.size(); j++){
-				if (i!=j){
-					if (exps.get(i).equals(exps.get(j))){
+				if ((i!=j && exps.get(i).equals(exps.get(j)) || 
+						exps.get(i).getHeadString().trim().equals("type"))){
 						exps.remove(i);
 						i--;
 						j = exps.size();
-					}
 				}
+				
 			}
 		}
 	}
@@ -243,21 +267,21 @@ public class BoolBoolOps extends Exp {
 		}
 	}
 
-	public BoolBoolOps raiseDisjDups(){
+	public CopyOfBoolBoolOps raiseDisjDups(){
 		if (exps.size()==0) return this;
 		if (op_type==DISJ){
 			for (int i=0; i<exps.size(); i++){
-				if (!(exps.get(i) instanceof BoolBoolOps)) return this;		    
-				BoolBoolOps b = (BoolBoolOps)exps.get(i);
+				if (!(exps.get(i) instanceof CopyOfBoolBoolOps)) return this;		    
+				CopyOfBoolBoolOps b = (CopyOfBoolBoolOps)exps.get(i);
 				if (b.op_type!=CONJ) return this;
 			}
 			List common = new LinkedList();
-			BoolBoolOps one = (BoolBoolOps)exps.get(0);
+			CopyOfBoolBoolOps one = (CopyOfBoolBoolOps)exps.get(0);
 			for (int i=0; i<one.exps.size(); i++){
 				Exp e = (Exp)one.exps.get(i);
 				boolean found = true;
 				for (int j=1; j<exps.size(); j++){
-					BoolBoolOps other = (BoolBoolOps)exps.get(j);
+					CopyOfBoolBoolOps other = (CopyOfBoolBoolOps)exps.get(j);
 					if (!other.exps.contains(e)){
 						found = false;
 					}
@@ -265,19 +289,19 @@ public class BoolBoolOps extends Exp {
 				if (found){
 					common.add(e);
 					for (int j=0; j<exps.size(); j++){
-						BoolBoolOps b = (BoolBoolOps)exps.get(j);
+						CopyOfBoolBoolOps b = (CopyOfBoolBoolOps)exps.get(j);
 						b.exps.remove(e);
 					}
 				}
 			}
 			if (common.size()>0){
 				for (int j=0; j<exps.size(); j++){
-					BoolBoolOps b = (BoolBoolOps)exps.get(j);
+					CopyOfBoolBoolOps b = (CopyOfBoolBoolOps)exps.get(j);
 					if (b.exps.size()==1){
 						exps.set(j,b.exps.get(0));
 					}
 				}
-				BoolBoolOps result = new BoolBoolOps();
+				CopyOfBoolBoolOps result = new CopyOfBoolBoolOps();
 				result.op_type = CONJ;
 				result.exps.add(this);
 				result.exps.addAll(common);
@@ -307,7 +331,7 @@ public class BoolBoolOps extends Exp {
 	static Exp T = Exp.makeExp("true:t");
 
 	public Exp copy(){
-		BoolBoolOps result = new BoolBoolOps();
+		CopyOfBoolBoolOps result = new CopyOfBoolBoolOps();
 		result.op_type = op_type;
 		Iterator i = exps.iterator();
 		while (i.hasNext()){
@@ -353,55 +377,117 @@ public class BoolBoolOps extends Exp {
 
 
 	public boolean equals(Object o){
-		if (o instanceof BoolBoolOps){
-			BoolBoolOps c = (BoolBoolOps)o;
+		if (o instanceof CopyOfBoolBoolOps){
+			CopyOfBoolBoolOps c = (CopyOfBoolBoolOps)o;
+			
 			return op_type==c.op_type 
-			&& exps.size()==c.exps.size()
-			&& exps.containsAll(c.exps) 
-			&& c.exps.containsAll(exps);
+					&& exps.size()==c.exps.size()
+					&& exps.containsAll(c.exps) 
+					&& c.exps.containsAll(exps);
 		}
 		return false;
 	}
 
 	public boolean equals(int type, Exp o){
-		if (o instanceof BoolBoolOps){
-			BoolBoolOps c = (BoolBoolOps)o;
+		if (o instanceof CopyOfBoolBoolOps){
+			CopyOfBoolBoolOps c = (CopyOfBoolBoolOps)o;
 			return op_type==c.op_type 
-			&& exps.size()==c.exps.size()
-			&& exps.containsAll(c.exps) 
-			&& c.exps.containsAll(exps);
+					&& exps.size()==c.exps.size()
+					&& exps.containsAll(c.exps) 
+					&& c.exps.containsAll(exps);
 		}
 		return false;
 	}
 
 	public Type type(){
-		return PType.T;
+		return PType.E;
 	}
 
+//	public Type inferType(List<Var> vars, List<List<Type>> varTypes){
+//		if (op_type==DISJ) return PType.T;
+//		for (Exp e : exps){
+//			Type t=e.inferType(vars,varTypes);
+//			if (t==null || !t.subType(PType.T)){
+//				inferedType=null; // update cache
+//				return null;
+//			}
+//		}
+//		inferedType=PType.T; // update cache
+//		return PType.T; // could we infer subtypes here?
+//	}
+	
 	public Type inferType(List<Var> vars, List<List<Type>> varTypes){
-		if (op_type==DISJ) return PType.T;
-		for (Exp e : exps){
-			Type t=e.inferType(vars,varTypes);
-			if (t==null || !t.subType(PType.T)){
-				inferedType=null; // update cache
-				return null;
+//		if (op_type==DISJ) return PType.T;
+//		for (Exp e : exps){
+//			Type t=e.inferType(vars,varTypes);
+//			if (t==null || !t.subType(PType.T)){
+//				inferedType=null; // update cache
+//				return null;
+//			}
+//		}
+//		inferedType=PType.T; // update cache
+//		return PType.T; // could we infer subtypes here?
+		
+		Iterator i = exps.iterator();
+		Exp e;
+		Exp prev = null;
+		inferedType = null;
+		while (i.hasNext()){
+			e = (Exp)i.next();
+			if(prev != null){
+				Type t1=e.inferType(vars,varTypes);
+				Type t2=prev.inferType(vars,varTypes);
+				if (t1==null || t2==null || !t1.matches(t2)){
+					inferedType=null; // update cache
+					return null;
+				}
 			}
+			if(inferedType == null)
+				inferedType = e.inferedType;
+			else
+				inferedType = inferedType.commonSubType(e.inferedType);
+			prev = e;
 		}
-		inferedType=PType.T; // update cache
-		return PType.T; // could we infer subtypes here?
+		return inferedType;
 	}
+
+	//	public boolean wellTyped(){
+	//		Iterator i = exps.iterator();
+	//		Exp e;
+	//		Exp prev;
+	//		while (i.hasNext()){
+	//			e = (Exp)i.next();
+	//			if (e==null || !e.wellTyped()){
+	//				return false;
+	//			}
+	//			if (!PType.T.equals(e.type())){
+	//				return false;
+	//			}
+	//		}
+	//		return true;
+	//	}
 
 	public boolean wellTyped(){
 		Iterator i = exps.iterator();
 		Exp e;
+		Exp prev = null;
 		while (i.hasNext()){
 			e = (Exp)i.next();
 			if (e==null || !e.wellTyped()){
 				return false;
 			}
-			if (!PType.T.equals(e.type())){
-				return false;
+			if(prev != null){
+				if (e instanceof Var && !((Var)e).updateTempType(prev.type())){
+					return false;
+				}
+				if (prev instanceof Var && !((Var)prev).updateTempType(e.type())){
+					return false;
+				}
+				if (!e.type().matches(prev.type())){
+					return false;
+				}
 			}
+			prev = e;
 		}
 		return true;
 	}
@@ -499,7 +585,7 @@ public class BoolBoolOps extends Exp {
 				if (subset.size()>1 
 						&& subset.size()<exps.size()
 						&& subset.size()<3){
-					result.add(new BoolBoolOps(op_type,subset));
+					result.add(new CopyOfBoolBoolOps(op_type,subset));
 				}
 			}
 		}
@@ -520,7 +606,7 @@ public class BoolBoolOps extends Exp {
 			if (subset.size()>1 
 					&& subset.size()<exps.size()
 					&& subset.size()<3){
-				result.add(new BoolBoolOps(op_type,subset));
+				result.add(new CopyOfBoolBoolOps(op_type,subset));
 			}
 		}
 		Exp e;
@@ -655,7 +741,7 @@ public class BoolBoolOps extends Exp {
 	}
 
 	public Exp deleteExp(Exp l){
-		BoolBoolOps result = new BoolBoolOps();
+		CopyOfBoolBoolOps result = new CopyOfBoolBoolOps();
 		result.op_type = op_type;
 		Iterator i = exps.iterator();
 		while (i.hasNext()){
@@ -722,6 +808,7 @@ public class BoolBoolOps extends Exp {
 		return result;
 	}
 
+	
 	public double avgDepth(int d){
 		double total = 0.0;
 		for (Exp e : exps)
@@ -730,6 +817,7 @@ public class BoolBoolOps extends Exp {
 	}
 
 	List<Exp> exps;
+	Type rtype;
 	int op_type;
 
 	public static int CONJ = 0;

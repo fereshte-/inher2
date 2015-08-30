@@ -44,10 +44,10 @@ public class Funct extends Exp {
 	    System.out.println("MISTYPED 6: "+this);
 	}
 		 */
-		
+
 		addToNameMap(Arrays.asList(body));
 	}
-	
+
 	public List<Exp> getExp(){
 		return Arrays.asList(body);
 	}
@@ -84,20 +84,20 @@ public class Funct extends Exp {
 		//arg.setTempType(arg.type());
 		//System.out.println("Funct apply: "+this+" to "+input+" of type "+input.type());
 		// check type
-		if (input==null || !input.type().subType(arg.type())){//!arg.type().matches(input.type())){
-	//		System.out.println("TYPE MISMATCH!!");
+		if (input==null || !arg.type().matches(input.type())){
+			//		System.out.println("TYPE MISMATCH!!");
 			return null;
 		}
 
 		Exp result = body.copy();
 
-	//	System.out.println("Funct replace: "+result+" : "+arg+" : "+input);
+		//	System.out.println("Funct replace: "+result+" : "+arg+" : "+input);
 		result =  result.replace(arg,input);
 		//if (result!=null){// && !result.wellTyped()){
 		//    System.out.println("MISTYPED: "+result);
 		//    return null;
 		//}
-	//	System.out.println("Funct apply result "+result+"\n");
+		//	System.out.println("Funct apply result "+result+"\n");
 		return result;
 	}
 

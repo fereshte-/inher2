@@ -193,19 +193,27 @@ public class IntBoolOps extends Exp {
 	}
 
 	public Type inferType(List<Var> vars, List<List<Type>> varTypes){
-		Type t=left.inferType(vars,varTypes);
-		if (t==null || !t.subType(PType.I)){
+			
+		Type t1=left.inferType(vars,varTypes);
+		
+		if (t1==null || !t1.matches(PType.I)){
 			if (!(left instanceof Appl)){
 				inferedType=null; // update cache
 				return null;
 			}
 		}
-		t=right.inferType(vars,varTypes);
-		if (t==null || !t.subType(PType.I)){
+		Type t2=right.inferType(vars,varTypes);
+
+		if (t2==null || !t2.matches(PType.I)){
 			if (!(right instanceof Appl)){
 				inferedType=null; // update cache
 				return null;
 			}
+		}
+
+		if(!t1.matches(t2)){
+			inferedType=null; // update cache
+			return null;
 		}
 		inferedType=PType.T; // update cache
 		return PType.T;

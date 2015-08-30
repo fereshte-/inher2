@@ -298,7 +298,7 @@ public class ArgM extends Exp {
 
 		return PType.T.matches(set.type()) &&
 		//PType.I.matches(body.type());	   
-		PType.I.equals(body.type());
+		(PType.I).ancestor(body.type());//.equals(body.type());
 	}
 
 	public void freeVars(List bound, List free){

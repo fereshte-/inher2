@@ -70,97 +70,165 @@ public class Lit extends Exp {
 
 	@Override
 	public String change(List varNames){
-		return change(varNames, null);
+		return change(varNames, -1);
 	}
 
-	public String change(List varNames, String st){
+	public String change(List varNames, int st){
+		System.out.println("this is \n" + this);
 		StringBuffer result = new StringBuffer();
 		String name = pred.getName().trim();
-		if(name.equals("singleton") || name.equals("listValue") || name.equals("string") ||
+		if(name.equals("listValue") ){
+			System.out.println("in list value ----- " + args[0].getHeadString());
+			if(args[0].getHeadString().trim().equals("filter") ||
+					args[0].getHeadString().trim().equals("countComparative")){
+				
+			result.append("(lambda $0 e ");
+			for (int i=0; i<args.length; i++){
+				if (args[i]!=null)
+					result.append(" ").append(args[i].change(varNames, 0));
+				else 
+					result.append(" ").append("null");
+			}
+			result.append(")");
+			}else{
+				for (int i=0; i<args.length; i++){
+					if (args[i]!=null)
+						result.append(" ").append(args[i].change(varNames));
+					else 
+						result.append(" ").append("null");
+				}
+			}
+		}else if(name.equals("singleton") || name.equals("string") ||
 				name.equals("ensureNumericEntity") || name.equals("ensureNumericProperty")){
 			for (int i=0; i<args.length; i++){
 				if (args[i]!=null)
-					result.append(" ").append(args[i].change(varNames));
+					result.append(" ").append(args[i].change(varNames, st));
 				else 
 					result.append(" ").append("null");
 			}
 		}else if(name.equals("getProperty")){
-			if(st==null){
-				result.append("(").append(args[1].change(varNames));
-				result.append(" ").append(args[0].change(varNames));
-				result.append(")");
-			}else{
+			System.out.println("------getproperty----" + args[1].toString().trim() + " " + args[0].getHeadString().trim()+
+					" ' + "+ args[1].toString().trim().equals("(string type:e)")+ " " + st + args.length);
+			if(st == -1 || args.length != 2){
+				System.err.println("getProperty should have a variable and have two args");
+				result.append("(" + args[1].change(varNames) + " " + args[0].change(varNames)+ ")");
+			}else if(args[1].toString().trim().equals("(string type:e)")){
+				System.out.println("we are here!!!");
 				Lit l = (Lit)args[0];
 				result.append("(").append(((Const)l.args[0]).name+":t");
-				result.append(" " + st);
+				result.append(" $" + st);
 				result.append(")");
+			}else{
+				result.append("(exists $" + (st+1));
+				result.append(" (and (" + args[1].change(varNames).trim() + " $" + (st+1) + " $" + st+")");
+				result.append(" " + args[0].change(varNames, st+1));
+				result.append("))");
 			}
 		}else if(name.equals("superlative")){
-			result.append("(").append(args[1].change(varNames).trim());
+			if(st != -1){
+				System.out.println("there should not be a vairable in superlative");
+				System.exit(-1);
+			}
+			result.append("(arg").append(args[1].change(varNames).trim() + " $"+0);
 
-			result.append(" ").append(args[0].change(varNames));
-			result.append(" ").append(args[2].change(varNames));
+			result.append(" ").append(args[0].change(varNames, 0));
+			result.append(" ").append(args[2].change(varNames, 0));
 			result.append(")");
 		}else if(name.equals("reverse")){
-			result.append(args[0].change(varNames)+"_2");
+			Const arg = (Const) ((Lit)args[0]).args[0];
+			arg.name = reverse(arg.name);
+			result.append(args[0].change(varNames, st));
 		}else if(name.equals("filter")){
-			if (args.length == 4){
-				if(args[2].change(varNames).trim().equals("=")){
-					result.append("(and ");
-					result.append(args[0].change(varNames));
-					result.append(" (").append(reverse(args[1].change(varNames)));
-					result.append(" ").append(args[3].change(varNames));
-					result.append(")");
+			if(st == -1){
+				System.out.println("there should be a vairable in filter");
+				System.exit(-1);
+			}else if (args.length == 4){
+				System.out.println("in filter--------" + args[3].getHeadString().trim() + " " + 
+						args[3].getHeadString().trim().equals("filter"));
 
+				result.append("(and ");
+				result.append(args[0].change(varNames, st));
+				if(!args[3].getHeadString().trim().equals("filter")){
+					result.append("(").append(args[2].change(varNames).trim());
+					result.append(" ").append(args[1].change(varNames, st));
+					result.append(" ").append(args[3].change(varNames));
 					result.append(")");
 				}else{
-					result.append("(").append(args[2].change(varNames));
-					result.append(" (").append(args[1].change(varNames));
-					result.append(" ").append(args[0].change(varNames));
-					result.append(")");
-
-					result.append(" ").append(args[3].change(varNames));
-
+					result.append("(exists $"+(st+1));
+					result.append(" (and ");
+					result.append(" (").append(args[2].change(varNames).trim());
+					result.append(" ").append(args[1].change(varNames, st));
+					result.append(" $"+(st+1)+")");
+					result.append(" ").append(args[3].change(varNames, st+1));
 					result.append(")");
 				}
+				result.append(")");
+				//				}else{
+				//					result.append("(").append(args[2].change(varNames));
+				//					result.append(" (").append(args[1].change(varNames));
+				//					result.append(" ").append(args[0].change(varNames, st));
+				//					result.append(")");
+				//
+				//					result.append(" ").append(args[3].change(varNames));
+				//
+				//					result.append(")");
+				//				}
 			}else if(args.length == 2){
-				if(args[1].change(varNames).contains("won"))
-						result.append("(and ").append(args[1].change(varNames)+":ar");
-				else
-					result.append("(and ").append(args[1].change(varNames)+":me");
 
-				result.append(" ").append(args[0].change(varNames));
+				result.append("(and ");
+				result.append(args[0].change(varNames, st));
+
+				result.append(" ").append(args[1].change(varNames, st).trim());
 				result.append(")");
 			}else{
 				System.err.println("that is weird!");
 			}
 
 		}else if(name.equals("aggregate")){
-			result.append("(").append(args[0].change(varNames));
-			result.append(" ").append(args[1].change(varNames));
+			if(st!=-1){
+				System.out.println("aggregate cannot have variable~!!");
+				System.exit(-1);
+			}
+			result.append("(").append(args[0].change(varNames).trim() + " $" + 0);
+			Lit l = (Lit) args[1];
+			result.append(" ").append(l.args[0].change(varNames, 0));
+			result.append(" ").append(l.args[1].change(varNames, 0));
+			result.append(")");
+		}else if(name.trim().equals("ccount")){
+			if(st!=-1){
+				System.out.println("count should not have variable");
+				System.exit(-1);
+			}
+			result.append("(count $" + 0);
+			result.append(" ").append(args[0].change(varNames, (st+1)));
 			result.append(")");
 		}else if(name.equals("countComparative")){
-			result.append(" (lambda $0 e ").append(" (and "+((Lit)args[0]).change(varNames, " $0"));
-			result.append(" (").append(args[2].change(varNames));
-			result.append(" (ccount (").append(args[1].change(varNames) + " $0))");
+			result.append("(and "+args[0].change(varNames, st));
+			result.append(" (").append(args[2].change(varNames).trim());
+			if(args[1].getHeadString().equals("reverse")){
+				Lit l = (Lit)args[1];
+				result.append(" (count $" + (st+1)+" (").append(l.args[0].change(varNames) + " $"+(st+1)+" $"+(st)+"))");
+			}else
+				result.append(" (count $" + (st+1)+" (").append(args[1].change(varNames) + " $"+(st)+" $"+(st+1)+"))");
 			result.append(" ").append(args[3].change(varNames));
 			result.append("))");
 
 		}else if(name.equals("countSuperlative")){
-			//	if(args.length == 4){
+			st = 0;
 			result.append("(").append("arg" + args[1].change(varNames).trim() + " $0");
-			result.append(" ").append(args[0].change(varNames, "$0"));
-			result.append(" (ccount");
-			result.append(" (").append(args[2].change(varNames)).append(" $0)");
+			result.append(" ").append(args[0].change(varNames, 0));
+			if(args[2].getHeadString().equals("reverse")){
+				Lit l = (Lit)args[2];
+				result.append(" (count $" + (st+1)+" (").append(l.args[0].change(varNames) + " $"+(st+1)+" $"+(st)+"))");
+			}else
+				result.append(" (count $" + (st+1)+" (").append(args[2].change(varNames) + " $"+(st)+" $"+(st+1)+"))");
+			
 			result.append(")");
 			result.append(")");
-			//			}else{
-			//
-			//			}
 		}else if(name.equals("time")){
 			result.append(((Const)args[0]).name+":ti");
 		}else if(name.equals("date") && args.length == 3){
-		//	System.out.println(this + "\n" + args + "\n" + args[1] + " " + args[2]);
+			//	System.out.println(this + "\n" + args + "\n" + args[1] + " " + args[2]);
 			if(args[1].getHeadString().trim().equals("1:num")){
 				result.append("(jan ");
 				result.append(args[2]);
@@ -175,7 +243,7 @@ public class Lit extends Exp {
 		}else if(name.equals("number")){
 			result.append(((Const)args[0]).name+":num");
 		}else if(name.equals("concat")){
-			result.append("(").append("or");
+			result.append("(").append("concat");
 			for (int i=0; i<args.length; i++){
 				if (args[i]!=null)
 					result.append(" ").append(args[i].change(varNames));

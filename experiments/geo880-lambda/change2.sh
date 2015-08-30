@@ -55,9 +55,10 @@ echo `cp fereshte.actual.ti.final data/geo600.dev.giza_probs`;
 
 echo "probs is computed and now we want to run runtest.pl \:D/";
 
+echo `rm $2_true`;
+echo `rm $2_false`;
 echo "nohup java -server -Xmx1500m -classpath $classpath TestTrain  np-fixedlex.geo $1 >> $2";
-echo `nohup java -server -Xmx1500m -classpath $classpath TestTrain  np-fixedlex.geo true >> $2_true`;
-echo `nohup java -server -Xmx1500m -classpath $classpath TestTrain  np-fixedlex.geo false >> $2_false`;
+echo `nohup java -server -Xmx1500m -classpath $classpath TestTrain  np-fixedlex.geo $1 >> $2`;
 
 
 
