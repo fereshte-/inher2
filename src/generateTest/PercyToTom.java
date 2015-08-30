@@ -134,7 +134,7 @@ public class PercyToTom {
 				//	|| formula.contains("count") || formula.contains("aggregate") 
 				//	|| formula.contains("won_award") || formula.contains("is_important")
 				//	|| formula.contains("start_time") || formula.contains("end_time")
-					|| formula.length() > 150
+				//	|| formula.length() > 150
 					) continue;
 			
 			
