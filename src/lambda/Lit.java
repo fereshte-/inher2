@@ -26,7 +26,6 @@ import utils.*;
 
 import java.io.*;
 
-import com.google.common.collect.ArrayListMultimap;
 
 /*
  * A lambda calc literal has a name, an arity, 
@@ -550,29 +549,30 @@ public class Lit extends Exp {
 		//System.out.print("<");
 		//System.out.println("LIT: "+this+" --- type="+rType);
 
-		boolean match = true;
-		if(getHeadString().equals("=") ||
-				getHeadString().equals("!=") ||
-				getHeadString().equals("<") ||
-				getHeadString().equals(">") ||
-				getHeadString().equals("<=") ||
-				getHeadString().equals(">=")){
+		if(getHeadString().equals("concat") ||
+				getHeadString().equals("!=")){
 
-			for(Exp e: args)
-				if(!e.wellTyped())
-					match= false;
-			if(args.length !=2 ) 
-				match= false;
-			Exp left = args[0], right = args[1];
-
-			Type t1=left.inferType(vars,varTypes);
-			Type t2=right.inferType(vars,varTypes);
-			if (t1==null || t2==null || !t1.matches(t2)){
+			if(args.length !=2 ){ 
+				System.err.println("args size is not two!!!!!!!");
 				inferedType=null; // update cache
 				return null;
 			}
-			//	rType = left.inferedType.commonSubType(right.inferedType);
+			
+			Exp left = args[0], right = args[1];
+			Type t1=left.inferType(vars,varTypes);
+			Type t2=right.inferType(vars,varTypes);
+			if(t1==null || t2==null){
+				inferedType=null; // update cache
+				return null;
+			}
+			Type common = t1.commonSubType(t2);
+			System.out.println("in concat " + t1 + " " + t2 + " " + common);
+			if (!restrict(common, left, right, vars, varTypes)){
+				inferedType=null; // update cache
+				return null;
+			}
 		}
+		
 		inferedType=rType; // update cache
 		return rType;
 	}

@@ -474,8 +474,8 @@ public class Train {
 						}
 					} else continue;
 					
-//					double gamma = 0.001;
-//					Globals.theta.addTimesInto(-gamma, update);
+					double gamma = 0.001;
+					Globals.theta.addTimesInto(-gamma, update);
 					
 					System.out.println("^^^^^    second feats    ^^^^^^");
 					secondfeats.printValues(firstfeats);

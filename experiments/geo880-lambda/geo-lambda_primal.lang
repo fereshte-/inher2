@@ -1,4 +1,28 @@
 (
+((singleton e e))
+((filter e e e e e))
+((filter e e e))
+((countComparative e e e e e))
+((countComparative e e e e e e))
+
+((countSuperlative e e e e ))
+((countSuperlative e e e e e))
+
+((getProperty e e e))
+((superlative e e e e))
+((ensureNumericProperty e e))
+((ensureNumericEntity e e))
+((listValue e e))
+((string e e))
+((aggregate e e e))
+((reverse e e))
+((var e e))
+
+
+((time num num ti))
+((date num num num da))
+
+
 
 ((concat me me me))
 ((concat pe pe pe))
@@ -7,17 +31,37 @@
 ((concat obj obj obj))
 
 
+
 ((ccount obj i))
 ((number num num))
 ((number num tyho num))
 ((jan num da))
 ((hour num ho))
 
+
+((max obj i obj))
+((min obj i obj))
+
+((>= i i t))
+((<= i i t))
+
+
+
+
 ((!= obj obj t))
+
 ((!= i i t))
 
-((vp obj t))
+
+
+
+((vp obj obj))
 ((is_important me t) vp) 
+((type tylo lo))
+((type type pe))
+((type tyme me))
+((type tyho ho))
+
 
 ((relNp4_time me ti) )
 ((relNp4_time_2 ti me) )
@@ -80,5 +124,12 @@
 ((cites_2 ar ar))
 
 ((won_award ar t) vp)
+
+((type tyar ar))
+((type type pe))
+((type tyve ve))
+
+((!= obj obj t))
+((!= i i t))
 
 )

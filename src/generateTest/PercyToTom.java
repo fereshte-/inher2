@@ -228,7 +228,7 @@ public class PercyToTom {
 //				"./data/test.txt");
 		
 		PType.addTypesFromFile("geo-lambda.types");
-		Lang.loadLangFromFile("geo-lambda.lang");
+		Lang.loadLangFromFile("geo-lambda_primal.lang");
 		
 		percyToTom.percent("../../data/real_train_calandar.txt",
 				"../../data/real_train_publication.txt" , "../../data/train.txt", 1, 0);

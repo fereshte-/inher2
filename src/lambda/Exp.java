@@ -60,7 +60,9 @@ public abstract class Exp {
 			return new Funct(input,vars);
 
 		if (input.startsWith("(< ")||
-				input.startsWith("(> "))
+				input.startsWith("(> ") ||
+				input.startsWith("(<= ") ||
+				input.startsWith("(>= "))
 			return new IntBoolOps(input,vars);
 
 		if (input.startsWith("(= ")){
@@ -238,6 +240,77 @@ public abstract class Exp {
 		String changed = this.toString();
 		Exp.changeVersion = false;
 		return changed;
+	}
+	
+	public boolean restrict(Type common, Exp left, Exp right, List<Var> vars, List<List<Type>> varTypes){
+		Set<List<Type>> newVarTypes = new HashSet<List<Type>>();
+		if(common == null) return false;
+		Type commonC = common.copy();
+		if (left instanceof Var || right instanceof Var){
+			for (List<Type> varTs : varTypes){
+				boolean foundAll = true;
+				common = commonC.copy();
+				List<Type> newTypes = new LinkedList<Type>();
+				newTypes.addAll(varTs);
+				if (left instanceof Var){
+					int vi= vars.indexOf((Var)left);	
+					if (vi!=-1){
+						Type vt = varTs.get(vi);
+						common= (PType) vt.commonSubType(common);
+					}
+				}
+				if (right instanceof Var){
+					int vi= vars.indexOf((Var)right);	
+					if (vi!=-1){
+						Type vt = varTs.get(vi);
+						common= (PType) vt.commonSubType(common);
+					}
+				}
+				System.out.println("after adding variables issues " + common);
+				if(common == null){
+					return false;
+				}
+				if (left instanceof Var){
+					Type st = common;		   
+					Var v = (Var)left;
+					int vi= vars.indexOf(v);	
+					if (vi!=-1){
+						Type vt = varTs.get(vi);
+						System.out.println("in left vt is " + st + " " +vt);
+						if (!vt.subType(st)){
+							if (st.subType(vt)){
+								newTypes.set(vi,st);
+							} else foundAll = false;
+						}
+					}
+				}
+				if (right instanceof Var){
+					Type st = common;		   
+					Var v = (Var)right;
+					int vi= vars.indexOf(v);	
+					if (vi!=-1){
+						Type vt = varTs.get(vi);
+						System.out.println("in right vt is " + st +  " " +vt);
+
+						if (!vt.subType(st)){
+							if (st.subType(vt)){
+								newTypes.set(vi,st);
+							} else foundAll = false;
+						}
+					}
+				}
+				if (foundAll){
+					newVarTypes.add(newTypes);
+				}
+			}
+			System.out.println("new varTypes is " + newVarTypes.toString());
+			if (newVarTypes.size()==0){
+				return false;
+			}
+			varTypes.clear();
+			varTypes.addAll(newVarTypes);
+		}
+		return true;
 	}
 
 	// does inference to determine the type variables can take, based on the

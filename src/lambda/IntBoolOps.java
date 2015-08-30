@@ -49,7 +49,12 @@ public class IntBoolOps extends Exp {
 			con_type = LESS_THAN;
 		else if (t.equals(">"))
 			con_type = GREATER_THAN;
-		else System.err.println("Unknown type "+t+"in LogCon");
+		else if (t.equals(">="))
+			con_type = GREATER_THAN_OR_EQAUL;
+		else if (t.equals("<="))
+			con_type = LESS_THAN_OR_EQAUL;
+		else 
+			System.err.println("Unknown type "+t+"in LogCon");
 
 		left = Exp.makeExp(lr.next(),vars);
 
@@ -58,10 +63,10 @@ public class IntBoolOps extends Exp {
 		//if (!wellTyped()){
 		//    System.out.println("MISTYPED 8: "+this);
 		//}
-		
+
 		addToNameMap(Arrays.asList(left, right));
 	}
-	
+
 	public List<Exp> getExp(){
 		return Arrays.asList(left, right);
 	}
@@ -106,15 +111,10 @@ public class IntBoolOps extends Exp {
 	}
 
 	public String toString(List varNames){
-		if (con_type==EQUALS)
-			return "(= "+left.toString(varNames)
+			if(getHeadString() !=null) 
+				return "(" + getHeadString() + " " +left.toString(varNames)
 					+" "+right.toString(varNames)+")";
-		if (con_type==LESS_THAN)
-			return "(< "+left.toString(varNames)
-					+" "+right.toString(varNames)+")";
-		if (con_type==GREATER_THAN)
-			return "(> "+left.toString(varNames)
-					+" "+right.toString(varNames)+")";
+
 		return null;
 	}
 
@@ -126,14 +126,9 @@ public class IntBoolOps extends Exp {
 		if (pr==null) return "";
 		if (con_type==EQUALS){
 			return pr+" = true\n";
-		}
-		if (con_type==LESS_THAN){
-			return pr + " < " +right+"\n";
-		}
-		if (con_type==GREATER_THAN){
-			return pr + " > " +right+"\n";
-		}
-		return "";
+		}else
+			return pr + " "+getHeadString()+ " " +right+"\n";
+
 	}
 
 	public int hashCode(){
@@ -191,11 +186,13 @@ public class IntBoolOps extends Exp {
 		}
 		return true;
 	}
+	
+	
 
 	public Type inferType(List<Var> vars, List<List<Type>> varTypes){
-			
+
 		Type t1=left.inferType(vars,varTypes);
-		
+
 		if (t1==null || !t1.matches(PType.I)){
 			if (!(left instanceof Appl)){
 				inferedType=null; // update cache
@@ -203,7 +200,6 @@ public class IntBoolOps extends Exp {
 			}
 		}
 		Type t2=right.inferType(vars,varTypes);
-
 		if (t2==null || !t2.matches(PType.I)){
 			if (!(right instanceof Appl)){
 				inferedType=null; // update cache
@@ -211,9 +207,18 @@ public class IntBoolOps extends Exp {
 			}
 		}
 
-		if(!t1.matches(t2)){
+		PType common = (PType) t1.commonSubType(t2);
+		if(common == null){
 			inferedType=null; // update cache
 			return null;
+		}
+		common = (PType) common.commonSubType(PType.I);
+		System.out.println("in intboolops " + t1 + " " + t2 + " " + common);
+		
+		if(!restrict(common, left, right, vars, varTypes)){
+			inferedType=null; // update cache
+			return null;
+
 		}
 		inferedType=PType.T; // update cache
 		return PType.T;
@@ -347,12 +352,7 @@ public class IntBoolOps extends Exp {
 	}
 
 	public void getConstStrings(List<String> result){
-		if (con_type==EQUALS)
-			result.add("=");
-		if (con_type==LESS_THAN)
-			result.add("<");
-		if (con_type==GREATER_THAN)
-			result.add(">");
+		result.add(getHeadString());
 		left.getConstStrings(result);
 		right.getConstStrings(result);
 	}
@@ -362,8 +362,13 @@ public class IntBoolOps extends Exp {
 			return "=";
 		if (con_type==LESS_THAN)
 			return "<";
-		else
+		if(con_type == GREATER_THAN)
 			return ">";
+		if(con_type == GREATER_THAN_OR_EQAUL)
+			return ">=";
+		if(con_type == LESS_THAN_OR_EQAUL)
+			return "<=";
+		return null;
 	}
 
 	public double avgDepth(int d){
@@ -377,4 +382,7 @@ public class IntBoolOps extends Exp {
 	static public int EQUALS = 0;
 	static public int LESS_THAN = 1;
 	static public int GREATER_THAN = 2;
+	static public int GREATER_THAN_OR_EQAUL = 3;
+	static public int LESS_THAN_OR_EQAUL = 3;
+
 }

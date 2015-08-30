@@ -135,6 +135,11 @@ public class Equals extends Exp {
 			inferedType=null; // update cache
 			return null;
 		}
+		Type common = t1.commonSubType(t2);
+		if(!restrict(common, left, right, vars, varTypes)){
+			inferedType=null; // update cache
+			return null;
+		}
 		inferedType=PType.T; // update cache
 		return PType.T;	
 	}

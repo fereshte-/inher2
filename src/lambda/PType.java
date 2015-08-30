@@ -229,7 +229,6 @@ public class PType extends Type {
 			return this;
 		if(p.subType(this))
 			return p;
-
 		return null;
 	}
 
