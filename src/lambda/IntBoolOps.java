@@ -213,7 +213,6 @@ public class IntBoolOps extends Exp {
 			return null;
 		}
 		common = (PType) common.commonSubType(PType.I);
-		System.out.println("in intboolops " + t1 + " " + t2 + " " + common);
 		
 		if(!restrict(common, left, right, vars, varTypes)){
 			inferedType=null; // update cache

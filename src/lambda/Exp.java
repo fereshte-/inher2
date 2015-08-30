@@ -52,7 +52,7 @@ public abstract class Exp {
 			String p = lr.next();
 			if (Lang.hasPred(p))
 				return new Lit(input,vars);
-			if (vars.get(p)!=null || p.startsWith("!"))
+			if (vars.get(p)!=null)// || p.startsWith("!"))
 				return new Appl(input,vars);
 		}
 
@@ -65,7 +65,8 @@ public abstract class Exp {
 				input.startsWith("(>= "))
 			return new IntBoolOps(input,vars);
 
-		if (input.startsWith("(= ")){
+		if (input.startsWith("(= ") ||
+				input.startsWith("(!= ")){
 			return new Equals(input,vars);
 		}
 

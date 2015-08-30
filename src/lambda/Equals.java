@@ -34,7 +34,8 @@ import com.google.common.collect.ArrayListMultimap;
  */
 public class Equals extends Exp {
 
-	public Equals(Exp one, Exp two){
+	public Equals(int op_type, Exp one, Exp two){
+		this.op_type = op_type;
 		left = one;
 		right = two;
 	}
@@ -42,7 +43,11 @@ public class Equals extends Exp {
 	public Equals(String input, Map vars){
 		LispReader lr = new LispReader(new StringReader(input));
 		String t = lr.next();  // read type
-		if (!t.equals("=")){
+		if(t.equals("="))
+			op_type = EQUAL;
+		else if(t.equals("!="))
+			op_type = NOT_EQUAL;
+		else{
 			System.err.println("= not found in Equals constructor");
 			System.exit(-1);
 		}
@@ -69,6 +74,7 @@ public class Equals extends Exp {
 
 	public Exp replace(Exp olde, Exp newe){
 		if (equals(olde)) return newe;
+		
 		if (left.equals(olde))
 			left = newe;
 		else 
@@ -92,7 +98,7 @@ public class Equals extends Exp {
 	}
 
 	public Exp copy(){
-		return new Equals(left.copy(),right.copy());
+		return new Equals(op_type, left.copy(),right.copy());
 	}
 
 	public double varPenalty(List varNames){
@@ -101,7 +107,7 @@ public class Equals extends Exp {
 	}
 
 	public String toString(List varNames){
-		return "(= "+left.toString(varNames)
+		return "(" + getHeadString() + " "+left.toString(varNames)
 				+" "+right.toString(varNames)+")";
 	}
 
@@ -115,7 +121,7 @@ public class Equals extends Exp {
 	public boolean equals(Object o){
 		if (o instanceof Equals){
 			Equals i = (Equals)o;
-			return left.equals(i.left) && right.equals(i.right);
+			return i.op_type == op_type && left.equals(i.left) && right.equals(i.right);
 		}
 		return false;
 	}
@@ -123,7 +129,7 @@ public class Equals extends Exp {
 	public boolean equals(int type, Exp o){
 		if (o instanceof Equals){
 			Equals i = (Equals)o;
-			return left.equals(i.left) && right.equals(i.right);
+			return i.op_type == op_type && left.equals(i.left) && right.equals(i.right);
 		}
 		return false;
 	}
@@ -261,7 +267,7 @@ public class Equals extends Exp {
 	}
 
 	public Exp deleteExp(Exp l){
-		return new Equals(left.deleteExp(l),right.deleteExp(l));
+		return new Equals(op_type, left.deleteExp(l),right.deleteExp(l));
 	}
 
 	void getOuterRefs(Exp e, List<Exp> refs){
@@ -270,13 +276,16 @@ public class Equals extends Exp {
 	}
 
 	public void getConstStrings(List<String> result){
-		result.add("=");
+		result.add(getHeadString());
 		left.getConstStrings(result);
 		right.getConstStrings(result);
 	}
 
 	public String getHeadString(){
-		return "=";
+		if(op_type == EQUAL)
+			return "=";
+		else 
+			return "!=";
 	}
 
 	public double avgDepth(int d){
@@ -285,4 +294,9 @@ public class Equals extends Exp {
 
 	Exp left;
 	Exp right;
+	
+	int op_type;
+
+	public static int EQUAL = 0;
+	public static int NOT_EQUAL = 1;
 }

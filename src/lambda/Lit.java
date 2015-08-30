@@ -64,7 +64,7 @@ public class Lit extends Exp {
 		if(s.contains("_2"))
 			return s.replace("_2", "");
 		else
-			return s+"_2";
+			return s + "_2";
 	}
 
 	@Override
@@ -528,10 +528,9 @@ public class Lit extends Exp {
 			varTypes.clear();
 			varTypes.addAll(newVarTypes);
 		}
-
+		Type rType=null;
 		// compute the result type
 		//System.out.println("matched: "+matchedTuples);
-		Type rType=null;
 		for (List<Type> tuple : matchedTuples){
 			if (rType==null)
 				rType = tuple.get(tuple.size()-1);
@@ -543,9 +542,8 @@ public class Lit extends Exp {
 		//System.out.print("<");
 		//System.out.println("LIT: "+this+" --- type="+rType);
 
-		if(getHeadString().equals("concat") ||
-				getHeadString().equals("!=")){
-
+		if(getHeadString().equals("concat") ){
+			rType = null;
 			if(args.length !=2 ){ 
 				System.err.println("args size is not two!!!!!!!");
 				inferedType=null; // update cache
@@ -564,6 +562,10 @@ public class Lit extends Exp {
 				inferedType=null; // update cache
 				return null;
 			}
+			if(rType == null)
+				rType = common;
+			else
+				rType = common.commonSuperType(rType);
 		}
 		
 		inferedType=rType; // update cache
