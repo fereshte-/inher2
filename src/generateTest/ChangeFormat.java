@@ -189,9 +189,9 @@ public class ChangeFormat {
 		if(isNumeric(args[0])){
 			System.out.println("hello!!!!!!!");
 
-			double portion = Double.parseDouble(args[0]) / 100 ;
+			double portion = Double.parseDouble(args[0]) / 10 ;
 			changeFormat.makePortion(portion, "../../data/train.txt", "train.txt");
-			changeFormat.makePortion(0.1, "../../data/test.txt", "test.txt");
+			changeFormat.makePortion(1, "../../data/test.txt", "test.txt");
 		}else{
 			String fileName = args[0];
 			changeFormat.readyForGiza(fileName);
