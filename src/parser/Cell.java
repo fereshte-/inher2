@@ -25,6 +25,8 @@ import learn.*;
 
 public class Cell implements Comparable<Cell> {
 
+	public static double infForLog = -10000;
+
 	//< Constructors
 	public Cell(Cell c){
 		myCat = c.myCat;
@@ -52,7 +54,7 @@ public class Cell implements Comparable<Cell> {
 		ruleName = null;
 		lex = null;
 		lexIsMax = false;
-		inside = 0;
+		inside = infForLog;
 		maxscore = -Double.MAX_VALUE;
 		//cells = new LinkedList();
 		//cells.add(this);
@@ -80,7 +82,7 @@ public class Cell implements Comparable<Cell> {
 		}
 		
 		score+=computeParseFeaturesScore(null);
-		inside = Math.exp(score);
+		inside = score; //Math.exp(score);
 		maxscore = score;	
 		lexIsMax = true;
 		numParses=1;
@@ -104,7 +106,7 @@ public class Cell implements Comparable<Cell> {
 		lex = null;
 		lexIsMax = false;
 		typeRaisedFrom = null;
-		inside = 0;
+		inside = infForLog;
 		maxscore = -Double.MAX_VALUE;
 		numParses=0;
 		//cells = new LinkedList();
@@ -123,7 +125,7 @@ public class Cell implements Comparable<Cell> {
 		lex = null;
 		typeRaisedFrom = null;
 		lexIsMax = false;
-		inside = 0;
+		inside = infForLog;
 		maxscore = -Double.MAX_VALUE;
 		numParses=0;
 		revComp=rev;
@@ -151,7 +153,7 @@ public class Cell implements Comparable<Cell> {
 		ruleName = rule;
 		lex = null;
 		typeRaisedFrom = typeR;
-		inside = 0;
+		inside = infForLog;
 		maxscore = -Double.MAX_VALUE;
 		numParses=0;
 		typeRaise=true; 
@@ -170,7 +172,7 @@ public class Cell implements Comparable<Cell> {
 		ruleName = rule;
 		lex = null;
 		typeRaisedFrom = typeR;
-		inside = 0;
+		inside = infForLog;
 		maxscore = -Double.MAX_VALUE;
 		numParses=0;
 		typeRaise=true; 
@@ -192,13 +194,16 @@ public class Cell implements Comparable<Cell> {
 		double score = computeParseFeaturesScore(c);
 		if (c.size()==1){  // unary parse rule
 			c0 = (Cell)c.get(0);
-			inside+=c0.inside()*Math.exp(score); 
+			inside=sumLog(c0.inside + score, inside);//c0.inside()*Math.exp(score); 
+			
 			newmax = c0.maxscore()+score; 
 			newNumParses = c0.numParses;
 		} else { // binary parse rule
 			c0 = (Cell)c.get(0);
 			c1 = (Cell)c.get(1);
-			inside+=c0.inside()*c1.inside()*Math.exp(score); 
+			inside = sumLog(inside, c0.inside+c1.inside+score);
+
+			//c0.inside()*c1.inside()*Math.exp(score); 
 			newmax = c0.maxscore()+c1.maxscore()+score; 
 			newNumParses=c0.numParses*c1.numParses;
 		}
@@ -219,6 +224,8 @@ public class Cell implements Comparable<Cell> {
 			if (ce!=null && ce.maxpredpercent>maxpredpercent)
 				maxpredpercent=ce.maxpredpercent;
 		} 
+
+		
 	}
 	//>
 
@@ -474,17 +481,17 @@ public class Cell implements Comparable<Cell> {
 	//< code for computing outside probabilities
 	public void computeOutside(Cat c){
 		if (getIsFull() && myCat.equals(c))
-			outside=1;
-		else 
 			outside=0;
+		else 
+			outside=infForLog;
 	}
 
 	//< code for computing outside probabilities
 	public void computeOutside(){
 		if (getIsFull())
-			outside=1;
-		else 
 			outside=0;
+		else 
+			outside=infForLog;
 	}
 
 	// assumes that the inside probabilities have already been computed
@@ -495,12 +502,19 @@ public class Cell implements Comparable<Cell> {
 			while (i.hasNext()){
 				List c = (List)i.next();
 				if (c.size()==1){  // unary parse rule
-					double score = Math.exp(computeParseFeaturesScore(c));
+					double score = computeParseFeaturesScore(c);//Math.exp(computeParseFeaturesScore(c));
 					Cell c0 = (Cell)c.get(0);
-					c0.outside += outside*score;
+					c0.outside = sumLog(c0.outside, outside+score);//Math.log(1 + Math.exp(outside+score-c0.outside));
 				} 
 			}
 		}
+	}
+	
+	public static double sumLog(double x, double y){
+		if(x<y)
+			return y + Math.log(1+Math.exp(x-y));
+		else
+			return x + Math.log(1+Math.exp(y-x));
 	}
 
 	public void computeOutsideBinary(){
@@ -510,11 +524,11 @@ public class Cell implements Comparable<Cell> {
 			while (i.hasNext()){
 				List c = (List)i.next();
 				if (c.size()==2){  // binary parse rule
-					double score = Math.exp(computeParseFeaturesScore(c));
+					double score = computeParseFeaturesScore(c); //Math.exp(computeParseFeaturesScore(c));
 					Cell c0 = (Cell)c.get(0);
 					Cell c1 = (Cell)c.get(1);
-					c0.outside += outside*c1.inside*score;
-					c1.outside += outside*c0.inside*score;
+					c0.outside = sumLog(outside + c1.inside + score, c0.outside);//outside*c1.inside*score;
+					c1.outside = sumLog(outside + c0.inside + score, c1.outside);//outside*c0.inside*score;
 				}
 			}
 		}
@@ -545,7 +559,7 @@ public class Cell implements Comparable<Cell> {
 	}
 
 	public void resetOutside(){
-		outside = 0.0;
+		outside = infForLog;
 	}
 	//>
 
@@ -606,7 +620,7 @@ public class Cell implements Comparable<Cell> {
 		for (LexicalFeatureSet lfs : Globals.lexicalFeatures){
 			score+=lfs.score(lex,Globals.theta);
 		}
-		return Math.exp(score)*outside;
+		return score + outside; //Math.exp(score)*outside;
 	}
 
 	public double getExpProb(){
@@ -615,7 +629,7 @@ public class Cell implements Comparable<Cell> {
 			lexscore+=lfs.score(lex,Globals.theta);
 		}
 		lexscore+=computeParseFeaturesScore(null);
-		score+=Math.exp(lexscore)*outside;
+		score=sumLog(lexscore + outside, score);//Math.exp(lexscore)*outside;
 
 		// now update the parse features
 		if (childLists.size()>0){
@@ -629,9 +643,11 @@ public class Cell implements Comparable<Cell> {
 				} else { // binary parse rule
 					Cell c0 = (Cell)c.get(0);
 					Cell c1 = (Cell)c.get(1);
-					pinside=c0.inside*c1.inside;
+					pinside=c0.inside + c1.inside ;//c0.inside * c1.inside;
 				}
-				score+=outside*pinside*computeParseFeaturesScore(c);
+				System.out.println("am I the problem!!!! " + computeParseFeaturesScore(c));
+				score+=sumLog(outside + pinside + computeParseFeaturesScore(c), score);
+				//outside*pinside*computeParseFeaturesScore(c);
 			}
 		}
 		return score;
@@ -656,7 +672,7 @@ public class Cell implements Comparable<Cell> {
 			}
 			computeParseFeatureVals(null,feats);
 			score+=computeParseFeaturesScore(null);
-			feats.addTimesInto(Math.exp(score)*outside,expFeats);
+			feats.addTimesInto2(score + outside, expFeats);//Math.exp(score)*outside,expFeats);
 		}
 
 		// now update the parse features
@@ -674,10 +690,10 @@ public class Cell implements Comparable<Cell> {
 				} else { // binary parse rule
 					Cell c0 = (Cell)c.get(0);
 					Cell c1 = (Cell)c.get(1);
-					pinside=c0.inside*c1.inside;
+					pinside=c0.inside + c1.inside; //c0.inside*c1.inside;
 				}
-				double prob = outside*pinside*Math.exp(computeParseFeaturesScore(c));
-				feats.addTimesInto(prob,expFeats);
+				double prob = outside + pinside + computeParseFeaturesScore(c); //outside*pinside*Math.exp(computeParseFeaturesScore(c));
+				feats.addTimesInto2(prob,expFeats);
 			}
 		}
 	}
@@ -749,8 +765,8 @@ public class Cell implements Comparable<Cell> {
 	public boolean badTypeRaise=false;
 
 	// the inside, outside, and max scores
-	double inside=0;
-	double outside=0;
+	double inside=infForLog;
+	double outside=infForLog;
 	double maxscore=0;
 	double diffscore=0;
 	boolean lexIsMax=false;

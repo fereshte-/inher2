@@ -1,19 +1,19 @@
 /***************************  LICENSE  *******************************
-* This file is part of UBL.
-* 
-* UBL is free software: you can redistribute it and/or modify
-* it under the terms of the GNU Lesser General Public License as 
-* published by the Free Software Foundation, either version 3 of the 
-* License, or (at your option) any later version.
-* 
-* UBL is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU Lesser General Public License for more details.
-*
-* You should have received a copy of the GNU Lesser General Public 
-* License along with UBL.  If not, see <http://www.gnu.org/licenses/>.
-***********************************************************************/
+ * This file is part of UBL.
+ * 
+ * UBL is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as 
+ * published by the Free Software Foundation, either version 3 of the 
+ * License, or (at your option) any later version.
+ * 
+ * UBL is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public 
+ * License along with UBL.  If not, see <http://www.gnu.org/licenses/>.
+ ***********************************************************************/
 
 
 
@@ -352,13 +352,26 @@ public class BoolBoolOps extends Exp {
 
 
 
+	private boolean myContainsAll(List<Exp> l1, List<Exp> l2){
+		for(Exp e1:l1){
+			boolean match=false;
+			if(e1.getHeadString().contains(":t"))
+				match = true;
+			for(Exp e2:l2){
+				if(match) break;
+				if(e1.equals(e2)) match =true;
+			}
+			if(!match) return false;
+		}
+		return true;
+	}
 	public boolean equals(Object o){
 		if (o instanceof BoolBoolOps){
 			BoolBoolOps c = (BoolBoolOps)o;
 			return op_type==c.op_type 
-			&& exps.size()==c.exps.size()
-			&& exps.containsAll(c.exps) 
-			&& c.exps.containsAll(exps);
+					//	&& exps.size()==c.exps.size()
+					&& myContainsAll(exps, c.exps) 
+					&& myContainsAll(c.exps, exps);
 		}
 		return false;
 	}
@@ -367,9 +380,9 @@ public class BoolBoolOps extends Exp {
 		if (o instanceof BoolBoolOps){
 			BoolBoolOps c = (BoolBoolOps)o;
 			return op_type==c.op_type 
-			&& exps.size()==c.exps.size()
-			&& exps.containsAll(c.exps) 
-			&& c.exps.containsAll(exps);
+					//	&& exps.size()==c.exps.size()
+					&& myContainsAll(exps, c.exps) 
+					&& myContainsAll(c.exps, exps);
 		}
 		return false;
 	}

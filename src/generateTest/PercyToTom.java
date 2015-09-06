@@ -100,10 +100,10 @@ public class PercyToTom {
 			formula = formula.replace("en.person.bob", "bob:pe");
 
 
-			formula = formula.replace("en.hour", "hour:tyho");
+			formula = formula.replace("en.hour", "hour:ty");
 //			formula = formula.replace("en.person", "person:type");
-			formula = formula.replace("en.meeting", "meeting:tyme");
-			formula = formula.replace("en.location", "location:tylo");
+			formula = formula.replace("en.meeting", "meeting:ty");
+			formula = formula.replace("en.location", "location:ty");
 
 //publication
 			
@@ -117,9 +117,9 @@ public class PercyToTom {
 			formula = formula.replace("en.person.lakoff", "lakoff:pe");
 
 
-			formula = formula.replace("en.article", "article:tyar");
-			formula = formula.replace("en.person", "person:type");
-			formula = formula.replace("en.venue", "venue:tyve");
+			formula = formula.replace("en.article", "article:ty");
+			formula = formula.replace("en.person", "person:ty");
+			formula = formula.replace("en.venue", "venue:ty");
 			
 		//	formula = formula.replace("concat", "or");
 			
@@ -127,14 +127,14 @@ public class PercyToTom {
 
 
 			if( false
-				//	|| formula.contains("<=") || formula.contains(">=") 
-				//	|| formula.contains("countS") || formula.contains("countC") 
-				//	|| formula.contains("min") || formula.contains("max")
-				//	|| formula.contains("cites") || formula.contains("length")
-				//	|| formula.contains("count") || formula.contains("aggregate") 
-				//	|| formula.contains("won_award") || formula.contains("is_important")
-				//	|| formula.contains("start_time") || formula.contains("end_time")
-				//	|| formula.length() > 150
+					|| formula.contains("<=") || formula.contains(">=") 
+//					|| formula.contains("countS") || formula.contains("countC") 
+//					|| formula.contains("min") || formula.contains("max")
+//					|| formula.contains("cites") || formula.contains("length")
+//					|| formula.contains("count") || formula.contains("aggregate") 
+//					|| formula.contains("won_award") || formula.contains("is_important")
+//					|| formula.contains("start_time") || formula.contains("end_time")
+//					|| formula.length() > 150
 					) continue;
 			
 			
@@ -188,8 +188,8 @@ public class PercyToTom {
 		List <Triple> l1 = percy_toGeo(one, outName);
 		List <Triple> l2 = percy_toGeo(two, outName);
 		
-		Collections.shuffle(l1);
-		Collections.shuffle(l2);
+		//Collections.shuffle(l1);
+		//Collections.shuffle(l2);
 
 		int size = l1.size();
 		l1.subList((int) (perOne * size), size).clear();
@@ -199,11 +199,12 @@ public class PercyToTom {
 		
 		
 		l1.addAll(l2);
-		Collections.shuffle(l1);
+		//Collections.shuffle(l1);
+		System.err.println(outName);
 		PrintWriter out = new PrintWriter(outName);
 		for(Triple x : l1){
-		//	out.println(x.original + "\n" + x.formula + "\n");
-			out.println(x.utterence+ "\n" + x.formula + "\n");
+			out.println(x.original + "\n" + x.formula + "\n");
+			out.println(x.utterence+ "\n" + x.formula + "\n\n");
 		}
 		out.close();
 	}
@@ -231,13 +232,13 @@ public class PercyToTom {
 		Lang.loadLangFromFile("geo-lambda_primal.lang");
 		
 		percyToTom.percent("../../data/real_train_calandar.txt",
-				"../../data/real_train_publication.txt" , "../../data/train.txt", 1, 0);
-		DataSet train = new DataSet("../../data/train.txt");
+				"../../data/real_train_publication.txt" , "../../data/train2.txt", 1, 1);
+		DataSet train = new DataSet("../../data/train2.txt");
 		print(train, "../../data/train.txt");
 		
 		percyToTom.percent("../../data/real_test_calandar.txt",
-				"../../data/real_test_publication.txt" , "../../data/test.txt", 1, 0);
-		DataSet test = new DataSet("../../data/test.txt");
+				"../../data/real_test_publication.txt" , "../../data/test2.txt", 1, 1);
+		DataSet test = new DataSet("../../data/test2.txt");
 		print(test, "../../data/test.txt");
 
 	}

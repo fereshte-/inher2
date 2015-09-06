@@ -57,6 +57,16 @@ public class HashVector {
 			p.set(key,(times*me.getValue().doubleValue())+p.get(key));
 		}
 	}
+	
+	// in log space
+	public void addTimesInto2(double times, HashVector p){
+		for (Map.Entry<String,Double> me : values.entrySet()){
+			String key = me.getKey();
+//			System.out.println(",,,,,,,,,, " + Math.log(1 + me.getValue().doubleValue() * Math.exp(times - p.get(key)))+p.get(key));
+//			System.out.println(",,,,,,,,,, " + me.getValue().doubleValue() + " " + times + " " + p.get(key));
+			p.set(key,Cell.sumLog(Math.log(me.getValue().doubleValue())+times, p.get(key)));
+		}
+	}
 
 	/**
 	 * Divide all weights after and including p_fixed by d
@@ -64,6 +74,13 @@ public class HashVector {
 	public void divideBy(double d){
 		for (String s : values.keySet()){
 			values.put(s,values.get(s)/d);
+		}
+	}
+	
+	//for log space
+	public void divideBy2(double d){
+		for (String s : values.keySet()){
+			values.put(s,Math.exp(values.get(s)-d));
 		}
 	}
 

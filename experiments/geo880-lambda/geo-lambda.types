@@ -1,25 +1,23 @@
 (
-obj
-(da i)
-(ti i)
-(ho i)
-(num i)
-
-(me obj)  //meeting
-(pe obj) //person
-(lo obj) //location
 ty
-(tylo ty) //type
-(type ty)
-(tyme ty)
-(tyho ty)
+(da i)  //date
+(ti i)  //time
+(ho i)  //hour
+(num i) //number
+(mi i) //minute
 
-//publication
-(tyar ty)
-(type ty)
-(tyve ty)
+obj
+(me obj)  //meeting
+(pe obj)  //person
+(lo obj)  //location
 
-(ar obj)
-(ve obj)
-(pe obj)
+(ar obj)  //article
+(ve obj)  //venue
+(pe obj)  //person
+
+(re obj) //recipe
+(co obj) //cousine
+(in obj) //ingridient
+(me obj) //meal
+
 )

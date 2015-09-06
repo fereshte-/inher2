@@ -24,6 +24,7 @@ import java.util.*;
 import lambda.*;
 
 public class Chart {
+	
 
 	public Chart(List<String> t){
 		tokens = t;
@@ -954,13 +955,12 @@ public class Chart {
 	 * semantics e. (if e = null, compute probability of 
 	 * all parses.
 	 */
-	public double computeNorm(Exp e){
-		double norm = 0.0;
+	public double computeNorm(Exp e){	
+		double norm = Cell.infForLog; //Math.log(max);
 		for (Cell c : fullparses()){
 			if (e==null || c.getCat().getSem().equals(e)){
-				norm+=c.inside();
-//				System.out.println("\n=======c===========\n" + c + 
-//						"\n========inside==========\n" + c.inside + "\n");
+				System.out.println("---------------    "+ c.inside() + " " + norm);
+				norm = c.sumLog(norm, c.inside());
 			}
 		}
 		return norm;

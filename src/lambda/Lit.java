@@ -72,8 +72,16 @@ public class Lit extends Exp {
 		return change(varNames, -1);
 	}
 
+	private void allArgs(List varNames, int st, StringBuffer result){
+		for (int i=0; i<args.length; i++){
+			if (args[i]!=null)
+				result.append(" ").append(args[i].change(varNames, st));
+			else 
+				result.append(" ").append("null");
+		}
+	}
+	
 	public String change(List varNames, int st){
-		System.out.println("this is \n" + this);
 		StringBuffer result = new StringBuffer();
 		String name = pred.getName().trim();
 		if(name.equals("listValue") ){
@@ -81,32 +89,18 @@ public class Lit extends Exp {
 					args[0].getHeadString().trim().equals("countComparative")){
 				
 			result.append("(lambda $0 e ");
-			for (int i=0; i<args.length; i++){
-				if (args[i]!=null)
-					result.append(" ").append(args[i].change(varNames, 0));
-				else 
-					result.append(" ").append("null");
-			}
+			allArgs(varNames, 0, result);
 			result.append(")");
 			}else{
-				for (int i=0; i<args.length; i++){
-					if (args[i]!=null)
-						result.append(" ").append(args[i].change(varNames));
-					else 
-						result.append(" ").append("null");
-				}
+				allArgs(varNames, st, result);
 			}
+			
 		}else if(name.equals("singleton") || name.equals("string") ||
 				name.equals("ensureNumericEntity") || name.equals("ensureNumericProperty")){
-			for (int i=0; i<args.length; i++){
-				if (args[i]!=null)
-					result.append(" ").append(args[i].change(varNames, st));
-				else 
-					result.append(" ").append("null");
-			}
+			allArgs(varNames, st, result);
+			
 		}else if(name.equals("getProperty")){
-			if(st == -1 || args.length != 2){
-				System.err.println("getProperty should have a variable and have two args");
+			if(st == -1){
 				result.append("(" + args[1].change(varNames) + " " + args[0].change(varNames)+ ")");
 			}else if(args[1].toString().trim().equals("(string type:e)")){
 				Lit l = (Lit)args[0];
@@ -156,16 +150,6 @@ public class Lit extends Exp {
 					result.append(")");
 				}
 				result.append(")");
-				//				}else{
-				//					result.append("(").append(args[2].change(varNames));
-				//					result.append(" (").append(args[1].change(varNames));
-				//					result.append(" ").append(args[0].change(varNames, st));
-				//					result.append(")");
-				//
-				//					result.append(" ").append(args[3].change(varNames));
-				//
-				//					result.append(")");
-				//				}
 			}else if(args.length == 2){
 
 				result.append("(and ");
@@ -237,21 +221,11 @@ public class Lit extends Exp {
 			result.append(((Const)args[0]).name+":num");
 		}else if(name.equals("concat")){
 			result.append("(").append("concat");
-			for (int i=0; i<args.length; i++){
-				if (args[i]!=null)
-					result.append(" ").append(args[i].change(varNames));
-				else 
-					result.append(" ").append("null");
-			}
+			allArgs(varNames, st, result);
 			result.append(")");
 		}else{
 			result.append("(").append(pred.getName());
-			for (int i=0; i<args.length; i++){
-				if (args[i]!=null)
-					result.append(" ").append(args[i].change(varNames));
-				else 
-					result.append(" ").append("null");
-			}
+			allArgs(varNames, st, result);
 			result.append(")");
 		}
 		return result.toString();

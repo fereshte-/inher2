@@ -79,7 +79,7 @@ public class Train {
 					Exp eb = parser.bestSem();
 					Chart c = parser.getChart();
 					HashVector h = c.computeExpFeatVals(eb);
-					h.divideBy(c.computeNorm(eb));
+					h.divideBy2(c.computeNorm(eb));
 					h.dropSmallEntries();
 					System.out.println(h);
 				}
@@ -435,7 +435,7 @@ public class Train {
 					HashVector firstfeats=null, secondfeats=null;
 					if (norm != 0){
 						firstfeats = firstChart.computeExpFeatVals();
-						firstfeats.divideBy(norm);// + lambda);
+						firstfeats.divideBy2(norm);// + lambda);
 						firstfeats.dropSmallEntries();
 						firstfeats.addTimesInto(-1.0,update);
 					} else continue;
@@ -460,7 +460,7 @@ public class Train {
 					System.out.println("sec norm is " + secnorm);
 					if (secnorm != 0){
 						secondfeats = secondChart.computeExpFeatVals(sem);
-						secondfeats.divideBy(secnorm);
+						secondfeats.divideBy2(secnorm);
 						secondfeats.dropSmallEntries();
 						secondfeats.addTimesInto(1.0,update);
 						lex = parser.getMaxLexEntriesFor(sem);
@@ -474,8 +474,8 @@ public class Train {
 						}
 					} else continue;
 					
-					double gamma = 0.001;
-					Globals.theta.addTimesInto(-gamma, update);
+//					double gamma = 0.01;
+//					Globals.theta.addTimesInto(-gamma, update);
 					
 					System.out.println("^^^^^    second feats    ^^^^^^");
 					secondfeats.printValues(firstfeats);

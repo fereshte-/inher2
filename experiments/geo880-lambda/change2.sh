@@ -4,6 +4,8 @@ echo `javac -classpath ../../src:.:../../lib/guava-18.0.jar ../../src/*/*.java T
 echo "javac -classpath ../../src:.:../../lib/guava-18.0.jar ../../src/*/*.java TestTrain.java";
 
 echo `rm $2`;
+echo `rm $2_true`;
+echo `rm $2_false`;
 
 set p = 10;
 while ($p <= 10)
@@ -55,10 +57,11 @@ echo `cp fereshte.actual.ti.final data/geo600.dev.giza_probs`;
 
 echo "probs is computed and now we want to run runtest.pl \:D/";
 
-echo `rm $2_true`;
-echo `rm $2_false`;
-echo "nohup java -server -Xmx1500m -classpath $classpath TestTrain  np-fixedlex.geo $1 >> $2";
-echo `nohup java -server -Xmx1500m -classpath $classpath TestTrain  np-fixedlex.geo $1 >> $2`;
+#echo "nohup java -server -Xmx1500m -classpath $classpath TestTrain  np-fixedlex.geo true >> $2_true";
+#echo `nohup java -server -Xmx1500m -classpath $classpath TestTrain  np-fixedlex.geo true >> $2_true`;
+
+echo "nohup java -server -Xmx1500m -classpath $classpath TestTrain  np-fixedlex.geo $1 >> $2_false";
+echo `nohup java -server -Xmx1500m -classpath $classpath TestTrain  np-fixedlex.geo $1 >> $2_false`;
 
 
 

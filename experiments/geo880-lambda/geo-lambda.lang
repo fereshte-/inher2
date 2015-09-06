@@ -1,20 +1,11 @@
 (
 
-((concat me me me))
-((concat pe pe pe))
-((concat lo lo lo))
-((concat i i i))
-((concat obj obj obj))
+((concat e e e))
 
 
-((ccount obj i))
 ((number num num))
-((number num tyho num))
 ((jan num da))
 ((hour num ho))
-
-((!= obj obj t))
-((!= i i t))
 
 ((vp obj t))
 ((is_important me t) vp) 
@@ -81,4 +72,25 @@
 
 ((won_award ar t) vp)
 
+
+
+//recipes
+((recipe:t re t))
+((cuisine:t co t))
+((ingredient:t in t))
+((meal:t me t))
+
+((cooking_time re mi t))
+((preparation_time re mi t))
+((cousine re co t))
+((requires re in t))
+((meal re me t))
+((posting_date re da t))
+
+((cooking_time re mi))
+((preparation_time re mi))
+((cousine re co))
+((requires re in))
+((meal re me))
+((posting_date re da))
 )
